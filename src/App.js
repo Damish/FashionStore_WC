@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import ShoppingCart from "./ShoppingCart";
 
 function App() {
   return (
@@ -8,6 +9,11 @@ function App() {
 
 
         HEllo Im kisal
+
+
+          <ShoppingCart/>
+
+
 
 
       </header>
