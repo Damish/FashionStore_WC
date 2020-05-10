@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ShoppingCart from "./ShoppingCart";
+import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 
 function App() {
   return (

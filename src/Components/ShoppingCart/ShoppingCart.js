@@ -7,7 +7,9 @@ class ShoppingCart extends Component {
             <div className={"jumbotron bg-warning"}>
 
                 <h1>Shopping cart</h1>
-                <CartItem/>
+                <CartItem
+                name={}
+                />
                 <CartItem/>
                 <CartItem/>
 
