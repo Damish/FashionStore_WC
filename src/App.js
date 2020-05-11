@@ -1,22 +1,24 @@
 import React from 'react';
 import './App.css';
+import Login from "./Components/Login/login";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+
 
 
           You are working on testBranch
 
 
-          <ShoppingCart/>
+          {/*<ShoppingCart/>*/}
+
+
+          {/*<Login/>*/}
 
 
 
-
-      </header>
     </div>
   );
 }
