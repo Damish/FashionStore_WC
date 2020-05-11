@@ -4,7 +4,7 @@ class AddDiscount extends Component {
     render() {
         return (
             <div>
-                
+
             </div>
         );
     }
