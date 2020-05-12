@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
+
+import WishList from "./Components/WishList/WishList";
 
 function App() {
   return (
@@ -8,15 +9,19 @@ function App() {
       <header className="App-header">
 
 
-        HEllo Im kisal
-
-
-          <ShoppingCart/>
-
-
-
+        Online store
 
       </header>
+      <div className="container">
+          <div className="col">
+              <WishList/>
+
+          </div>
+
+
+    </div>
+
+
     </div>
   );
 }

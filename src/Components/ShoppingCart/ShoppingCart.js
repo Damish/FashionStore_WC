@@ -8,7 +8,7 @@ class ShoppingCart extends Component {
 
                 <h1>Shopping cart</h1>
                 <CartItem
-                name={}
+
                 />
                 <CartItem/>
                 <CartItem/>
