@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router,Switch,Route, Link,Redirect,useHistory,useLocation } from "react-router-dom";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import Login from "./Login";
 
 export default function TestLogin() {
     return (
@@ -12,7 +13,7 @@ export default function TestLogin() {
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                             aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"> </span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav">
@@ -37,6 +38,7 @@ export default function TestLogin() {
                     <Route path="/login">
                         <AuthButton />
                         <LoginPage />
+
                     </Route>
 
                     <PrivateRoute path="/shopping-cart">
@@ -136,6 +138,8 @@ function LoginPage() {
     let location = useLocation();
 
     let { from } = location.state || { from: { pathname: "/" } };
+
+    //here login is a callback function
     let login = () => {
         fakeAuth.authenticate(() => {
             history.replace(from);
@@ -143,10 +147,14 @@ function LoginPage() {
         });
     };
 
+
     return (
         <div>
             <p>You must log in to view the page at {from.pathname}</p>
-            <button onClick={login}>Log in</button>
+            {/*<button onClick={login}>Log in</button>*/}
+
+            <Login loginFunc={login} />
+
         </div>
     );
 }
