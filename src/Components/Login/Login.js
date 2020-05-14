@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './login-css.css'
 
-
 export default class Login extends Component {
 
     constructor(props) {
@@ -9,8 +8,8 @@ export default class Login extends Component {
 
         this.state = {
             credentials: {
-                username : "",
-                password : ""
+                username: "",
+                password: ""
             },
             loginFunction: this.props.loginFunc
 
@@ -30,29 +29,93 @@ export default class Login extends Component {
 
     onClickFn = () => {
 
-        if (this.state.credentials.username === "admin" && this.state.credentials.password === "123") {
+        localStorage.setItem("isLoggedin", "false");
 
-            this.setState({
-                ...this.state.loginFunction
-            }, this.props.loginFunc)
+        let token = "";
 
-        }
 
-        console.log(this.state.credentials);
+        fetch('http://localhost:5000/api/login/' + this.state.credentials.username + '/' + this.state.credentials.password, {
+            method: 'GET',
+
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+
+                console.log("User Found status : " + data);
+
+                if (data === true) { //when the inserted credentials are true
+
+///////////////
+                    this.props.loginFunc();//fire the login function from TestHome.js
+
+                    fetch('http://localhost:5000/api/get_login_token/' + this.state.credentials.username + '/' + this.state.credentials.password, {
+                        method: 'GET',
+
+                    })
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((data) => {
+
+                            //save received token from api in local storage
+                            localStorage.setItem("token", data.token);
+                            localStorage.setItem("isLoggedin", "true");
+
+
+                            // console.log(data);
+                        }).then(() => {
+
+                        token = localStorage.getItem("token").toString();
+
+                    }).then(() => {
+
+                        console.log("token from localStorage: " + token);
+
+                    }).then(() => {
+
+
+                        let authToken = localStorage.getItem("token");
+
+/////////////////////////////////////////////////////
+
+                        fetch('http://localhost:5000/api/verify_token/', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + authToken
+                            }
+
+                        })
+                            .then((response) => {
+                                return response.json();
+                            })
+                            .then((data) => {
+                                localStorage.setItem("token-userId", data.authData.user.userId);
+                                localStorage.setItem("token-username", data.authData.user.username);
+                                localStorage.setItem("token-password", data.authData.user.password);
+
+                            });
+/////////////////////////////////////////////////////
+                    });
+
+///////////////
+                }
+
+            })
 
     };
 
 
     render() {
 
-
         return (
             <div>
-
-
                 <div className={"row"}>
                     <div className={"col"}></div>
                     <div className={"col md-4"}>
+
+                        <h2 className={"m-3 text-center"}>Login</h2>
 
                         <input
                             type="text"
@@ -83,7 +146,6 @@ export default class Login extends Component {
                     </div>
 
                     <div className={"col"}></div>
-
 
                 </div>
 

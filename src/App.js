@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
-
-import TestLogin from "./Components/Login/TestLogin";
-import Login from "./Components/Login/Login";
+import TestHome from "./Components/Login/TestHome";
 
 function App() {
   return (
@@ -10,7 +8,7 @@ function App() {
 
 
 
-          <TestLogin/>
+          <TestHome/>
 
 
 

@@ -7,6 +7,9 @@ class WishList extends Component {
             < div className="Container mt-5">
                 <div className="card mb-5 ">
                 <h1>WishList</h1>
+
+                    <h3>Username : {localStorage.getItem("token-username") }</h3>
+
                 </div>
 
                 <div>
