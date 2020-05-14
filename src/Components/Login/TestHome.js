@@ -19,6 +19,11 @@ export default class TestHome extends Component {
 
                     <Switch>
 
+                        <Route path="/">
+                            <AuthButton_with_Navbar/>
+                            <Products/>
+                        </Route>
+
                         <Route path="/products">
                             <AuthButton_with_Navbar/>
                             <Products/>
