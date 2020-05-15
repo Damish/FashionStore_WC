@@ -23,6 +23,7 @@ function App() {
             <div className="container">
                 <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
 
+
                     {/*<Link to="/" className="navbar-brand">New Products </Link>*/}
                     <div className="collpase navbar-collapse">
                         <div className="navbar-header">
@@ -45,6 +46,7 @@ function App() {
                         </ul>
                     </div>
                 </nav>
+
 
                 <br/>
                 <Route path="/" exact component={ProductsHome} />
