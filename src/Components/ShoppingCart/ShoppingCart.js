@@ -11,7 +11,7 @@ class ShoppingCart extends Component {
 
                 <h1>Shopping cart</h1>
 
-                <h3>Username : {localStorage.getItem("token-username") }</h3>
+                <h3>Username : {  window.atob(localStorage.getItem("token-username") )  }</h3>
 
                 <CartItem/>
                 <CartItem/>

@@ -23,7 +23,7 @@ export default class AddProduct extends Component {
             product_category: '',
             product_description: '',
             product_price: 0,
-            product_qty: 0,
+            product_qty: 1,
             product_discount: 1
         }
     }
@@ -73,7 +73,6 @@ export default class AddProduct extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-
         console.log(`Form submitted:`);
         console.log(`Product Image: ${this.state.product_img}`);
         console.log(`Product Name: ${this.state.product_name}`);
@@ -86,10 +85,12 @@ export default class AddProduct extends Component {
         if (!this.state.product_name || !this.state.product_category || !this.state.product_description || !this.state.product_price ||
             !this.state.product_qty || !this.state.product_discount) {
             return alert('Fill all the fields!!!')
-        }else{
-
-            return alert('New Product Added Successfully!!!')
         }
+
+        // else{
+        //
+        //     return alert('New Product Added Successfully!!!')
+        // }
 
         const newProduct = {
             product_img: this.state.product_img,
@@ -103,7 +104,16 @@ export default class AddProduct extends Component {
         };
 
         axios.post('http://localhost:5000/products/add', newProduct)
-            .then(res => console.log(res.data));
+            .then((response) => {
+
+                alert('Product added successfully!!!')
+
+                console.log(response.data);
+
+            }, (error) => {
+
+                console.log(error);
+            });
 
         this.setState({
             product_img: '',
@@ -191,6 +201,7 @@ export default class AddProduct extends Component {
                                 <input type="number"
                                        className="form-control"
                                        value={this.state.product_qty}
+                                       min={"1"}
                                        onChange={this.onChangeProductQty}
                                 />
                             </div>
@@ -200,24 +211,30 @@ export default class AddProduct extends Component {
                                     type="number"
                                     className="form-control"
                                     value={this.state.product_discount}
+                                    max={"100"}
+                                    min={"1"}
                                     onChange={this.onChangeProductDiscount}
                                 />
+                            </div>
+                        </div>
+
+                        <div className="form-row mb-3 mt-3">
+
+                            <div className="form-group col-md-4">
+                            </div>
+
+                            <div className="form-group col-md-4">
+                                <input type="submit" value="Add New Product" className="btn btn-outline-success"/>
                             </div>
                         </div>
 
                         <div className="form-row">
 
                             <div className="form-group col-md-4">
-                            </div>
-
-                            <div className="form-group col-md-4">
-                                <input type="submit" value="Add New Product" className="btn btn-primary"/>
-                            </div>
-
-                            <div className="form-group col-md-4">
-                                <Link className="btn btn-dark mr-2 mb-2" to={"/products"}>Go Back</Link>
+                                <Link className="btn btn-outline-dark mr-2 mb-2" to={"/products"}>Go back to Products</Link>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

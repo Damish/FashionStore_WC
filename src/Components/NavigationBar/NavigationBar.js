@@ -16,7 +16,8 @@ class NavigationBar extends Component {
 
     render() {
 
-        let User_Type = localStorage.getItem('Utype');
+
+        let User_Type = window.atob(localStorage.getItem('Utype'));
 
         return (
             <div>

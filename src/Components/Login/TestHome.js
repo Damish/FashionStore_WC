@@ -36,7 +36,7 @@ export default class TestHome extends Component {
 
                         <Route path="/addProduct">
                             <AuthButton_with_Navbar/>
-                            <Add_Product/>
+                            <Route path="/addProduct" component={Add_Product} />
                         </Route>
 
                         <Route path="/sign-up-sm">
@@ -161,7 +161,7 @@ function AuthButton_with_Navbar() {
                                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
                                 <div className="navbar-nav">
 
-                                <h6 className={"text-white nav-item nav-link"}> Logged in as {localStorage.getItem("token-username")} </h6>
+                                <h6 className={"text-white nav-item nav-link"}> Logged in as {window.atob(localStorage.getItem("token-username"))} </h6>
 
                                 <button
                                     className={"btn btn-danger"}
@@ -172,7 +172,6 @@ function AuthButton_with_Navbar() {
                                         localStorage.setItem("token", "")
                                         localStorage.setItem("token-userId", "")
                                         localStorage.setItem("token-username", "")
-                                        localStorage.setItem("token-password", "")
                                         localStorage.setItem("isLoggedin", "false");
                                         localStorage.setItem("Utype","")
 

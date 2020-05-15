@@ -8,7 +8,7 @@ class WishList extends Component {
                 <div className="card mb-5 ">
                 <h1>WishList</h1>
 
-                    <h3>Username : {localStorage.getItem("token-username") }</h3>
+                    <h3>Username : {window.atob(localStorage.getItem("token-username") )}</h3>
 
                 </div>
 

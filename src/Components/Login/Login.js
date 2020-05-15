@@ -36,7 +36,10 @@ export default class Login extends Component {
             })
             .then((data) => {
                 console.log("User Found status : " + data.type);
-                localStorage.setItem('Utype', data.type)//save usertype in local storage
+
+                let enc_Utype = window.btoa(data.type);
+
+                localStorage.setItem('Utype', enc_Utype)//save usertype in local storage
 
                 if (data.type !== null) { //when the inserted credentials are true
 ///////////////
@@ -51,7 +54,9 @@ export default class Login extends Component {
                         .then((data) => {
                             //save received token from api in local storage
                             localStorage.setItem("token", data.token);
+
                             localStorage.setItem("isLoggedin", "true");
+
                         }).then(() => {
                         token = localStorage.getItem("token").toString();
                     }).then(() => {
@@ -70,9 +75,14 @@ export default class Login extends Component {
                                 return response.json();
                             })
                             .then((data) => {
-                                localStorage.setItem("token-userId", data.authData.user.userId);
-                                localStorage.setItem("token-username", data.authData.user.username);
-                                // localStorage.setItem("token-password", data.authData.user.password);
+
+                                let enc_userID = window.btoa(data.authData.user.userId);
+                                let enc_Username = window.btoa(data.authData.user.username);
+
+
+                                localStorage.setItem("token-userId", enc_userID);
+                                localStorage.setItem("token-username", enc_Username);
+
                             });
 /////////////////////////////////////////////////////
                     });

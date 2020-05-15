@@ -93,6 +93,7 @@ class SignUp extends Component {
 
                     <input
                         type="password"
+                        id={"password"}
                         className="form-control"
                         name={"password"}
                         placeholder="Password"
@@ -104,6 +105,7 @@ class SignUp extends Component {
 
                     <input
                         type="password"
+                        id={"password_confirm"}
                         className="form-control"
                         name={"password_confirm"}
                         placeholder="Confirm Password"
@@ -114,9 +116,12 @@ class SignUp extends Component {
                     <br/>
 
                     <button className="btn btn-lg btn-primary btn-block" type={"button"}
-                            onClick={(e) => this.onClickFn(e)}>
+                            onClick={(e) => this.onClickFn(e)}
+
+                    >
                         Sign up
                     </button>
+
 
 
                 </div>
