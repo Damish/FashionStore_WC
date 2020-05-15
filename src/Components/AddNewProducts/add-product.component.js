@@ -86,7 +86,9 @@ export default class AddProduct extends Component {
         if (!this.state.product_name || !this.state.product_category || !this.state.product_description || !this.state.product_price ||
             !this.state.product_qty || !this.state.product_discount) {
             return alert('Fill all the fields!!!')
+        }else{
 
+            return alert('New Product Added Successfully!!!')
         }
 
         const newProduct = {
@@ -112,6 +114,9 @@ export default class AddProduct extends Component {
             product_qty: '',
             product_discount: ''
         })
+
+        // this.props.history.push('/products');
+        // window.location.reload();
     }
 
     render() {
@@ -125,7 +130,6 @@ export default class AddProduct extends Component {
                     <h3>Add new product</h3>
 
                     <form onSubmit={this.onSubmit}>
-                        {/*<UploadFile/>*/}
 
 
                         <div className="form-row">
@@ -211,7 +215,7 @@ export default class AddProduct extends Component {
                             </div>
 
                             <div className="form-group col-md-4">
-                                <Link className="btn btn-dark mr-2 mb-2" to={"/"}>Go Back</Link>
+                                <Link className="btn btn-dark mr-2 mb-2" to={"/products"}>Go Back</Link>
                             </div>
                         </div>
                     </form>

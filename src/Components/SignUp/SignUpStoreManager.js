@@ -9,7 +9,7 @@ class SignUp extends Component {
         this.state = {
 
             username: "",
-            user_type: "User",
+            user_type: "StoreManager",
             password: "",
             password_confirm: "",
 
@@ -29,7 +29,7 @@ class SignUp extends Component {
     };
 
 
-    onClickFn = (e) => {
+    onClickFnSM = (e) => {
 
         e.preventDefault();
 
@@ -76,12 +76,11 @@ class SignUp extends Component {
 
                 <div className={"col-md-3"}>
 
-
-                    <h2 className={"m-3 text-center"}>Sign up</h2>
+                    <h2 className={"m-3 text-center"}>Register Store Manager</h2>
 
                     <input
                         type="email"
-                        className="form-control mt-4 "
+                        className="form-control mt-4"
                         name={"username"}
                         id={"username"}
                         placeholder="Username"
@@ -111,10 +110,11 @@ class SignUp extends Component {
                         onChange={(event) => this.onChangeFn(event)}
                     />
 
+
                     <br/>
 
                     <button className="btn btn-lg btn-primary btn-block" type={"button"}
-                            onClick={(e) => this.onClickFn(e)}>
+                            onClick={(e) => this.onClickFnSM(e)}>
                         Sign up
                     </button>
 

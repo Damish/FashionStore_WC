@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Product_component from "./products.component";
+import Product_component_common from "./products.component_common";
 import axios from "axios";
 
 
@@ -28,8 +28,8 @@ class ProductsHome extends Component {
             <div>
                 <div className={"row"}>
                     <div className={"col"}>
-                        <div className={"jumbotron m-auto jumbotron-fluid bg-warning"} >
-                            <h1 className={"text-white"}>Manage Products</h1>
+                        <div className={"jumbotron m-auto jumbotron-fluid bg-info"} >
+                            <h1 className={"text-white"}>Browse Products</h1>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ class ProductsHome extends Component {
                 <div className={"row pt-2 pl-5 pr-5 justify-content-center"}>
                     {
                         this.state.products.map(function (currentProduct, i) {
-                            return <Product_component product={currentProduct} key={i}/>;
+                            return <Product_component_common product={currentProduct} key={i}/>;
                         })
                     }
                 </div>

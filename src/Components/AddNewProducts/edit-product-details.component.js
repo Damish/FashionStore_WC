@@ -110,7 +110,7 @@ export default class EditProductDetails extends Component {
         axios.post('http://localhost:5000/products/update/' + this.props.match.params.id, obj)
             .then(res => console.log(res.data));
 
-        this.props.history.push('/');
+        this.props.history.push('/products');
         window.location.reload();
     }
 

@@ -37,15 +37,18 @@ app.use(function (req, res, next) {
 });
 
 
-app.post('/api/users/new/:un/:pw', (req, res) => {
+
+//to add user
+app.post('/api/users/new/:un/:pw/:type1', (req, res) => {
     const username = req.params.un;
     const password = req.params.pw;
+    const type = req.params.type1;
 
-    if ((!username || !password)) {
+    if ((!username || !password || !type)) {
         return res.status(400).json({error: "Invalid format of the body, or fields are missing..."});
     }
 
-    const user = new UserModel({username, password});
+    const user = new UserModel({username, password, type});
     user.save()
         .then(product => {
             res.status(201);
@@ -54,31 +57,38 @@ app.post('/api/users/new/:un/:pw', (req, res) => {
             console.log(error);
             return res.status(500).json(error);
         });
-    res.send('User Added Successfully');
+
+
+    if(type==="User") {
+        res.send('User Added Successfully');
+    }else if(type==="StoreManager") {
+        res.send('StoreManager Added Successfully');
+    }
+
+
 })
+
 
 
 // GET request to get all the users
 app.get('/api/login/:un/:pw', (req, res) => {
-
     const username = req.params.un;
     const password = req.params.pw;
-
-
     UserModel.findOne({ username: username, password: password }, function(err, result) {
         if (err) {
             res.send(err);
         } else {
-            if(result!==null){
-                res.send(true);
-            }else{
-                res.send(false);
-            }
+            // if(result!==null){
+            //     res.send(result);
+            // }else{
+            //     res.send(false);
+            // }
 
+
+            res.send(result);
 
         }
     });
-
 });
 
 
@@ -90,6 +100,7 @@ app.get('/api', (req, res) => {
         message: 'Welcome to the API'
     });
 });
+
 
 app.post('/api/verify_token', verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
