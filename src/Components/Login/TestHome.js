@@ -5,7 +5,11 @@ import Login from "./Login";
 import WishList from "../WishList/WishList";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import SignUp from "../SignUp/SignUp";
-
+import ProductsHome from "../AddNewProducts/ProductsHome";
+import ProductsHome_common from "../AddNewProducts/ProductsHome_common";
+import SignUpStoreManager from "../SignUp/SignUpStoreManager";
+import Add_Product from "../AddNewProducts/add-product.component"
+import EditProductDetails from "../AddNewProducts/edit-product-details.component";
 
 export default class TestHome extends Component {
 
@@ -20,10 +24,29 @@ export default class TestHome extends Component {
                     <Switch>
 
 
+                        <Route path="/edit/:id">
+                            <AuthButton_with_Navbar/>
+                            <Route path="/edit/:id" component={EditProductDetails} />
+                        </Route>
+
+                        <Route path="/products_common">
+                            <AuthButton_with_Navbar/>
+                            <ProductsHome_common/>
+                        </Route>
+
+                        <Route path="/addProduct">
+                            <AuthButton_with_Navbar/>
+                            <Route path="/addProduct" component={Add_Product} />
+                        </Route>
+
+                        <Route path="/sign-up-sm">
+                            <AuthButton_with_Navbar/>
+                            <SignUpStoreManager/>
+                        </Route>
 
                         <Route path="/products">
                             <AuthButton_with_Navbar/>
-                            <Products/>
+                            <ProductsHome/>
                         </Route>
 
                         <Route path="/login">
@@ -132,13 +155,13 @@ function AuthButton_with_Navbar() {
                     <div className="col bg-dark">
                         <NavigationBar/>
                     </div>
-                    <div className="col-sm-4 bg-dark">
+                    <div className="col-md-4 bg-dark">
                         <div className={"row"}>
                             <div className={"col"}>
                                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
                                 <div className="navbar-nav">
 
-                                <h6 className={"text-white nav-item nav-link"}> Logged in as {localStorage.getItem("token-username")} </h6>
+                                <h6 className={"text-white nav-item nav-link"}> Logged in as {window.atob(localStorage.getItem("token-username"))} </h6>
 
                                 <button
                                     className={"btn btn-danger"}
@@ -149,8 +172,8 @@ function AuthButton_with_Navbar() {
                                         localStorage.setItem("token", "")
                                         localStorage.setItem("token-userId", "")
                                         localStorage.setItem("token-username", "")
-                                        localStorage.setItem("token-password", "")
                                         localStorage.setItem("isLoggedin", "false");
+                                        localStorage.setItem("Utype","")
 
                                         console.log("Token erased")
 
@@ -250,7 +273,7 @@ function LoginPage() {
     let history = useHistory();
     let location = useLocation();
 
-    let {from} = location.state || {from: {pathname: "/products"}};
+    let {from} = location.state || {from: {pathname: "/products_common"}};
 
     //here login is a callback function
     let login = () => {
