@@ -2,11 +2,17 @@ import React, {Component} from 'react';
 import CartItem from "./CartItem";
 
 class ShoppingCart extends Component {
+
+
     render() {
+
         return (
             <div className={"jumbotron bg-warning"}>
 
                 <h1>Shopping cart</h1>
+
+                <h3>Username : {localStorage.getItem("token-username") }</h3>
+
                 <CartItem/>
                 <CartItem/>
                 <CartItem/>
