@@ -114,26 +114,6 @@ export default class Products extends Component {
 
                             </div>
 
-                            <div className="row">
-                                <div className={"col"}>
-
-                                    <button className={"btn btn-outline-primary mr-2"} type={"button"}
-                                            onClick={(event) => this.onAddtoCart(this.props.product._id)}>
-                                        <label>Add To Cart</label>
-                                        <i className="fa fa-shopping-cart"> </i>
-                                    </button>
-
-                                </div>
-                                <div className={"col"}>
-
-                                    <button className={"btn btn-outline-primary"} type={"button"}
-                                            onClick={(event) => this.onAddtoWishList(this.props.product._id)}>
-                                        <label>Add To Wishlist</label>
-                                        <i className="fa fa-heart-o" style={{"color": "red"}}> </i>
-                                    </button>
-
-                                </div>
-                            </div>
 
                             <div className="mt-2 mb-2">
                                 <Link className="btn btn-outline-dark "
