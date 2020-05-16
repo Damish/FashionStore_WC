@@ -135,6 +135,12 @@ export default class Products extends Component {
                                 </div>
                             </div>
 
+                            <div className="mt-2 mb-2">
+                                <Link className="btn btn-outline-dark "
+                                      to={"/oneProduct/" + this.props.product._id}>view Product</Link>
+                            </div>
+
+
 
                         </div>
 
