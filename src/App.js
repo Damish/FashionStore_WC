@@ -11,11 +11,18 @@ import ProductsHome from "./Components/AddNewProducts/ProductsHome";
 import ViewOneProduct from "./Components/AddNewProducts/view-one-product";
 
 
+import WishList from "./Components/WishList_2/WishList";
+import Createwish from "./Components/WishList_2/Createwish";
+// import Shoppingcart from "./Components/ShoppingCart/shoppingcart";
+
+
+
+
 function App() {
   return (
     <div className="App">
 
-          <TestHome/>
+          {/*<TestHome/>*/}
 
         {/*<h5>You are working on testBranch</h5>*/}
 
@@ -56,6 +63,52 @@ function App() {
         {/*    </div>*/}
         {/*</Router>*/}
 
+
+{/*////from kisal////*/}
+
+
+        <Router>
+            <div className="App">
+                <header className="App-header">
+
+                    online shop
+                </header>
+                <div className="container">
+
+
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+
+
+                        <div className="collpase navbar-collapse">
+                            <ul className="navbar-nav mr-auto">
+                                <li className="navbar-item">
+                                    <Link to="/display" className="nav-link">WishList</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/create" className="nav-link">Create</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/displayshoppingcart" className="nav-link">Shopping Cart</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div className="col">
+
+
+
+                    </div>
+
+
+                </div>
+
+                <Route path="/display" exact component={WishList} />
+                <Route path="/create" component={Createwish} />
+                {/*<Route path="/displayshoppingcart" component={Shoppingcart} />*/}
+            </div>
+
+        </Router>
 
 
 

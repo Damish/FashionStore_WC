@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const productRoutes = express.Router();
+const mernRoutes = express.Router();
 
+let Merns = require('../schema/mern.model');
 const UserModel = require('../schema/User');
 let Product = require('../schema/product');
 
@@ -235,5 +237,74 @@ app.use('/products', productRoutes);
 
 
 /////end of copying from dinithi/////
+
+
+
+/////copied from kisal///////
+
+
+
+mernRoutes.route('/').get(function(req, res) {
+    Merns.find(function(err, mern) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(mern);
+        }
+    });
+
+});
+
+
+
+mernRoutes.route('/:id').get(function(req, res) {
+    let id = req.params.id;
+
+    Merns.find({'wish_cusid':id}, function(err, mern) {
+        res.json(mern);
+    });
+
+});
+
+//delete wishlist item
+mernRoutes.route('/removeWishItem/:cid/:pid').delete(function(req, res) {
+
+    let cid = req.params.cid;
+    let pid = req.params.pid;
+
+
+    Merns.deleteOne({'wish_productid':pid ,'wish_cusid':cid }, function(err, result) {
+
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+
+});
+
+
+
+
+mernRoutes.route('/addwish').post(function(req, res) {
+    let mern= new Merns(req.body);
+    mern.save()
+        .then(mern => {
+            res.status(200).json({'todo': 'todo added successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('adding new todo failed');
+        });
+});
+
+
+
+
+////end of copying from kisal///
+
+app.use('/mern',mernRoutes);
+
+
 
 app.listen(5000, () => console.log('server started on port 5000'));
