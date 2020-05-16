@@ -12,7 +12,6 @@ import Add_Product from "../AddNewProducts/add-product.component"
 import EditProductDetails from "../AddNewProducts/edit-product-details.component";
 import ViewOneProduct from "../AddNewProducts/view-one-product"
 
-
 export default class TestHome extends Component {
 
     render() {
@@ -25,35 +24,36 @@ export default class TestHome extends Component {
 
                     <Switch>
 
-                        <Route path="/oneProduct/:id">
-                         <AuthButton_with_Navbar/>
-                         <Route path="/oneProduct/:id" component={ViewOneProduct}/>
-                        </Route>
-
-                        <Route path="/edit/:id">
+                        <PrivateRouteToProductsCommon path="/oneProduct/:id">
                             <AuthButton_with_Navbar/>
-                            <Route path="/edit/:id" component={EditProductDetails} />
-                        </Route>
+                            <Route path="/oneProduct/:id" component={ViewOneProduct}/>
+                        </PrivateRouteToProductsCommon>
+
+                        <PrivateRouteToProductsCommon path="/edit/:id">
+                            <AuthButton_with_Navbar/>
+                            <Route path="/edit/:id" component={EditProductDetails}/>
+                        </PrivateRouteToProductsCommon>
 
                         <Route path="/products_common">
                             <AuthButton_with_Navbar/>
                             <ProductsHome_common/>
                         </Route>
 
-                        <Route path="/addProduct">
+                        <PrivateRouteToProductsCommon path="/addProduct">
                             <AuthButton_with_Navbar/>
-                            <Route path="/addProduct" component={Add_Product} />
-                        </Route>
+                            <Route path="/addProduct" component={Add_Product}/>
+                        </PrivateRouteToProductsCommon>
 
-                        <Route path="/sign-up-sm">
+
+                        <PrivateRouteToProductsCommon path="/sign-up-sm">
                             <AuthButton_with_Navbar/>
                             <SignUpStoreManager/>
-                        </Route>
+                        </PrivateRouteToProductsCommon>
 
-                        <Route path="/products">
+                        <PrivateRouteToProductsCommon path="/products">
                             <AuthButton_with_Navbar/>
                             <ProductsHome/>
-                        </Route>
+                        </PrivateRouteToProductsCommon>
 
                         <Route path="/login">
                             <AuthButton_with_Navbar/>
@@ -82,9 +82,7 @@ export default class TestHome extends Component {
                             }
 
                         </PrivateRoute>
-
                         <PrivateRoute path="/wish-list">
-
                             {
                                 (fakeAuth.isLoggedin) ? (
                                     <div>
@@ -98,34 +96,27 @@ export default class TestHome extends Component {
                                     </div>
                                 )
                             }
-
                         </PrivateRoute>
-
                         <PrivateRoute path="/protected3">
                             <AuthButton_with_Navbar/>
                             <Protected3/>
                         </PrivateRoute>
-
                     </Switch>
                 </div>
             </Router>
         );
-
     }
-
 
     componentDidMount() {
 
         if (localStorage.getItem("token")) {
             fakeAuth.isAuthenticated = true;
 
-
         } else {
             fakeAuth.isAuthenticated = false;
         }
 
     }
-
 
 }
 
@@ -140,10 +131,10 @@ const fakeAuth = {
         fakeAuth.isAuthenticated = true;
         setTimeout(cb, 100); // fake async
     },
-    signOut(cb) {
+    signOut() {
 
+        window.location.reload();
         fakeAuth.isAuthenticated = false;
-        setTimeout(cb, 100);
     }
 };
 
@@ -152,11 +143,8 @@ function AuthButton_with_Navbar() {
     let history = useHistory();
 
     return (fakeAuth.isAuthenticated) ? (
-
-
         <div>
             <div>
-
                 <div className={"row"}>
                     <div className="col bg-dark">
                         <NavigationBar/>
@@ -165,47 +153,51 @@ function AuthButton_with_Navbar() {
                         <div className={"row"}>
                             <div className={"col"}>
                                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
-                                <div className="navbar-nav">
+                                    <div className="navbar-nav">
 
-                                <h6 className={"text-white nav-item nav-link"}> Logged in as {window.atob(localStorage.getItem("token-username"))} </h6>
+                                        {
+                                            (window.atob(localStorage.getItem("Utype")) === "Admin") ? (
 
-                                <button
-                                    className={"btn btn-danger"}
-                                    onClick={() => {
-                                        fakeAuth.signOut(() => history.push("/login"));
+                                                <label className={"text-danger nav-item nav-link"}>
+                                                    {window.atob(localStorage.getItem("Utype"))} </label>
 
-                                        //erase token value
-                                        localStorage.setItem("token", "")
-                                        localStorage.setItem("token-userId", "")
-                                        localStorage.setItem("token-username", "")
-                                        localStorage.setItem("isLoggedin", "false");
-                                        localStorage.setItem("Utype","")
+                                            ) : (window.atob(localStorage.getItem("Utype")) === "StoreManager") ? (
 
-                                        console.log("Token erased")
+                                                <label className={"text-warning nav-item nav-link"}>
+                                                    {window.atob(localStorage.getItem("Utype"))} </label>
 
-                                    }}
-                                >
-                                    Sign out
-                                </button>
+                                            ):(
+                                                <div></div>
+                                            )
+                                        }
 
-                                </div>
+
+                                        <h6 className={"text-white nav-item nav-link"}>
+                                            {window.atob(localStorage.getItem("token-username"))} </h6>
+
+                                            <Link className=" btn btn-danger" onClick={() => {
+                                                fakeAuth.signOut();
+                                                //erase token values
+                                                localStorage.setItem("token", "")
+                                                localStorage.setItem("token-userId", "")
+                                                localStorage.setItem("token-username", "")
+                                                localStorage.setItem("isLoggedin", "false");
+                                                localStorage.setItem("Utype", "")
+                                                console.log("All Tokens erased")
+                                            }}>
+                                                Sign out </Link>
+
+                                    </div>
                                 </nav>
-
-
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
 
     ) : (
         <div>
-
-            {/*<p>Please login to continue..</p>*/}
-
             <div className={"row"}>
                 <div className="col bg-dark">
                     <NavigationBar/>
@@ -213,23 +205,17 @@ function AuthButton_with_Navbar() {
                 <div className="col-sm-4 bg-dark">
                     <div className={"row"}>
 
-                    <div className={"col"}>
-                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
-                        <div className="navbar-nav">
-
-                              <h6 className={"text-white nav-item nav-link"} > Not Logged in </h6>
-
-                              <Link className=" btn btn-primary" to="/login">Login</Link>
-
+                        <div className={"col"}>
+                            <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
+                                <div className="navbar-nav">
+                                    <h6 className={"text-white nav-item nav-link"}> Not Logged in </h6>
+                                    <Link className=" btn btn-primary" to="/login">Login</Link>
+                                </div>
+                            </nav>
                         </div>
-                        </nav>
-
-                    </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     );
 }
@@ -261,6 +247,36 @@ function PrivateRoute({children, ...rest}) {
         />
     );
 }
+
+
+// A wrapper for <Route> that redirects to the products common homepage
+// screen if you're not yet authenticated.
+function PrivateRouteToProductsCommon({children, ...rest}) {
+
+    return (
+        <Route
+            {...rest}
+            render={({location}) =>
+
+                fakeAuth.isAuthenticated ? (
+
+                    children
+
+
+                ) : (
+
+                    <Redirect
+                        to={{
+                            pathname: "/products_common",
+                            state: {from: location}
+                        }}
+                    />
+                )
+            }
+        />
+    );
+}
+
 
 function Products() {
     return <h3>Products</h3>;

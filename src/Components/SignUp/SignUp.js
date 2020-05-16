@@ -39,6 +39,7 @@ class SignUp extends Component {
         if (!email.validity.valid) {
             if (email.validity.typeMismatch) {
 
+                alert('Entered value needs to be an e-mail address')
                 console.log('Entered value needs to be an e-mail address.');
             }
         } else {
@@ -53,15 +54,18 @@ class SignUp extends Component {
                 axios.post('http://localhost:5000/api/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
                     .then((response) => {
 
+                        alert('User Registered successfully!!!')
                         console.log(response.data);
 
                     }, (error) => {
+                        alert('Registration unsuccessful!!!')
                         console.log(error);
                     });
 
 
             } else {
 
+                alert('PASSWORDS DO NOT MATCH!!!')
                 console.log("PASSWORDS DO NOT MATCH");
 
             }
