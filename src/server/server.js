@@ -21,7 +21,9 @@ const connectionUrl = "mongodb+srv://damishs88:damishs88mongodb@mongodb01-zeyxc.
 // connect to the mongo database
 mongoose.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
     if (err) {
-        console.log(err);
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        console.log("MongoDB not connected!!! check internet connection. ");
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         process.exit(1);
     } else {
         console.log("MongoDB working properly...")
@@ -68,7 +70,7 @@ app.post('/api/users/new/:un/:pw/:type1', (req, res) => {
     }
 
 
-})
+});
 
 
 

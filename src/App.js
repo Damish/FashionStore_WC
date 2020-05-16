@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
 
-          {/*<TestHome/>*/}
+          <TestHome/>
 
         {/*<h5>You are working on testBranch</h5>*/}
 
@@ -67,48 +67,48 @@ function App() {
 {/*////from kisal////*/}
 
 
-        <Router>
-            <div className="App">
-                <header className="App-header">
+        {/*<Router>*/}
+        {/*    <div className="App">*/}
+        {/*        <header className="App-header">*/}
 
-                    online shop
-                </header>
-                <div className="container">
-
-
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        {/*            online shop*/}
+        {/*        </header>*/}
+        {/*        <div className="container">*/}
 
 
-                        <div className="collpase navbar-collapse">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="navbar-item">
-                                    <Link to="/display" className="nav-link">WishList</Link>
-                                </li>
-                                <li className="navbar-item">
-                                    <Link to="/create" className="nav-link">Create</Link>
-                                </li>
-                                <li className="navbar-item">
-                                    <Link to="/displayshoppingcart" className="nav-link">Shopping Cart</Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-
-                    <div className="col">
+        {/*            <nav className="navbar navbar-expand-lg navbar-light bg-light">*/}
 
 
+        {/*                <div className="collpase navbar-collapse">*/}
+        {/*                    <ul className="navbar-nav mr-auto">*/}
+        {/*                        <li className="navbar-item">*/}
+        {/*                            <Link to="/display" className="nav-link">WishList</Link>*/}
+        {/*                        </li>*/}
+        {/*                        <li className="navbar-item">*/}
+        {/*                            <Link to="/create" className="nav-link">Create</Link>*/}
+        {/*                        </li>*/}
+        {/*                        <li className="navbar-item">*/}
+        {/*                            <Link to="/displayshoppingcart" className="nav-link">Shopping Cart</Link>*/}
+        {/*                        </li>*/}
+        {/*                    </ul>*/}
+        {/*                </div>*/}
+        {/*            </nav>*/}
 
-                    </div>
+        {/*            <div className="col">*/}
 
 
-                </div>
 
-                <Route path="/display" exact component={WishList} />
-                <Route path="/create" component={Createwish} />
-                {/*<Route path="/displayshoppingcart" component={Shoppingcart} />*/}
-            </div>
+        {/*            </div>*/}
 
-        </Router>
+
+        {/*        </div>*/}
+
+        {/*        <Route path="/display" exact component={WishList} />*/}
+        {/*        <Route path="/create" component={Createwish} />*/}
+        {/*        /!*<Route path="/displayshoppingcart" component={Shoppingcart} />*!/*/}
+        {/*    </div>*/}
+
+        {/*</Router>*/}
 
 
 

@@ -125,16 +125,13 @@ export default class Login extends Component {
                             </button>
 
                             {
-                                (!(localStorage.getItem("isLoggedin"))) ? (
-                                    <div></div>
-                                ) : (
+
                                     <div className="collapse" id="collapseExample">
                                         <div className="card card-body text-danger">
                                             <br/>
                                             Invalid e-mail/password
                                         </div>
                                     </div>
-                                )
                             }
                         </div>
             </div>

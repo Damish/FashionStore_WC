@@ -24,10 +24,10 @@ export default class TestHome extends Component {
 
                     <Switch>
 
-                        <PrivateRouteToProductsCommon path="/oneProduct/:id">
+                        <Route path="/oneProduct/:id">
                             <AuthButton_with_Navbar/>
                             <Route path="/oneProduct/:id" component={ViewOneProduct}/>
-                        </PrivateRouteToProductsCommon>
+                        </Route>
 
                         <PrivateRouteToProductsCommon path="/edit/:id">
                             <AuthButton_with_Navbar/>

@@ -146,12 +146,17 @@ export default class EditProductDetails extends Component {
 
                             <div className="form-group col-md-4">
                                 <label>Category: </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.product_category}
-                                    onChange={this.onChangeProductCategory}
-                                />
+
+                                <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>
+                                    <option selected>{this.state.product_category}</option>
+                                    <option value="Mens">Mens</option>
+                                    <option value="Womens">Womens</option>
+                                    <option value="Kids & Baby">Kids & Baby</option>
+                                    <option value="Sports Wear">Sports Wear</option>
+                                    <option value="Accessories">Accessories </option>
+                                    <option value="Home Wear">Home Wear</option>
+                                </select>
+
                             </div>
                             <div className="form-group col-md-5">
                                 <label>Description: </label>
