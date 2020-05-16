@@ -162,10 +162,12 @@ class ViewOneProduct extends Component {
                         </div>
                     </div>
                 </div>
+
                 <div className="form-group col-sm-4 ml-auto mr-auto">
                     <Link className="btn btn-primary ml-3 "
-                          to={"/"}>Go Back . . .</Link>
+                          to={"/products_common"}>Go to products page</Link>
                 </div>
+
             </div>
 
         );

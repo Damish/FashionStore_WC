@@ -10,6 +10,8 @@ import ProductsHome_common from "../AddNewProducts/ProductsHome_common";
 import SignUpStoreManager from "../SignUp/SignUpStoreManager";
 import Add_Product from "../AddNewProducts/add-product.component"
 import EditProductDetails from "../AddNewProducts/edit-product-details.component";
+import ViewOneProduct from "../AddNewProducts/view-one-product"
+
 
 export default class TestHome extends Component {
 
@@ -23,6 +25,10 @@ export default class TestHome extends Component {
 
                     <Switch>
 
+                        <Route path="/oneProduct/:id">
+                         <AuthButton_with_Navbar/>
+                         <Route path="/oneProduct/:id" component={ViewOneProduct}/>
+                        </Route>
 
                         <Route path="/edit/:id">
                             <AuthButton_with_Navbar/>
