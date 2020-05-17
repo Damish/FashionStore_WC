@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
+import PleaseLogin from "../Login/PleaseLogin";
 
 export default class AddProduct extends Component {
 
@@ -139,6 +140,8 @@ export default class AddProduct extends Component {
 
         return (
 
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
             <div className={"row justify-content-center"} style={{marginTop: 10}}>
 
 
@@ -260,7 +263,13 @@ export default class AddProduct extends Component {
                     </form>
                 </div>
             </div>
+            ):(
 
+
+                <PleaseLogin/>
+
+
+            )
 
         )
     }

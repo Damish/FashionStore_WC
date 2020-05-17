@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PleaseLogin from "../Login/PleaseLogin";
 
 
 export default class EditProductDetails extends Component {
@@ -117,7 +118,11 @@ export default class EditProductDetails extends Component {
 
     render() {
         return (
-            <div className={"row justify-content-center"} style={{marginTop: 10}}>
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
+
+                <div className={"row justify-content-center"} style={{marginTop: 10}}>
                 <div className={"col-md-9"}>
 
                     <h3 align="center">Update product details</h3>
@@ -208,6 +213,14 @@ export default class EditProductDetails extends Component {
                     </form>
                 </div>
             </div>
+            ):(
+
+
+                <PleaseLogin/>
+
+
+            )
+
         )
     }
 }

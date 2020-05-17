@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PleaseLogin from "../Login/PleaseLogin";
 
 class SignUp extends Component {
 
@@ -72,10 +73,14 @@ class SignUp extends Component {
 
         }
 
+
     }
 
     render() {
         return (
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
             <div className={"row justify-content-center"} style={{marginTop: "10%"}}>
 
                 <div className={"col-md-3"}>
@@ -126,6 +131,14 @@ class SignUp extends Component {
                 </div>
 
             </div>
+
+            ):(
+
+
+                <PleaseLogin/>
+
+
+            )
         );
     }
 }

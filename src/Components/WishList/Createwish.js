@@ -105,7 +105,7 @@ class Createwish extends Component {
                                 <button type={"button"}
                                         onClick={()=>this.onAddtoWishList(
                                             localStorage.getItem("token-username"),
-                                            value.wproductid,
+                                            value.wname,
                                             value.wname,
                                             value.wprice,
                                             value.wdiscount

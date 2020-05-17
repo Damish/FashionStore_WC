@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import {fakeAuth} from "../Login/TestHome"
+import AdminControls from "../NavigationBar/Admin-Controls-Navbar/Admin-Controls"
+import StoreManagerControls from "../NavigationBar/StoreManager-Controls-NavBar/StoreManager-Controls"
 
 class NavigationBar extends Component {
 
@@ -7,15 +10,28 @@ class NavigationBar extends Component {
         super(props);
 
         this.state = {
-
+            loginStatus: "",
             userType: ""
         }
 
     }
 
+    componentDidMount() {
+        this.setState({
+                loginStatus: fakeAuth.isAuthenticated
+            }
+        )
+    }
+
+
+    componentWillUnmount() {
+        this.setState({
+                loginStatus: fakeAuth.isAuthenticated
+            }
+        )
+    }
 
     render() {
-
 
         let User_Type = window.atob(localStorage.getItem('Utype'));
 
@@ -35,73 +51,91 @@ class NavigationBar extends Component {
 
                             <Link className="nav-item nav-link " to="/products_common">Products</Link>
                             <Link className="nav-item nav-link" to="/shopping-cart">Shopping Cart</Link>
-                            <Link className="nav-item nav-link" to="/wish-list">WishList</Link>
+                            <Link className="nav-item nav-link" to="/wish-list">WishList </Link>
                             <Link className="nav-item nav-link" to="/protected3">Protected3</Link>
 
 
                             {
                                 (User_Type === "Admin") ? (
 
-                                    <div className={"ml-2 row"}>
-
-                                        <Link className=" nav-item nav-link text-white" to="/sign-up-sm">
-                                            <div className={"ml-1 mr-1 col bg-danger"}>
-                                                Register Store Manager
-                                            </div>
-                                        </Link>
-
-                                            <Link className="nav-item nav-link text-white" to="/addProduct">
-                                                <div className={"ml-1 mr-1 col bg-info"}>
-                                                    Add Product
-                                                </div>
-                                            </Link>
-
-                                            <Link className="nav-item nav-link text-white"
-                                                  to="/products">
-                                                <div className={"ml-1 col bg-warning"}>
-                                                    Manage-Products
-                                                </div>
-                                        </Link>
-
-                                    </div>
-
+                                    <AdminControls/>
 
                                 ) : (User_Type === "User") ? (
 
                                     <Link className="nav-item nav-link " to="/sign-up">Sign up</Link>
 
                                 ) : (User_Type === "StoreManager") ? (
-                                    <div className={"ml-2 row"}>
 
+                                    <StoreManagerControls/>
 
-                                        <Link className=" nav-item nav-link text-white" to="/sign-up">
-                                            <div className={"ml-1 mr-1 col bg-info"}>
-                                                Sign up
-                                            </div>
-                                        </Link>
-
-                                        <Link className=" nav-item nav-link text-white" to="/addProduct">
-                                            <div className={"ml-1 mr-1 col bg-danger"}>
-                                                Add Product
-                                            </div>
-                                        </Link>
-
-                                        <Link className=" nav-item nav-link text-white" to="/products">
-                                            <div className={"ml-1 mr-1 col bg-warning"}>
-                                                Manage-Products
-                                            </div>
-                                        </Link>
-
-
-                                    </div>
                                 ) : (
                                     <Link className="nav-item nav-link " to="/sign-up">Sign up</Link>
                                 )
                             }
 
-
                         </div>
+
                     </div>
+                            {/*//////////////login logout/////////////////*/}
+
+                            <div className={"navbar-nav"}>
+
+                            {
+
+                                (fakeAuth.isAuthenticated) ? (
+
+                                    <div className={"row md-4"}>
+                                        <div className={"col"}>
+                                        {
+                                            (window.atob(localStorage.getItem("Utype")) === "Admin") ? (
+                                                <label className={"text-danger nav-item nav-link"}>
+                                                    {window.atob(localStorage.getItem("Utype"))} </label>
+                                            ) : (window.atob(localStorage.getItem("Utype")) === "StoreManager") ? (
+                                                <label className={"text-warning nav-item nav-link"}>
+                                                    {window.atob(localStorage.getItem("Utype"))} </label>
+                                            ) : (
+                                                <div></div>
+                                            )
+                                        }
+                                        </div>
+                                        <div className={"col"}>
+                                        <h6 className={"text-white nav-item nav-link"}>
+                                            {window.atob(localStorage.getItem("token-username"))}
+                                        </h6>
+                                        </div>
+                                        <div className={"col"}>
+                                        <Link className=" btn btn-danger" onClick={() => {
+                                            fakeAuth.signOut();
+                                            window.location.reload();
+                                            //erase token values
+                                            localStorage.setItem("token", "")
+                                            localStorage.setItem("token-userId", "nouser")
+                                            localStorage.setItem("token-username", "nouser")
+                                            localStorage.setItem("isLoggedin", "false")
+                                            localStorage.setItem("Utype", "")
+                                            console.log("All Tokens erased")
+                                        }}>
+                                            Signout </Link>
+                                        </div>
+                                    </div>
+
+                                ) : (
+
+                                        <div className={"row md-4"}>
+                                            <div className={"col"}>
+                                                <h6 className={"text-white nav-item nav-link"}> Login/Signup </h6>
+                                            </div>
+                                            <div className={"col"}>
+                                                <Link className=" btn btn-primary" to="/login">Login</Link>
+                                            </div>
+                                        </div>
+
+                                )
+                            }
+
+                            </div>
+                            {/*//////////////login logout end/////////////////*/}
+
                 </nav>
             </div>
         );

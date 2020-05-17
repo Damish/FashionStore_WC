@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Product_component from "./products.component";
 import axios from "axios";
+import PleaseLogin from "../Login/PleaseLogin";
 
 
 class ProductsHome extends Component {
@@ -25,6 +26,9 @@ class ProductsHome extends Component {
 
     render() {
         return (
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
             <div>
                 <div className={"row"}>
                     <div className={"col"}>
@@ -42,6 +46,13 @@ class ProductsHome extends Component {
                     }
                 </div>
             </div>
+            ):(
+
+
+                <PleaseLogin/>
+
+
+            )
         );
     }
 }

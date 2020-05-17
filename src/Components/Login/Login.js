@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './login-css.css'
+import TestHome, {fakeAuth} from "../Login/TestHome"
 
 export default class Login extends Component {
 
@@ -43,7 +44,12 @@ export default class Login extends Component {
 
                 if (data.type !== null) { //when the inserted credentials are true
 ///////////////
+
+                    fakeAuth.isAuthenticated = true
+
                     this.props.loginFunc();//fire the login function from TestHome.js
+
+
 
                     fetch('http://localhost:5000/api/get_login_token/' + this.state.credentials.username + '/' + this.state.credentials.password, {
                         method: 'GET',

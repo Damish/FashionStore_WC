@@ -11,8 +11,8 @@ import ProductsHome from "./Components/AddNewProducts/ProductsHome";
 import ViewOneProduct from "./Components/AddNewProducts/view-one-product";
 
 
-import WishList from "./Components/WishList_2/WishList";
-import Createwish from "./Components/WishList_2/Createwish";
+import WishList from "./Components/WishList/WishList";
+import Createwish from "./Components/WishList/Createwish";
 // import Shoppingcart from "./Components/ShoppingCart/shoppingcart";
 
 
@@ -82,7 +82,7 @@ function App() {
         {/*                <div className="collpase navbar-collapse">*/}
         {/*                    <ul className="navbar-nav mr-auto">*/}
         {/*                        <li className="navbar-item">*/}
-        {/*                            <Link to="/display" className="nav-link">WishList</Link>*/}
+        {/*                            <Link to="/display" className="nav-link">WishList3</Link>*/}
         {/*                        </li>*/}
         {/*                        <li className="navbar-item">*/}
         {/*                            <Link to="/create" className="nav-link">Create</Link>*/}
@@ -103,7 +103,7 @@ function App() {
 
         {/*        </div>*/}
 
-        {/*        <Route path="/display" exact component={WishList} />*/}
+        {/*        <Route path="/display" exact component={WishList3} />*/}
         {/*        <Route path="/create" component={Createwish} />*/}
         {/*        /!*<Route path="/displayshoppingcart" component={Shoppingcart} />*!/*/}
         {/*    </div>*/}

@@ -31,12 +31,40 @@ export default class Products extends Component {
             })
     }
 
-    onAddtoWishList(e) {
-        console.log(" onAddtoWishList() called. Product id to be added : " + e);
+    onAddtoWishList(wcid,wpid,wname,wprice,wdiscount){
+
+        console.log(`add to wishlist:`);
+        console.log(`wish cusid: `+wcid);
+        console.log(`wish productid:`+wpid);
+        console.log(`wish name:`+wname);
+        console.log(`wish price :`+wprice);
+        console.log(`wish price :`+wdiscount);
+
+        const newWish = {
+            wish_cusid :wcid ,
+            wish_productid:wpid,
+            wish_name:wname,
+            wish_price:wprice,
+            wish_discount: wdiscount
+        };
+
+        axios.post('http://localhost:5000/mern/addwish', newWish)
+            .then(res => console.log(res.data));
+
+        this.setState({
+            wish_cusid : '',
+            wish_productid: '',
+            wish_name: '',
+            wish_price: '',
+            wish_discount:''
+        })
+
+        window.location.replace("/wish-list")
     }
 
     onAddtoCart(e) {
         console.log(" onAddtoCart() called. Product id to be added : " + e);
+
     }
 
 
@@ -79,18 +107,27 @@ export default class Products extends Component {
                             <Link className="btn btn-outline-dark mr-2"
                                   to={"/oneProduct/" + this.props.product._id}>View</Link>
 
-                            <button className={"btn btn-outline-primary mr-2"} type={"button"}
+                            <Link to={"/shopping-cart"} className={"btn btn-outline-primary mr-2"} type={"button"}
                                     onClick={(event) => this.onAddtoCart(this.props.product._id)}>
 
                                 <i className="fa fa-shopping-cart"> </i>
-                            </button>
+                            </Link>
 
 
-                            <button className={"btn btn-outline-primary mr-2"} type={"button"}
-                                    onClick={(event) => this.onAddtoWishList(this.props.product._id)}>
+                            <Link to={"/wish-list"} className={"btn btn-outline-primary mr-2"} type={"button"}
+                                    onClick={()=>this.onAddtoWishList(
+                                        window.atob(localStorage.getItem("token-username")),
+                                        this.props.product._id,
+                                        this.props.product.product_name,
+                                        this.props.product.product_price,
+                                        this.props.product.product_discount
+                                    )}>
+
 
                                 <i className="fa fa-heart-o" style={{"color": "red"}}> </i>
-                            </button>
+
+                            </Link>
+
                             <Link className=" btn btn-danger">-{this.props.product.product_discount}%</Link>
 
                         </div>

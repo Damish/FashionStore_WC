@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import no_image_available from "../images/no_image_available.jpg";
+import PleaseLogin from "../Login/PleaseLogin";
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import { Table, Button } from 'react-bootstrap';
 
@@ -70,7 +71,11 @@ export default class Products extends Component {
 
     render() {
         return (
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
             <div>
+
 
                 <div className={"box m-2"}
                      style={{
@@ -129,6 +134,13 @@ export default class Products extends Component {
 
                 </div>
             </div>
+        ):(
+
+
+            <PleaseLogin/>
+
+
+        )
 
         )
     }
