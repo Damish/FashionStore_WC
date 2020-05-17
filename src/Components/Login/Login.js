@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './login-css.css'
 import TestHome, {fakeAuth} from "../Login/TestHome"
 
 export default class Login extends Component {
@@ -29,7 +28,7 @@ export default class Login extends Component {
         localStorage.setItem("isLoggedin", "false");
         let token = "";
 
-        fetch('http://localhost:5000/api/login/' + this.state.credentials.username + '/' + this.state.credentials.password, {
+        fetch('http://localhost:5000/users/api/login/' + this.state.credentials.username + '/' + this.state.credentials.password, {
             method: 'GET',
         })
             .then((response) => {
@@ -51,7 +50,7 @@ export default class Login extends Component {
 
 
 
-                    fetch('http://localhost:5000/api/get_login_token/' + this.state.credentials.username + '/' + this.state.credentials.password, {
+                    fetch('http://localhost:5000/users/api/get_login_token/' + this.state.credentials.username + '/' + this.state.credentials.password, {
                         method: 'GET',
                     })
                         .then((response) => {
@@ -71,7 +70,7 @@ export default class Login extends Component {
 
                         let authToken = localStorage.getItem("token");
 /////////////////////////////////////////////////////
-                        fetch('http://localhost:5000/api/verify_token/', {
+                        fetch('http://localhost:5000/users/api/verify_token/', {
                             method: 'POST',
                             headers: {
                                 'Authorization': 'Bearer ' + authToken

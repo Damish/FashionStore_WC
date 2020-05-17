@@ -4,11 +4,14 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+
 const productRoutes = express.Router();
 const mernRoutes = express.Router();
+const userRoutes = express.Router();
 
 let Merns = require('../schema/mern.model');
-const UserModel = require('../schema/User');
+let UserModel = require('../schema/User');
 let Product = require('../schema/product');
 
 app.use(cors());
@@ -41,9 +44,15 @@ app.use(function (req, res, next) {
 });
 
 
+////////////damish's part/////////////
 
-//to add user
-app.post('/api/users/new/:un/:pw/:type1', (req, res) => {
+/*
+* method: POST
+* description: register new user
+* params:{ username,password,user type}
+*
+* */
+userRoutes.post('/new/:un/:pw/:type1', (req, res) => {
     const username = req.params.un;
     const password = req.params.pw;
     const type = req.params.type1;
@@ -63,9 +72,9 @@ app.post('/api/users/new/:un/:pw/:type1', (req, res) => {
         });
 
 
-    if(type==="User") {
+    if (type === "User") {
         res.send('User Added Successfully');
-    }else if(type==="StoreManager") {
+    } else if (type === "StoreManager") {
         res.send('StoreManager Added Successfully');
     }
 
@@ -73,22 +82,19 @@ app.post('/api/users/new/:un/:pw/:type1', (req, res) => {
 });
 
 
-
-// GET request to get all the users
-app.get('/api/login/:un/:pw', (req, res) => {
+/*
+* method: GET
+* description: Find Specific user details/login
+* params:{ username,password}
+*
+* */
+userRoutes.get('/api/login/:un/:pw', (req, res) => {
     const username = req.params.un;
     const password = req.params.pw;
-    UserModel.findOne({ username: username, password: password }, function(err, result) {
+    UserModel.findOne({username: username, password: password}, function (err, result) {
         if (err) {
             res.send(err);
         } else {
-            // if(result!==null){
-            //     res.send(result);
-            // }else{
-            //     res.send(false);
-            // }
-
-
             res.send(result);
 
         }
@@ -96,31 +102,13 @@ app.get('/api/login/:un/:pw', (req, res) => {
 });
 
 
-
-
-
-app.get('/api', (req, res) => {
-    res.json({
-        message: 'Welcome to the API'
-    });
-});
-
-
-app.post('/api/verify_token', verifyToken, (req, res) => {
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
-        if (err) {
-            res.sendStatus(403);
-        } else {
-            res.json({
-                message: 'Post created...',
-                authData
-            });
-        }
-    });
-});
-
-
-app.get('/api/get_login_token/:un/:pw', (req, res) => {
+/*
+* method: GET
+* description: create new login token
+* params:{ userId,username,password }
+*
+* */
+userRoutes.get('/api/get_login_token/:un/:pw', (req, res) => {
     const user = {
         userId: Date.now().toString(),
         username: req.params.un,
@@ -134,22 +122,59 @@ app.get('/api/get_login_token/:un/:pw', (req, res) => {
     });
 });
 
+/*
+* method: POST
+* description: verify login token
+* params:{ headers:{Authorization = Bearer <access_token>} }
+*
+* */
+userRoutes.post('/api/verify_token', verifyToken, (req, res) => {
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+        if (err) {
+            console.log("Cannot Authorize token!!!")
+            res.sendStatus(403);
+        } else {
+            console.log("Authorized token!!!")
+            res.json({
+                message: 'Post created...',
+                authData
+            });
+        }
+    });
+});
 
-// FORMAT OF TOKEN
-// Authorization: Bearer <access_token>
-// Verify Token
+
+
+/*
+* method: GET
+* description: get all store managers data
+* params: no-parameters
+*
+* */
+userRoutes.get('/get_all_SM',(req, res)=> {
+    let type = "StoreManager";
+    UserModel.find({'type': type}, function (err, user) {
+        res.json(user);
+    });
+});
+
+
+
+
+
+/*
+* FORMAT OF TOKEN
+* Authorization: Bearer <access_token>
+* description: Verify Token
+*/
 function verifyToken(req, res, next) {
     // Get auth header value
     const bearerHeader = req.headers['authorization'];
     // Check if bearer is undefined
     if (typeof bearerHeader !== 'undefined') {
-        // Split at the space
         const bearer = bearerHeader.split(' ');
-        // Get token from array
         const bearerToken = bearer[1];
-        // Set the token
         req.token = bearerToken;
-        // Next middleware
         next();
     } else {
         // Forbidden
@@ -157,14 +182,16 @@ function verifyToken(req, res, next) {
     }
 }
 
+
+app.use('/users', userRoutes);
+////////end of damish part//////////
+
+
 /////////copied from dinithi/////////
 
-
-
-
 //deliver all products
-productRoutes.route('/').get(function(req, res) {
-    Product.find(function(err, product
+productRoutes.route('/').get(function (req, res) {
+    Product.find(function (err, product
     ) {
         if (err) {
             console.log(err);
@@ -175,15 +202,15 @@ productRoutes.route('/').get(function(req, res) {
 });
 
 //retrieve product by providing id
-productRoutes.route('/:id').get(function(req, res) {
+productRoutes.route('/:id').get(function (req, res) {
     let id = req.params.id;
-    Product.findById(id, function(err, product) {
+    Product.findById(id, function (err, product) {
         res.json(product);
     });
 });
 
 //add new product
-productRoutes.route('/add').post(function(req, res) {
+productRoutes.route('/add').post(function (req, res) {
     let product = new Product(req.body);
     product.save()
         .then(product => {
@@ -195,17 +222,17 @@ productRoutes.route('/add').post(function(req, res) {
 });
 
 //update product details
-productRoutes.route('/update/:id').post(function(req, res) {
-    Product.findById(req.params.id, function(err, product) {
+productRoutes.route('/update/:id').post(function (req, res) {
+    Product.findById(req.params.id, function (err, product) {
         if (!product)
             res.status(404).send("data is not found");
         else
             product.product_name = req.body.product_name;
         product.product_category = req.body.product_category;
         product.product_description = req.body.product_description;
-        product.product_discount= req.body.product_discount;
-        product.product_price= req.body.product_price;
-        product.product_qty= req.body.product_qty;
+        product.product_discount = req.body.product_discount;
+        product.product_price = req.body.product_price;
+        product.product_qty = req.body.product_qty;
 
         product.save().then(product => {
             res.json('Product updated!');
@@ -219,35 +246,29 @@ productRoutes.route('/update/:id').post(function(req, res) {
 
 //delete product details
 productRoutes.route('/deleteProduct/:id').get(function (req, res) {
-    Product.findByIdAndRemove({ _id: req.params.id }, function (err, product) {
+    Product.findByIdAndRemove({_id: req.params.id}, function (err, product) {
         if (err) res.json(err);
         else res.json('Product Deleted Successfully');
     });
 });
 
 //retrive only one product
-productRoutes.route('/oneProduct/:id').post(function(req, res) {
+productRoutes.route('/oneProduct/:id').post(function (req, res) {
     let id = req.params.id;
-    Product.findById(id, function(err, product) {
+    Product.findById(id, function (err, product) {
         res.json(product);
     });
 });
 
+
 app.use('/products', productRoutes);
-
-
-
-
 /////end of copying from dinithi/////
-
 
 
 /////copied from kisal///////
 
-
-
-mernRoutes.route('/').get(function(req, res) {
-    Merns.find(function(err, mern) {
+mernRoutes.route('/').get(function (req, res) {
+    Merns.find(function (err, mern) {
         if (err) {
             console.log(err);
         } else {
@@ -258,24 +279,23 @@ mernRoutes.route('/').get(function(req, res) {
 });
 
 
-
-mernRoutes.route('/:id').get(function(req, res) {
+mernRoutes.route('/:id').get(function (req, res) {
     let id = req.params.id;
 
-    Merns.find({'wish_cusid':id}, function(err, mern) {
+    Merns.find({'wish_cusid': id}, function (err, mern) {
         res.json(mern);
     });
 
 });
 
 //delete wishlist item
-mernRoutes.route('/removeWishItem/:cid/:pid').delete(function(req, res) {
+mernRoutes.route('/removeWishItem/:cid/:pid').delete(function (req, res) {
 
     let cid = req.params.cid;
     let pid = req.params.pid;
 
 
-    Merns.deleteOne({'wish_productid':pid ,'wish_cusid':cid }, function(err, result) {
+    Merns.deleteOne({'wish_productid': pid, 'wish_cusid': cid}, function (err, result) {
 
         if (err) {
             res.send(err);
@@ -287,10 +307,8 @@ mernRoutes.route('/removeWishItem/:cid/:pid').delete(function(req, res) {
 });
 
 
-
-
-mernRoutes.route('/addwish').post(function(req, res) {
-    let mern= new Merns(req.body);
+mernRoutes.route('/addwish').post(function (req, res) {
+    let mern = new Merns(req.body);
     mern.save()
         .then(mern => {
             res.status(200).json({'todo': 'todo added successfully'});
@@ -301,12 +319,8 @@ mernRoutes.route('/addwish').post(function(req, res) {
 });
 
 
-
-
+app.use('/mern', mernRoutes);
 ////end of copying from kisal///
-
-app.use('/mern',mernRoutes);
-
 
 
 app.listen(5000, () => console.log('server started on port 5000'));
