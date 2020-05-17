@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PleaseLogin from "../Login/PleaseLogin";
 
 class SignUp extends Component {
 
@@ -9,7 +10,7 @@ class SignUp extends Component {
         this.state = {
 
             username: "",
-            user_type: "User",
+            user_type: "StoreManager",
             password: "",
             password_confirm: "",
 
@@ -29,7 +30,7 @@ class SignUp extends Component {
     };
 
 
-    onClickFn = (e) => {
+    onClickFnSM = (e) => {
 
         e.preventDefault();
 
@@ -54,11 +55,11 @@ class SignUp extends Component {
                 axios.post('http://localhost:5000/api/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
                     .then((response) => {
 
-                        alert('User Registered successfully!!!')
+                        alert('Store Manager Registered successfully!!!')
                         console.log(response.data);
 
                     }, (error) => {
-                        alert('Registration unsuccessful!!!')
+                        alert('Registration unsuccessfull!!!')
                         console.log(error);
                     });
 
@@ -72,20 +73,23 @@ class SignUp extends Component {
 
         }
 
+
     }
 
     render() {
         return (
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
             <div className={"row justify-content-center"} style={{marginTop: "10%"}}>
 
                 <div className={"col-md-3"}>
 
-
-                    <h2 className={"m-3 text-center"}>Sign up</h2>
+                    <h2 className={"m-3 text-center"}>Register Store Manager</h2>
 
                     <input
                         type="email"
-                        className="form-control mt-4 "
+                        className="form-control mt-4"
                         name={"username"}
                         id={"username"}
                         placeholder="Username"
@@ -97,7 +101,6 @@ class SignUp extends Component {
 
                     <input
                         type="password"
-                        id={"password"}
                         className="form-control"
                         name={"password"}
                         placeholder="Password"
@@ -109,7 +112,6 @@ class SignUp extends Component {
 
                     <input
                         type="password"
-                        id={"password_confirm"}
                         className="form-control"
                         name={"password_confirm"}
                         placeholder="Confirm Password"
@@ -117,20 +119,26 @@ class SignUp extends Component {
                         onChange={(event) => this.onChangeFn(event)}
                     />
 
+
                     <br/>
 
                     <button className="btn btn-lg btn-primary btn-block" type={"button"}
-                            onClick={(e) => this.onClickFn(e)}
-
-                    >
+                            onClick={(e) => this.onClickFnSM(e)}>
                         Sign up
                     </button>
-
 
 
                 </div>
 
             </div>
+
+            ):(
+
+
+                <PleaseLogin/>
+
+
+            )
         );
     }
 }

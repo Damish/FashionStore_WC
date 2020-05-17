@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PleaseLogin from "../Login/PleaseLogin";
 
 
 export default class EditProductDetails extends Component {
@@ -110,14 +111,18 @@ export default class EditProductDetails extends Component {
         axios.post('http://localhost:5000/products/update/' + this.props.match.params.id, obj)
             .then(res => console.log(res.data));
 
-        this.props.history.push('/');
+        this.props.history.push('/products');
         window.location.reload();
     }
 
 
     render() {
         return (
-            <div className={"row justify-content-center"} style={{marginTop: 10}}>
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
+
+                <div className={"row justify-content-center"} style={{marginTop: 10}}>
                 <div className={"col-md-9"}>
 
                     <h3 align="center">Update product details</h3>
@@ -146,12 +151,17 @@ export default class EditProductDetails extends Component {
 
                             <div className="form-group col-md-4">
                                 <label>Category: </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.product_category}
-                                    onChange={this.onChangeProductCategory}
-                                />
+
+                                <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>
+                                    <option selected>{this.state.product_category}</option>
+                                    <option value="Mens">Mens</option>
+                                    <option value="Womens">Womens</option>
+                                    <option value="Kids & Baby">Kids & Baby</option>
+                                    <option value="Sports Wear">Sports Wear</option>
+                                    <option value="Accessories">Accessories </option>
+                                    <option value="Home Wear">Home Wear</option>
+                                </select>
+
                             </div>
                             <div className="form-group col-md-5">
                                 <label>Description: </label>
@@ -203,6 +213,14 @@ export default class EditProductDetails extends Component {
                     </form>
                 </div>
             </div>
+            ):(
+
+
+                <PleaseLogin/>
+
+
+            )
+
         )
     }
 }

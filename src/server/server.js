@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const productRoutes = express.Router();
+const mernRoutes = express.Router();
 
+let Merns = require('../schema/mern.model');
 const UserModel = require('../schema/User');
 let Product = require('../schema/product');
 
@@ -19,7 +21,9 @@ const connectionUrl = "mongodb+srv://damishs88:damishs88mongodb@mongodb01-zeyxc.
 // connect to the mongo database
 mongoose.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
     if (err) {
-        console.log(err);
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        console.log("MongoDB not connected!!! check internet connection. ");
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         process.exit(1);
     } else {
         console.log("MongoDB working properly...")
@@ -37,15 +41,18 @@ app.use(function (req, res, next) {
 });
 
 
-app.post('/api/users/new/:un/:pw', (req, res) => {
+
+//to add user
+app.post('/api/users/new/:un/:pw/:type1', (req, res) => {
     const username = req.params.un;
     const password = req.params.pw;
+    const type = req.params.type1;
 
-    if ((!username || !password)) {
+    if ((!username || !password || !type)) {
         return res.status(400).json({error: "Invalid format of the body, or fields are missing..."});
     }
 
-    const user = new UserModel({username, password});
+    const user = new UserModel({username, password, type});
     user.save()
         .then(product => {
             res.status(201);
@@ -54,31 +61,38 @@ app.post('/api/users/new/:un/:pw', (req, res) => {
             console.log(error);
             return res.status(500).json(error);
         });
-    res.send('User Added Successfully');
-})
+
+
+    if(type==="User") {
+        res.send('User Added Successfully');
+    }else if(type==="StoreManager") {
+        res.send('StoreManager Added Successfully');
+    }
+
+
+});
+
 
 
 // GET request to get all the users
 app.get('/api/login/:un/:pw', (req, res) => {
-
     const username = req.params.un;
     const password = req.params.pw;
-
-
     UserModel.findOne({ username: username, password: password }, function(err, result) {
         if (err) {
             res.send(err);
         } else {
-            if(result!==null){
-                res.send(true);
-            }else{
-                res.send(false);
-            }
+            // if(result!==null){
+            //     res.send(result);
+            // }else{
+            //     res.send(false);
+            // }
 
+
+            res.send(result);
 
         }
     });
-
 });
 
 
@@ -90,6 +104,7 @@ app.get('/api', (req, res) => {
         message: 'Welcome to the API'
     });
 });
+
 
 app.post('/api/verify_token', verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -224,5 +239,74 @@ app.use('/products', productRoutes);
 
 
 /////end of copying from dinithi/////
+
+
+
+/////copied from kisal///////
+
+
+
+mernRoutes.route('/').get(function(req, res) {
+    Merns.find(function(err, mern) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(mern);
+        }
+    });
+
+});
+
+
+
+mernRoutes.route('/:id').get(function(req, res) {
+    let id = req.params.id;
+
+    Merns.find({'wish_cusid':id}, function(err, mern) {
+        res.json(mern);
+    });
+
+});
+
+//delete wishlist item
+mernRoutes.route('/removeWishItem/:cid/:pid').delete(function(req, res) {
+
+    let cid = req.params.cid;
+    let pid = req.params.pid;
+
+
+    Merns.deleteOne({'wish_productid':pid ,'wish_cusid':cid }, function(err, result) {
+
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+
+});
+
+
+
+
+mernRoutes.route('/addwish').post(function(req, res) {
+    let mern= new Merns(req.body);
+    mern.save()
+        .then(mern => {
+            res.status(200).json({'todo': 'todo added successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('adding new todo failed');
+        });
+});
+
+
+
+
+////end of copying from kisal///
+
+app.use('/mern',mernRoutes);
+
+
 
 app.listen(5000, () => console.log('server started on port 5000'));

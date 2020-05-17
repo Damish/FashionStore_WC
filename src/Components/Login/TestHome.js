@@ -1,11 +1,17 @@
 import React, {Component} from "react";
-import {BrowserRouter as Router, Link, Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import Login from "./Login";
 import WishList from "../WishList/WishList";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import SignUp from "../SignUp/SignUp";
-
+import ProductsHome from "../AddNewProducts/ProductsHome";
+import ProductsHome_common from "../AddNewProducts/ProductsHome_common";
+import SignUpStoreManager from "../SignUp/SignUpStoreManager";
+import Add_Product from "../AddNewProducts/add-product.component"
+import EditProductDetails from "../AddNewProducts/edit-product-details.component";
+import ViewOneProduct from "../AddNewProducts/view-one-product"
+import PleaseLogin from "./PleaseLogin";
 
 export default class TestHome extends Component {
 
@@ -15,258 +21,144 @@ export default class TestHome extends Component {
             <Router>
                 <div className={""}>
 
-                    {/*<NavigationBar/>*/}
-
                     <Switch>
 
-
-
-                        <Route path="/products">
-                            <AuthButton_with_Navbar/>
-                            <Products/>
+                        <Route path="/oneProduct/:id">
+                            <NavigationBar/>
+                            <Route path="/oneProduct/:id" component={ViewOneProduct}/>
                         </Route>
 
+                        <PrivateRoute3 exact path="/edit/:id" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <Route path="/edit/:id" component={EditProductDetails}/>
+                        </PrivateRoute3>
+
+                        <Route path="/products_common">
+                            <NavigationBar/>
+                            <ProductsHome_common/>
+                        </Route>
+
+                        <PrivateRoute3 exact path="/addProduct" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <Route path="/addProduct" component={Add_Product}/>
+                        </PrivateRoute3>
+
+                        <PrivateRoute3 exact path="/sign-up-sm" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <SignUpStoreManager/>
+                        </PrivateRoute3>
+
+                        <PrivateRoute3 exact path="/products" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <ProductsHome/>
+                        </PrivateRoute3>
+
                         <Route path="/login">
-                            <AuthButton_with_Navbar/>
+                            <NavigationBar/>
                             <LoginPage/>
                         </Route>
 
                         <Route path="/sign-up">
-                            <AuthButton_with_Navbar/>
+                            <NavigationBar/>
                             <SignUp/>
                         </Route>
 
-                        <PrivateRoute path="/shopping-cart">
+                        <PrivateRoute3 exact path="/wish-list" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <WishList/>
+                        </PrivateRoute3>
 
-                            {
-                                (fakeAuth.isLoggedin) ? (
-                                    <div>
-                                        <AuthButton_with_Navbar/>
-                                        <ShoppingCart/>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        {/*<AuthButton_with_Navbar/>*/}
-                                        <h2> logged in false</h2>
-                                    </div>
-                                )
-                            }
+                        <PrivateRoute3 exact path="/shopping-cart" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <ShoppingCart/>
+                        </PrivateRoute3>
 
-                        </PrivateRoute>
-
-                        <PrivateRoute path="/wish-list">
-
-                            {
-                                (fakeAuth.isLoggedin) ? (
-                                    <div>
-                                        <AuthButton_with_Navbar/>
-                                        <WishList/>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        {/*<AuthButton_with_Navbar/>*/}
-                                        <h2> logged in false</h2>
-                                    </div>
-                                )
-                            }
-
-                        </PrivateRoute>
-
-                        <PrivateRoute path="/protected3">
-                            <AuthButton_with_Navbar/>
+                        <PrivateRoute3 exact path="/protected3" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
                             <Protected3/>
-                        </PrivateRoute>
+                        </PrivateRoute3>
 
                     </Switch>
                 </div>
             </Router>
         );
-
     }
-
 
     componentDidMount() {
-
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem("isLoggedin") === "true") {
+            console.log("ComponentDidMount:::TestHome")
+            console.log("setting fakeAuth.isAuthenticated = true;")
             fakeAuth.isAuthenticated = true;
-
-
+            fakeAuth.authenticate(this);
         } else {
+            console.log("ComponentDidMount:::TestHome")
+            console.log("setting fakeAuth.isAuthenticated = false;")
             fakeAuth.isAuthenticated = false;
         }
-
     }
-
-
 }
 
-const fakeAuth = {
-
+export const fakeAuth = {
     isLoggedin: localStorage.getItem("isLoggedin"),
-
     isAuthenticated: false,
-
     authenticate(cb) {
-
         fakeAuth.isAuthenticated = true;
         setTimeout(cb, 100); // fake async
     },
-    signOut(cb) {
-
+    signOut() {
+        window.location.reload();
         fakeAuth.isAuthenticated = false;
-        setTimeout(cb, 100);
     }
 };
 
+const PrivateRoute3 = ({component: Component, isAuthenticated, isLoggedin1, ...rest}) => (
+    <Route {...rest} render={(props) => (
+        isAuthenticated === true
+            ? (<Component {...props} {...rest} />)
+            :
+            (
+                isLoggedin1 === true
+                    ? (Component)
+                    :
+                    (<Redirect to="/login"/>)
+            )
+    )}/>
+);
 
-function AuthButton_with_Navbar() {
-    let history = useHistory();
-
-    return (fakeAuth.isAuthenticated) ? (
-
-
-        <div>
-            <div>
-
-                <div className={"row"}>
-                    <div className="col bg-dark">
-                        <NavigationBar/>
-                    </div>
-                    <div className="col-sm-4 bg-dark">
-                        <div className={"row"}>
-                            <div className={"col"}>
-                                <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
-                                <div className="navbar-nav">
-
-                                <h6 className={"text-white nav-item nav-link"}> Logged in as {localStorage.getItem("token-username")} </h6>
-
-                                <button
-                                    className={"btn btn-danger"}
-                                    onClick={() => {
-                                        fakeAuth.signOut(() => history.push("/login"));
-
-                                        //erase token value
-                                        localStorage.setItem("token", "")
-                                        localStorage.setItem("token-userId", "")
-                                        localStorage.setItem("token-username", "")
-                                        localStorage.setItem("token-password", "")
-                                        localStorage.setItem("isLoggedin", "false");
-
-                                        console.log("Token erased")
-
-                                    }}
-                                >
-                                    Sign out
-                                </button>
-
-                                </div>
-                                </nav>
-
-
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-    ) : (
-        <div>
-
-            {/*<p>Please login to continue..</p>*/}
-
-            <div className={"row"}>
-                <div className="col bg-dark">
-                    <NavigationBar/>
-                </div>
-                <div className="col-sm-4 bg-dark">
-                    <div className={"row"}>
-
-                    <div className={"col"}>
-                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
-                        <div className="navbar-nav">
-
-                              <h6 className={"text-white nav-item nav-link"} > Not Logged in </h6>
-
-                              <Link className=" btn btn-primary" to="/login">Login</Link>
-
-                        </div>
-                        </nav>
-
-                    </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    );
-}
-
-// A wrapper for <Route> that redirects to the login
-// screen if you're not yet authenticated.
-function PrivateRoute({children, ...rest}) {
-
-    return (
-        <Route
-            {...rest}
-            render={({location}) =>
-
-                fakeAuth.isAuthenticated ? (
-
-                    children
-
-
-                ) : (
-
-                    <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: {from: location}
-                        }}
-                    />
-                )
-            }
-        />
-    );
-}
-
-function Products() {
-    return <h3>Products</h3>;
-}
-
-function Protected2() {
-    return <h3>Protected2</h3>;
-}
 
 function Protected3() {
-    return <h3>Protected3</h3>;
+    return (
+        (localStorage.getItem("isLoggedin") === "true") ? (
+            <h3>Protected3</h3>
+        ) : (
+            <PleaseLogin/>
+        )
+    );
 }
 
 
 function LoginPage() {
     let history = useHistory();
     let location = useLocation();
-
-    let {from} = location.state || {from: {pathname: "/products"}};
-
+    let {from} = location.state || {from: {pathname: "/products_common"}};
     //here login is a callback function
     let login = () => {
         fakeAuth.authenticate(() => {
             history.replace(from);
-
         });
     };
 
-
     return (
         <div>
-            <p>You must log in to view the page at {from.pathname}</p>
-
+            {/*<p>You must log in to view the page at {from.pathname}</p>*/}
             <Login loginFunc={login}/>
-
         </div>
     );
 }

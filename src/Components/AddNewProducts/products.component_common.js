@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import no_image_available from "../images/no_image_available.jpg";
-import PleaseLogin from "../Login/PleaseLogin";
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import { Table, Button } from 'react-bootstrap';
-
+import no_image_available from '../images/no_image_available.jpg';
 
 export default class Products extends Component {
 
@@ -15,38 +13,11 @@ export default class Products extends Component {
         this.state = {
             products: []
         };
-        this.deleteProduct = this.deleteProduct.bind(this);
     }
 
 
     componentDidMount() {
         this.getProductList();
-    }
-
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     this.getProductList();
-    // }
-
-
-    deleteProduct(id) {
-        axios.get('http://localhost:5000/products/deleteProduct/' + id)
-            .then(() => {
-                console.log('Product Deleted !!!')
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
-
-        this.getProductList();
-
-
-        this.setState({
-            ...this.state.products
-        })
-
-        window.location.reload();
-
     }
 
 
@@ -60,30 +31,49 @@ export default class Products extends Component {
             })
     }
 
-    onAddtoWishList(e) {
-        console.log(" onAddtoWishList() called. Product id to be added : " + e);
+    onAddtoWishList(wcid,wpid,wname,wprice,wdiscount){
+
+        console.log(`add to wishlist:`);
+        console.log(`wish cusid: `+wcid);
+        console.log(`wish productid:`+wpid);
+        console.log(`wish name:`+wname);
+        console.log(`wish price :`+wprice);
+        console.log(`wish price :`+wdiscount);
+
+        const newWish = {
+            wish_cusid :wcid ,
+            wish_productid:wpid,
+            wish_name:wname,
+            wish_price:wprice,
+            wish_discount: wdiscount
+        };
+
+        axios.post('http://localhost:5000/mern/addwish', newWish)
+            .then(res => console.log(res.data));
+
+        this.setState({
+            wish_cusid : '',
+            wish_productid: '',
+            wish_name: '',
+            wish_price: '',
+            wish_discount:''
+        })
+
+        window.location.replace("/wish-list")
     }
 
     onAddtoCart(e) {
         console.log(" onAddtoCart() called. Product id to be added : " + e);
+
     }
 
 
     render() {
         return (
-
-            (localStorage.getItem("isLoggedin") === "true") ? (
-
             <div>
 
-
                 <div className={"box m-2"}
-                     style={{
-                         width: "260px",
-                         "background": "white",
-                         "padding": "7px",
-                         "box-shadow": "0 0 10px -5px"
-                     }}>
+                     style={{width: "260px", "background": "white", "padding": "7px", "box-shadow": "0 0 10px -5px"}}>
 
 
                     <div className="thumbnail ml-3 mr-3 mb-3">
@@ -98,6 +88,7 @@ export default class Products extends Component {
                                 {/*{this.props.product.product_img}*/}
                             </div>
                         </div>
+
                         <label className="mr-2">Category:{this.props.product.product_category}</label>
                         <br/>
                         <label className="mr-2">Description:{this.props.product.product_description}</label>
@@ -109,38 +100,42 @@ export default class Products extends Component {
                             </div>
                         </div>
 
-                        <div className="row justify-content-center mt-2 mb-2">
-
-                            <Link className=" btn btn-danger">-{this.props.product.product_discount}%</Link>
-
-                        </div>
-
+                        <br/>
 
                         <div className="row justify-content-center">
 
                             <Link className="btn btn-outline-dark mr-2"
                                   to={"/oneProduct/" + this.props.product._id}>View</Link>
 
-                            <Link className="btn btn-outline-warning mr-2"
-                                  to={"/edit/" + this.props.product._id}>Edit</Link>
+                            <Link to={"/shopping-cart"} className={"btn btn-outline-primary mr-2"} type={"button"}
+                                    onClick={(event) => this.onAddtoCart(this.props.product._id)}>
 
-                            <Link type="submit" onClick={() => this.deleteProduct(this.props.product._id)}
-                                  className="btn btn-outline-danger mr-2">Remove </Link>
+                                <i className="fa fa-shopping-cart"> </i>
+                            </Link>
+
+
+                            <Link to={"/wish-list"} className={"btn btn-outline-primary mr-2"} type={"button"}
+                                    onClick={()=>this.onAddtoWishList(
+                                        window.atob(localStorage.getItem("token-username")),
+                                        this.props.product._id,
+                                        this.props.product.product_name,
+                                        this.props.product.product_price,
+                                        this.props.product.product_discount
+                                    )}>
+
+
+                                <i className="fa fa-heart-o" style={{"color": "red"}}> </i>
+
+                            </Link>
+
+                            <Link className=" btn btn-danger">-{this.props.product.product_discount}%</Link>
 
                         </div>
 
 
                     </div>
-
                 </div>
             </div>
-        ):(
-
-
-            <PleaseLogin/>
-
-
-        )
 
         )
     }

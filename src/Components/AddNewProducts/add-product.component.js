@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
-// import UploadFile from "../../utils/UploadFile";
+import PleaseLogin from "../Login/PleaseLogin";
 
 export default class AddProduct extends Component {
+
+
     constructor(props) {
         super(props);
 
@@ -23,9 +25,13 @@ export default class AddProduct extends Component {
             product_category: '',
             product_description: '',
             product_price: 0,
-            product_qty: 0,
+            product_qty: 1,
             product_discount: 1
+
         }
+
+
+
     }
 
     onChangeProductImg(e) {
@@ -73,7 +79,6 @@ export default class AddProduct extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-
         console.log(`Form submitted:`);
         console.log(`Product Image: ${this.state.product_img}`);
         console.log(`Product Name: ${this.state.product_name}`);
@@ -86,8 +91,12 @@ export default class AddProduct extends Component {
         if (!this.state.product_name || !this.state.product_category || !this.state.product_description || !this.state.product_price ||
             !this.state.product_qty || !this.state.product_discount) {
             return alert('Fill all the fields!!!')
-
         }
+
+        // else{
+        //
+        //     return alert('New Product Added Successfully!!!')
+        // }
 
         const newProduct = {
             product_img: this.state.product_img,
@@ -101,7 +110,16 @@ export default class AddProduct extends Component {
         };
 
         axios.post('http://localhost:5000/products/add', newProduct)
-            .then(res => console.log(res.data));
+            .then((response) => {
+
+                alert('Product added successfully!!!')
+
+                console.log(response.data);
+
+            }, (error) => {
+
+                console.log(error);
+            });
 
         this.setState({
             product_img: '',
@@ -112,10 +130,17 @@ export default class AddProduct extends Component {
             product_qty: '',
             product_discount: ''
         })
+
+        // this.props.history.push('/products');
+        // window.location.reload();
     }
 
     render() {
+
+
         return (
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
 
             <div className={"row justify-content-center"} style={{marginTop: 10}}>
 
@@ -125,7 +150,6 @@ export default class AddProduct extends Component {
                     <h3>Add new product</h3>
 
                     <form onSubmit={this.onSubmit}>
-                        {/*<UploadFile/>*/}
 
 
                         <div className="form-row">
@@ -153,12 +177,27 @@ export default class AddProduct extends Component {
 
                             <div className="form-group col-md-4">
                                 <label>Category: </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.product_category}
-                                    onChange={this.onChangeProductCategory}
-                                />
+
+
+                                {/*<input*/}
+                                {/*    type="text"*/}
+                                {/*    className="form-control"*/}
+                                {/*    value={this.state.product_category}*/}
+                                {/*    onChange={this.onChangeProductCategory}*/}
+                                {/*/>*/}
+
+
+                                <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>
+                                    <option selected>Choose...</option>
+                                    <option value="Mens">Mens</option>
+                                    <option value="Womens">Womens</option>
+                                    <option value="Kids & Baby">Kids & Baby</option>
+                                    <option value="Sports Wear">Sports Wear</option>
+                                    <option value="Accessories">Accessories </option>
+                                    <option value="Home Wear">Home Wear</option>
+                                </select>
+
+
                             </div>
                             <div className="form-group col-md-5">
                                 <label>Description: </label>
@@ -187,6 +226,7 @@ export default class AddProduct extends Component {
                                 <input type="number"
                                        className="form-control"
                                        value={this.state.product_qty}
+                                       min={"1"}
                                        onChange={this.onChangeProductQty}
                                 />
                             </div>
@@ -196,28 +236,40 @@ export default class AddProduct extends Component {
                                     type="number"
                                     className="form-control"
                                     value={this.state.product_discount}
+                                    max={"100"}
+                                    min={"0"}
                                     onChange={this.onChangeProductDiscount}
                                 />
+                            </div>
+                        </div>
+
+                        <div className="form-row mb-3 mt-3">
+
+                            <div className="form-group col-md-4">
+                            </div>
+
+                            <div className="form-group col-md-4">
+                                <input type="submit" value="Add New Product" className="btn btn-outline-success"/>
                             </div>
                         </div>
 
                         <div className="form-row">
 
                             <div className="form-group col-md-4">
-                            </div>
-
-                            <div className="form-group col-md-4">
-                                <input type="submit" value="Add New Product" className="btn btn-primary"/>
-                            </div>
-
-                            <div className="form-group col-md-4">
-                                <Link className="btn btn-dark mr-2 mb-2" to={"/"}>Go Back</Link>
+                                <Link className="btn btn-outline-dark mr-2 mb-2" to={"/products"}>Go back to Products</Link>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
+            ):(
 
+
+                <PleaseLogin/>
+
+
+            )
 
         )
     }
