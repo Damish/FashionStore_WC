@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import axios from "axios";
 
-class StoreManagerData extends Component {
+class UserData extends Component {
 
-    onRemoveSM(id_toDelete) {
+
+
+    onRemoveUser(id_toDelete) {
 
         axios.delete('http://localhost:5000/users/removeUser/'+ id_toDelete)
             .then((response) => {
@@ -13,6 +15,8 @@ class StoreManagerData extends Component {
             });
         window.location.reload();
     }
+
+
 
     render() {
         return (
@@ -32,7 +36,7 @@ class StoreManagerData extends Component {
                                 </div>
 
                                 <div className="col">
-                                    <button type="button" className="btn btn-danger"  onClick={()=>this.onRemoveSM( this.props.id )}>
+                                    <button type="button" className="btn btn-danger"  onClick={()=>this.onRemoveUser( this.props.id )}>
                                         Remove
                                     </button>
                                 </div>
@@ -46,4 +50,4 @@ class StoreManagerData extends Component {
     }
 }
 
-export default StoreManagerData;
+export default UserData;

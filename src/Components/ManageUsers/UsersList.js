@@ -1,23 +1,22 @@
 import React, {Component} from 'react';
-import StoreManagerData from "./StoreManagerData"
+import UserData from "./UserData"
 import axios from "axios";
 import PleaseLogin from "../Login/PleaseLogin";
-import UserData from "../ManageUsers/UserData";
 
-class StoreManagersList extends Component {
+class UsersList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {storeManagers: []};
+        this.state = {users: []};
     }
 
     componentDidMount() {
 
-        console.log("ComponentDidMount:::StoreManagersList>>>>>>>s")
+        console.log("ComponentDidMount:::UsersList>>>>>>>s")
 
-        axios.get('http://localhost:5000/users/StoreManager')
+        axios.get('http://localhost:5000/users/User')
             .then(response => {
-                this.setState({storeManagers: response.data});
+                this.setState({users: response.data});
             })
             .catch(function (error) {
                 console.log(error);
@@ -30,16 +29,16 @@ class StoreManagersList extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") && (window.atob(localStorage.getItem("Utype"))) === "Admin" ? (
 
-                <div>
+                <div className={"container"}>
 
-                    <h1>Store Managers</h1>
+                    <h1>Users List</h1>
                     {
-                        this.state.storeManagers.map((value,index) => {
+                        this.state.users.map((value,index) => {
                             return (
                                 <div>
-                                    <StoreManagerData
+                                    <UserData
                                         no={index+1}
-                                        id ={value._id}
+                                        id={value._id}
                                         name={value.username}
                                     />
                                 </div>
@@ -60,4 +59,4 @@ class StoreManagersList extends Component {
     }
 }
 
-export default StoreManagersList;
+export default UsersList;

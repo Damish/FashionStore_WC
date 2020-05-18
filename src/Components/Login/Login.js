@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TestHome, {fakeAuth} from "../Login/TestHome"
+import {Link} from "react-router-dom";
 
 export default class Login extends Component {
 
@@ -129,15 +130,22 @@ export default class Login extends Component {
                                 Log in
                             </button>
 
-                            {
 
-                                    <div className="collapse" id="collapseExample">
-                                        <div className="card card-body text-danger">
-                                            <br/>
-                                            Invalid e-mail/password
-                                        </div>
-                                    </div>
-                            }
+                    <label>Dont have account? </label><Link className="text-success" to="/sign-up"> Signup here </Link>
+
+
+
+                            {/*{*/}
+
+                            {/*        <div className="collapse" id="collapseExample">*/}
+                            {/*            <div className="card card-body text-danger">*/}
+                            {/*                <br/>*/}
+                            {/*                Invalid e-mail/password*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*}*/}
+
+
                         </div>
             </div>
         );

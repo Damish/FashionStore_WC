@@ -13,6 +13,8 @@ let userRoutes = express.Router();
 
 let UserModel = require('../schema/User');
 
+let Log = require('../schema/logs');
+
 
 ////////////damish's part/////////////
 
@@ -32,21 +34,47 @@ userRoutes.post('/new/:un/:pw/:type1', (req, res) => {
     }
 
     const user = new UserModel({username, password, type});
+
+    const date = new Date().toLocaleDateString();
+    const time = new Date().toLocaleTimeString();
+    const message = "New "+ req.params.type1 +" added";
+    const created_by = req.params.un;
+    let user_type="";
+    if (req.params.type1==="StoreManager"){
+        user_type = "Admin";
+    }else{
+        user_type = req.params.type1;
+    }
+
+
+    const Log1 = new Log({date, time, message, created_by,user_type});
+
     user.save()
-        .then(product => {
+        .then(user => {
             res.status(201);
+
+
+            if (type === "User") {
+                res.send('User Added Successfully');
+            } else if (type === "StoreManager") {
+                res.send('StoreManager Added Successfully');
+            }
+
+            //save a log of the action and time
+            Log1.save()
+                .then(log => {
+                    res.status(201);
+                })
+                .catch(error => {
+                    console.log(error);
+                    return res.status(500).json(error);
+                });
+
         })
         .catch(error => {
             console.log(error);
             return res.status(500).json(error);
         });
-
-
-    if (type === "User") {
-        res.send('User Added Successfully');
-    } else if (type === "StoreManager") {
-        res.send('StoreManager Added Successfully');
-    }
 
 
 });
@@ -61,11 +89,34 @@ userRoutes.post('/new/:un/:pw/:type1', (req, res) => {
 userRoutes.get('/api/login/:un/:pw', (req, res) => {
     const username = req.params.un;
     const password = req.params.pw;
+
+
+    // const Log1 = new Log({date, time, message, created_by});
+
     UserModel.findOne({username: username, password: password}, function (err, result) {
         if (err) {
             res.send(err);
         } else {
-            res.send(result);
+            res.send(result);//send user data
+
+            //add log data parameters
+            const date = new Date().toLocaleDateString();
+            const time = new Date().toLocaleTimeString();
+            const message = result.type+" logged in";
+            const created_by = req.params.un;
+            const user_type = result.type;
+
+            const Log1 = new Log({date, time, message, created_by,user_type});
+
+            //save a log of the action and time
+            Log1.save()
+                .then(product => {
+                    res.status(201);
+                })
+                .catch(error => {
+                    console.log(error);
+                    return res.status(500).json(error);
+                });
 
         }
     });
@@ -84,6 +135,7 @@ userRoutes.get('/api/get_login_token/:un/:pw', (req, res) => {
         username: req.params.un,
         password: req.params.pw
     }
+
     jwt.sign({user}, 'secretkey', {expiresIn: '60s'}, (err, token) => {
         res.json({
             token
@@ -100,6 +152,7 @@ userRoutes.get('/api/get_login_token/:un/:pw', (req, res) => {
 *
 * */
 userRoutes.post('/api/verify_token', verifyToken, (req, res) => {
+
     jwt.verify(req.token, 'secretkey', (err, authData) => {
         if (err) {
             console.log("Cannot Authorize token!!!")
@@ -117,16 +170,34 @@ userRoutes.post('/api/verify_token', verifyToken, (req, res) => {
 
 /*
 * method: GET
-* description: get all store managers data
-* params: no-parameters
+* description: get all data by user type
+* params: { usertype }
 *
 * */
-userRoutes.get('/get_all_SM',(req, res)=> {
-    let type = "StoreManager";
+userRoutes.get('/:type',(req, res)=> {
+    let type = req.params.type;
     UserModel.find({'type': type}, function (err, user) {
         res.json(user);
     });
 });
+
+/*
+* method: DELETE
+* description: delete user
+* params: {_id} of the user to be deleted
+*
+* */
+userRoutes.route('/removeUser/:uid').delete(function (req, res) {
+    let uid = req.params.uid;
+    UserModel.deleteOne({'_id': uid}, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 
 
 

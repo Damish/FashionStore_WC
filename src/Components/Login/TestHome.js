@@ -13,6 +13,7 @@ import EditProductDetails from "../AddNewProducts/edit-product-details.component
 import ViewOneProduct from "../AddNewProducts/view-one-product"
 import PleaseLogin from "./PleaseLogin";
 import StoreManagersList from "../StoreManagers/StoreManagersList";
+import UsersList from "../ManageUsers/UsersList";
 
 export default class TestHome extends Component {
 
@@ -34,6 +35,10 @@ export default class TestHome extends Component {
                             <Route path="/sm_all" component={StoreManagersList}/>
                         </Route>
 
+                        <Route path="/allUsers">
+                            <NavigationBar/>
+                            <Route path="/allUsers" component={UsersList}/>
+                        </Route>
 
 
                         <Route path="/oneProduct/:id">
