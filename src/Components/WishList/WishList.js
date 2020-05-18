@@ -35,9 +35,9 @@ class WishList extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") ? (
 
-                < div className={"container mt-5 bg-info"}>
-                    <div className="card mb-5 ">
-                        <h1 className="text-center">WishList</h1>
+                < div className={"container mt-5 bg-info p-3"}>
+                    <div className="card mb-5  ">
+                        <h1 className=" text-center">WishList</h1>
                     </div>
                     <div>
                         {
