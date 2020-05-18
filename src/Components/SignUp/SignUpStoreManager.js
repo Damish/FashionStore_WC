@@ -52,7 +52,7 @@ class SignUp extends Component {
 
                 console.log("PASSWORDS MATCH");
 
-                axios.post('http://localhost:5000/api/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
+                axios.post('http://localhost:5000/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
                     .then((response) => {
 
                         alert('Store Manager Registered successfully!!!')

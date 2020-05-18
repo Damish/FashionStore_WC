@@ -7,11 +7,12 @@ class StoreManagerControls extends Component {
             <div>
                 <div className={"ml-2 row"}>
 
-                    <Link className=" nav-item nav-link text-white" to="/sign-up">
-                        <div className={"ml-1 mr-1 col bg-info"}>
-                            Sign up
-                        </div>
-                    </Link>
+                    {/*<Link className=" nav-item nav-link text-white" to="/sign-up">*/}
+                    {/*    <div className={"ml-1 mr-1 col bg-info"}>*/}
+                    {/*        Sign up*/}
+                    {/*    </div>*/}
+                    {/*</Link>*/}
+
                     <Link className=" nav-item nav-link text-white" to="/addProduct">
                         <div className={"ml-1 mr-1 col bg-danger"}>
                             Add Product

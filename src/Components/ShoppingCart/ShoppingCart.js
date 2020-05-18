@@ -6,10 +6,7 @@ class ShoppingCart extends Component {
 
 
     render() {
-
-
         return (
-
             (localStorage.getItem("isLoggedin") === "true") ? (
 
 

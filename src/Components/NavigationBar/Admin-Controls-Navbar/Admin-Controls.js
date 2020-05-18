@@ -22,6 +22,12 @@ class AdminControls extends Component {
                             Manage-Products
                         </div>
                     </Link>
+                    <Link className="nav-item nav-link text-white"
+                          to="/sm_all">
+                        <div className={"ml-1 col bg-primary"}>
+                            Store Managers List
+                        </div>
+                    </Link>
 
                 </div>
             </div>
