@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import './login-css.css'
+import TestHome, {fakeAuth} from "../Login/TestHome"
+import {Link} from "react-router-dom";
 
 export default class Login extends Component {
 
@@ -28,7 +29,7 @@ export default class Login extends Component {
         localStorage.setItem("isLoggedin", "false");
         let token = "";
 
-        fetch('http://localhost:5000/api/login/' + this.state.credentials.username + '/' + this.state.credentials.password, {
+        fetch('http://localhost:5000/users/api/login/' + this.state.credentials.username + '/' + this.state.credentials.password, {
             method: 'GET',
         })
             .then((response) => {
@@ -43,9 +44,14 @@ export default class Login extends Component {
 
                 if (data.type !== null) { //when the inserted credentials are true
 ///////////////
+
+                    fakeAuth.isAuthenticated = true
+
                     this.props.loginFunc();//fire the login function from TestHome.js
 
-                    fetch('http://localhost:5000/api/get_login_token/' + this.state.credentials.username + '/' + this.state.credentials.password, {
+
+
+                    fetch('http://localhost:5000/users/api/get_login_token/' + this.state.credentials.username + '/' + this.state.credentials.password, {
                         method: 'GET',
                     })
                         .then((response) => {
@@ -65,7 +71,7 @@ export default class Login extends Component {
 
                         let authToken = localStorage.getItem("token");
 /////////////////////////////////////////////////////
-                        fetch('http://localhost:5000/api/verify_token/', {
+                        fetch('http://localhost:5000/users/api/verify_token/', {
                             method: 'POST',
                             headers: {
                                 'Authorization': 'Bearer ' + authToken
@@ -124,18 +130,22 @@ export default class Login extends Component {
                                 Log in
                             </button>
 
-                            {
-                                (!(localStorage.getItem("isLoggedin"))) ? (
-                                    <div></div>
-                                ) : (
-                                    <div className="collapse" id="collapseExample">
-                                        <div className="card card-body text-danger">
-                                            <br/>
-                                            Invalid e-mail/password
-                                        </div>
-                                    </div>
-                                )
-                            }
+
+                    <label>Dont have account? </label><Link className="text-success" to="/sign-up"> Signup here </Link>
+
+
+
+                            {/*{*/}
+
+                            {/*        <div className="collapse" id="collapseExample">*/}
+                            {/*            <div className="card card-body text-danger">*/}
+                            {/*                <br/>*/}
+                            {/*                Invalid e-mail/password*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*}*/}
+
+
                         </div>
             </div>
         );

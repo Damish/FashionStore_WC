@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PleaseLogin from "../Login/PleaseLogin";
 
 class SignUp extends Component {
 
@@ -39,6 +40,7 @@ class SignUp extends Component {
         if (!email.validity.valid) {
             if (email.validity.typeMismatch) {
 
+                alert('Entered value needs to be an e-mail address')
                 console.log('Entered value needs to be an e-mail address.');
             }
         } else {
@@ -50,28 +52,35 @@ class SignUp extends Component {
 
                 console.log("PASSWORDS MATCH");
 
-                axios.post('http://localhost:5000/api/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
+                axios.post('http://localhost:5000/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
                     .then((response) => {
 
+                        alert('Store Manager Registered successfully!!!')
                         console.log(response.data);
 
                     }, (error) => {
+                        alert('Registration unsuccessfull!!!')
                         console.log(error);
                     });
 
 
             } else {
 
+                alert('PASSWORDS DO NOT MATCH!!!')
                 console.log("PASSWORDS DO NOT MATCH");
 
             }
 
         }
 
+
     }
 
     render() {
         return (
+
+            (localStorage.getItem("isLoggedin") === "true") ? (
+
             <div className={"row justify-content-center"} style={{marginTop: "10%"}}>
 
                 <div className={"col-md-3"}>
@@ -122,6 +131,14 @@ class SignUp extends Component {
                 </div>
 
             </div>
+
+            ):(
+
+
+                <PleaseLogin/>
+
+
+            )
         );
     }
 }

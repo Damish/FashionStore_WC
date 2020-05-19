@@ -1,7 +1,0 @@
-{
-  "name": "LabSheet5p1",
-  "version": "1.0.0",
-  "dependencies": {
-    "express": "latest"
-  }
-}

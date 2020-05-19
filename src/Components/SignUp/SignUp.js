@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 class SignUp extends Component {
 
@@ -39,6 +40,7 @@ class SignUp extends Component {
         if (!email.validity.valid) {
             if (email.validity.typeMismatch) {
 
+                alert('Entered value needs to be an e-mail address')
                 console.log('Entered value needs to be an e-mail address.');
             }
         } else {
@@ -50,18 +52,21 @@ class SignUp extends Component {
 
                 console.log("PASSWORDS MATCH");
 
-                axios.post('http://localhost:5000/api/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
+                axios.post('http://localhost:5000/users/new/' + this.state.username + '/' + this.state.password + '/' + this.state.user_type)
                     .then((response) => {
 
+                        alert('User Registered successfully!!!')
                         console.log(response.data);
 
                     }, (error) => {
+                        alert('Registration unsuccessful!!!')
                         console.log(error);
                     });
 
 
             } else {
 
+                alert('PASSWORDS DO NOT MATCH!!!')
                 console.log("PASSWORDS DO NOT MATCH");
 
             }
@@ -115,14 +120,14 @@ class SignUp extends Component {
 
                     <br/>
 
-                    <button className="btn btn-lg btn-primary btn-block" type={"button"}
+                    <button className="btn btn-lg btn-success btn-block" type={"button"}
                             onClick={(e) => this.onClickFn(e)}
 
                     >
                         Sign up
                     </button>
 
-
+                    <label>Already have account? </label><Link className="text-primary" to="/login"> Login here </Link>
 
                 </div>
 
