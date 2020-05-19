@@ -7,13 +7,13 @@ class ViewOneProduct extends Component {
 
     constructor(props) {
         super(props);
-        this.onChangeProductImg = this.onChangeProductImg.bind(this);
-        this.onChangeProductName = this.onChangeProductName.bind(this);
-        this.onChangeProductCategory = this.onChangeProductCategory.bind(this);
-        this.onChangeProductDesc = this.onChangeProductDesc.bind(this);
-        this.onChangeProductPrice = this.onChangeProductPrice.bind(this);
-        this.onChangeProductQty = this.onChangeProductQty.bind(this);
-        this.onChangeProductDiscount = this.onChangeProductDiscount.bind(this);
+        // this.onChangeProductImg = this.onChangeProductImg.bind(this);
+        // this.onChangeProductName = this.onChangeProductName.bind(this);
+        // this.onChangeProductCategory = this.onChangeProductCategory.bind(this);
+        // this.onChangeProductDesc = this.onChangeProductDesc.bind(this);
+        // this.onChangeProductPrice = this.onChangeProductPrice.bind(this);
+        // this.onChangeProductQty = this.onChangeProductQty.bind(this);
+        // this.onChangeProductDiscount = this.onChangeProductDiscount.bind(this);
 
         this.state = {
             product_img: '',
@@ -22,7 +22,8 @@ class ViewOneProduct extends Component {
             product_description: '',
             product_price: '',
             product_qty: '',
-            product_discount: ''
+            product_discount: '',
+            imageData: 'no url found'
         }
 
     }
@@ -32,6 +33,7 @@ class ViewOneProduct extends Component {
         axios.get('http://localhost:5000/products/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
+                    imageData: response.data.imageData,
                     product_img: response.data.product_img,
                     product_name: response.data.product_name,
                     product_category: response.data.product_category,
@@ -46,47 +48,47 @@ class ViewOneProduct extends Component {
             })
     }
 
-    onChangeProductImg(e) {
-        this.setState({
-            product_img: e.target.value
-        });
-    }
-
-    onChangeProductName(e) {
-        this.setState({
-            product_name: e.target.value
-        });
-    }
-
-    onChangeProductCategory(e) {
-        this.setState({
-            product_category: e.target.value
-        });
-    }
-
-    onChangeProductDesc(e) {
-        this.setState({
-            product_description: e.target.value
-        });
-    }
-
-    onChangeProductPrice(e) {
-        this.setState({
-            product_price: e.target.value
-        });
-    }
-
-    onChangeProductQty(e) {
-        this.setState({
-            product_qty: e.target.value
-        });
-    }
-
-    onChangeProductDiscount(e) {
-        this.setState({
-            product_discount: e.target.value
-        });
-    }
+    // onChangeProductImg(e) {
+    //     this.setState({
+    //         product_img: e.target.value
+    //     });
+    // }
+    //
+    // onChangeProductName(e) {
+    //     this.setState({
+    //         product_name: e.target.value
+    //     });
+    // }
+    //
+    // onChangeProductCategory(e) {
+    //     this.setState({
+    //         product_category: e.target.value
+    //     });
+    // }
+    //
+    // onChangeProductDesc(e) {
+    //     this.setState({
+    //         product_description: e.target.value
+    //     });
+    // }
+    //
+    // onChangeProductPrice(e) {
+    //     this.setState({
+    //         product_price: e.target.value
+    //     });
+    // }
+    //
+    // onChangeProductQty(e) {
+    //     this.setState({
+    //         product_qty: e.target.value
+    //     });
+    // }
+    //
+    // onChangeProductDiscount(e) {
+    //     this.setState({
+    //         product_discount: e.target.value
+    //     });
+    // }
 
     render() {
         return (
@@ -96,10 +98,11 @@ class ViewOneProduct extends Component {
                 </div>
 
                 <div className="card mt-5 ml-auto mr-auto mb-5 " style={{width: '600px'}}>
-                    <div className="box" style={{height: '100px'}}>
-                        <div className="form-group  col-sm-8 ml-auto mr-auto mt-5">
-                            <img src=".../" alt="..."></img>
-                            {this.state.product_img}
+                    <div className="row justify-content-center">
+                        <div className={"col"}>
+
+                            <img src={this.state.imageData} className={"container"}/>
+
                         </div>
                     </div>
 
@@ -110,7 +113,7 @@ class ViewOneProduct extends Component {
                                 <label><strong>Category: </strong></label>
                             </div>
                             <div className="col">
-                                <input type="text" readOnly value={this.state.product_category}/>
+                                <label>{this.state.product_category}</label>
                             </div>
                         </div>
                     </div>
@@ -122,7 +125,7 @@ class ViewOneProduct extends Component {
                                 <label><strong>Description: </strong></label>
                             </div>
                             <div className="col">
-                                <input type="text" readOnly value={this.state.product_description}/>
+                                <label>{this.state.product_description}</label>
                             </div>
                         </div>
                     </div>
@@ -133,7 +136,7 @@ class ViewOneProduct extends Component {
                                 <label><strong>Price: </strong></label>
                             </div>
                             <div className="col">
-                                <input type="text" readOnly value={this.state.product_price}/>
+                                <label>{this.state.product_price}</label>
                             </div>
                         </div>
                     </div>
@@ -145,7 +148,7 @@ class ViewOneProduct extends Component {
                                 <label><strong>Quantity:</strong> </label>
                             </div>
                             <div className="col">
-                                <input type="text" readOnly value={this.state.product_qty}/>
+                                <label>{this.state.product_qty}</label>
                             </div>
                         </div>
                     </div>
@@ -157,7 +160,7 @@ class ViewOneProduct extends Component {
                                 <label><strong>Discount: </strong></label>
                             </div>
                             <div className="col">
-                                <input type="text" readOnly value={this.state.product_discount}/>
+                                <label>{this.state.product_discount}</label>
                             </div>
                         </div>
                     </div>

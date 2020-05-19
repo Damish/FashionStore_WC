@@ -11,7 +11,7 @@ let express = require("express")
 let productRoutes = express.Router();
 
 let Product = require('../schema/product');
-
+let Merns = require('../schema/mern.model')
 
 /////////copied from dinithi/////////
 
@@ -73,9 +73,23 @@ productRoutes.route('/update/:id').post(function (req, res) {
 //delete product details
 productRoutes.route('/deleteProduct/:id').get(function (req, res) {
     Product.findByIdAndRemove({_id: req.params.id}, function (err, product) {
-        if (err) res.json(err);
-        else res.json('Product Deleted Successfully');
+        if (err)
+            res.json(err);
+        else
+            // res.json('Product Deleted Successfully');
+        Merns.deleteMany({'wish_productid': req.params.id}, function (err, result) {
+
+            if (err) {
+                res.send(err);
+            } else {
+                console.log('Product Deleted from all wish lists Successfully');
+                res.send('Product Deleted from all wish lists Successfully');
+            }
+        });
     });
+
+
+
 });
 
 //retrive only one product

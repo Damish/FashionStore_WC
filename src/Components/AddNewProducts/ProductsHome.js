@@ -29,23 +29,23 @@ class ProductsHome extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") ? (
 
-            <div>
-                <div className={"row"}>
-                    <div className={"col"}>
-                        <div className={"jumbotron m-auto jumbotron-fluid bg-warning"} >
-                            <h1 className={"text-white"}>Manage Products</h1>
+                <div>
+                    <div className={"row"}>
+                        <div className={"col"}>
+                            <div className={"jumbotron m-auto jumbotron-fluid bg-warning"} >
+                                <h1 className={"text-white"}>Manage Products</h1>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className={"row pt-2 pl-5 pr-5 justify-content-center"}>
-                    {
-                        this.state.products.map(function (currentProduct, i) {
-                            return <Product_component product={currentProduct} key={i}/>;
-                        })
-                    }
+                    <div className={"row pt-2 pl-5 pr-5 justify-content-center"}>
+                        {
+                            this.state.products.map(function (currentProduct, i) {
+                                return <Product_component product={currentProduct} key={i}/>;
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
             ):(
 
 

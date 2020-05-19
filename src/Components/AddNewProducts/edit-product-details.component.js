@@ -7,7 +7,7 @@ export default class EditProductDetails extends Component {
 
     constructor(props) {
         super(props);
-        this.onChangeProductImg = this.onChangeProductImg.bind(this);
+        // this.onChangeProductImg = this.onChangeProductImg.bind(this);
         this.onChangeProductName = this.onChangeProductName.bind(this);
         this.onChangeProductCategory = this.onChangeProductCategory.bind(this);
         this.onChangeProductDesc = this.onChangeProductDesc.bind(this);
@@ -17,7 +17,7 @@ export default class EditProductDetails extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            product_img: '',
+            // product_img: '',
             product_name: '',
             product_category: '',
             product_description: '',
@@ -34,7 +34,7 @@ export default class EditProductDetails extends Component {
         axios.get('http://localhost:5000/products/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
-                    product_img: response.data.product_img,
+                    // product_img: response.data.product_img,
                     product_name: response.data.product_name,
                     product_category: response.data.product_category,
                     product_description: response.data.product_description,
@@ -48,11 +48,11 @@ export default class EditProductDetails extends Component {
             })
     }
 
-    onChangeProductImg(e) {
-        this.setState({
-            product_img: e.target.value
-        });
-    }
+    // onChangeProductImg(e) {
+    //     this.setState({
+    //         product_img: e.target.value
+    //     });
+    // }
 
     onChangeProductName(e) {
         this.setState({
@@ -98,7 +98,7 @@ export default class EditProductDetails extends Component {
         //
         // }
         const obj = {
-            product_img: this.state.product_img,
+            // product_img: this.state.product_img,
             product_name: this.state.product_name,
             product_category: this.state.product_category,
             product_description: this.state.product_description,
@@ -123,96 +123,96 @@ export default class EditProductDetails extends Component {
 
 
                 <div className={"row justify-content-center"} style={{marginTop: 10}}>
-                <div className={"col-md-9"}>
+                    <div className={"col-md-9"}>
 
-                    <h3 align="center">Update product details</h3>
-                    <form onSubmit={this.onSubmit}>
+                        <h3 align="center">Update product details</h3>
+                        <form onSubmit={this.onSubmit}>
 
-                        <div className="form-row">
-                            <div className="form-group col-md-6">
-                                <label>Image: </label>
-                                <input type="text"
-                                       className="form-control"
-                                       value={this.state.product_img}
-                                       onChange={this.onChangeProductImg}
-                                />
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label>Name: </label>
-                                <input type="text"
-                                       className="form-control"
-                                       value={this.state.product_name}
-                                       onChange={this.onChangeProductName}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="form-row">
-
-                            <div className="form-group col-md-4">
-                                <label>Category: </label>
-
-                                <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>
-                                    <option selected>{this.state.product_category}</option>
-                                    <option value="Mens">Mens</option>
-                                    <option value="Womens">Womens</option>
-                                    <option value="Kids & Baby">Kids & Baby</option>
-                                    <option value="Sports Wear">Sports Wear</option>
-                                    <option value="Accessories">Accessories </option>
-                                    <option value="Home Wear">Home Wear</option>
-                                </select>
-
-                            </div>
-                            <div className="form-group col-md-5">
-                                <label>Description: </label>
-                                <input type="text"
-                                       className="form-control"
-                                       value={this.state.product_description}
-                                       onChange={this.onChangeProductDesc}
-                                />
-                            </div>
-                            <div className="form-group col-md-3">
-                                <label>Price: </label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    value={this.state.product_price}
-                                    onChange={this.onChangeProductPrice}
-                                />
+                            <div className="form-row">
+                                {/*<div className="form-group col-md-6">*/}
+                                {/*    <label>Image: </label>*/}
+                                {/*    <input type="text"*/}
+                                {/*           className="form-control"*/}
+                                {/*           value={this.state.product_img}*/}
+                                {/*           onChange={this.onChangeProductImg}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
+                                <div className="form-group col-md-6">
+                                    <label>Name: </label>
+                                    <input type="text"
+                                           className="form-control"
+                                           value={this.state.product_name}
+                                           onChange={this.onChangeProductName}
+                                    />
+                                </div>
                             </div>
 
-                        </div>
+                            <div className="form-row">
 
-                        <div className="form-row">
+                                <div className="form-group col-md-4">
+                                    <label>Category: </label>
 
-                            <div className="form-group col-md-4">
-                                <label>Quantity: </label>
-                                <input type="number"
-                                       className="form-control"
-                                       value={this.state.product_qty}
-                                       onChange={this.onChangeProductQty}
-                                />
+                                    <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>
+                                        <option selected>{this.state.product_category}</option>
+                                        <option value="Mens">Mens</option>
+                                        <option value="Womens">Womens</option>
+                                        <option value="Kids & Baby">Kids & Baby</option>
+                                        <option value="Sports Wear">Sports Wear</option>
+                                        <option value="Accessories">Accessories </option>
+                                        <option value="Home Wear">Home Wear</option>
+                                    </select>
+
+                                </div>
+                                <div className="form-group col-md-5">
+                                    <label>Description: </label>
+                                    <input type="text"
+                                           className="form-control"
+                                           value={this.state.product_description}
+                                           onChange={this.onChangeProductDesc}
+                                    />
+                                </div>
+                                <div className="form-group col-md-3">
+                                    <label>Price: </label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        value={this.state.product_price}
+                                        onChange={this.onChangeProductPrice}
+                                    />
+                                </div>
+
                             </div>
-                            <div className="form-group col-md-8">
-                                <label>Discount: </label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    value={this.state.product_discount}
-                                    onChange={this.onChangeProductDiscount}
-                                />
+
+                            <div className="form-row">
+
+                                <div className="form-group col-md-4">
+                                    <label>Quantity: </label>
+                                    <input type="number"
+                                           className="form-control"
+                                           value={this.state.product_qty}
+                                           onChange={this.onChangeProductQty}
+                                    />
+                                </div>
+                                <div className="form-group col-md-8">
+                                    <label>Discount: </label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        value={this.state.product_discount}
+                                        onChange={this.onChangeProductDiscount}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
 
-                        <br/>
+                            <br/>
 
-                        <div className="form-group">
-                            <input type="submit" value="Update Details" className="btn btn-primary"/>
-                        </div>
-                    </form>
+                            <div className="form-group">
+                                <input type="submit" value="Update Details" className="btn btn-primary"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
             ):(
 
 
