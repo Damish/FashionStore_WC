@@ -118,14 +118,14 @@ export default class Products extends Component {
 
                         <div className="row justify-content-center">
 
-                            <Link className="btn btn-outline-dark mr-2"
+                            <Link className="btn btn-outline-dark m-2"
                                   to={"/oneProduct/" + this.props.product._id}>View</Link>
 
-                            <Link className="btn btn-outline-warning mr-2"
-                                  to={"/edit/" + this.props.product._id}>Edit</Link>
+                            <Link className="btn btn-outline-warning m-2"
+                                  to={"/edit/" + this.props.product._id}><i className="fa fa-edit"></i>&nbsp;Edit</Link>
 
                             <Link type="submit" onClick={() => this.deleteProduct(this.props.product._id)}
-                                  className="btn btn-outline-danger mr-2">Remove </Link>
+                                  className="btn btn-outline-danger m-2"><i className="fa fa-trash"></i>&nbsp;Remove </Link>
 
                         </div>
 

@@ -23,7 +23,7 @@ class AdminControls extends Component {
                         </div>
                     </Link>
 
-                    <li className="nav-item nav-link dropdown">
+                    <li className=" ml-1 nav-item nav-link dropdown">
 
                             <a className="dropdown-toggle " href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
