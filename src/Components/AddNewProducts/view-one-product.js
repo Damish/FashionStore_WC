@@ -112,9 +112,9 @@ class ViewOneProduct extends Component {
 
         const newComment = {
 
-            userId: window.atob(localStorage.getItem("token-username") ) ,
-            productId: this.props.match.params.id ,
-            commentBody:this.state.pro_comment ,
+            userId: window.atob(localStorage.getItem("token-username")),
+            productId: this.props.match.params.id,
+            commentBody: this.state.pro_comment,
             rating: this.state.value,
 
         };
@@ -148,134 +148,150 @@ class ViewOneProduct extends Component {
     render() {
         return (
             <div>
-                <div style={{width: '75%', margin: '3rem auto', textAlign: 'center'}}>
-                    <h2>{this.state.product_name}</h2>
-                </div>
 
-                <div className="card mt-5 ml-auto mr-auto mb-5 " style={{width: '600px'}}>
-                    <div className="row justify-content-center">
-                        <div className={"col"}>
+                <div className={"row"}>
+                    <div className={"col md-8"}>
 
-                            <img src={this.state.imageData} className={"container"}/>
-
+                        <div style={{width: '75%', margin: '3rem auto', textAlign: 'center'}}>
+                            <h2>{this.state.product_name}</h2>
                         </div>
-                    </div>
 
+                        <div className="card mt-5 ml-auto mr-auto mb-5 " style={{width: '600px'}}>
+                            <div className="row justify-content-center">
+                                <div className={"col"}>
 
-                    <div className="form-group col-sm-8 ml-auto mr-auto">
-                        <div className="row">
-                            <div className="col">
-                                <label><strong>Category: </strong></label>
-                            </div>
-                            <div className="col">
-                                <label>{this.state.product_category}</label>
-                            </div>
-                        </div>
-                    </div>
+                                    <img src={this.state.imageData} className={"container"}/>
 
-
-                    <div className="form-group col-sm-8 ml-auto mr-auto">
-                        <div className="row">
-                            <div className="col">
-                                <label><strong>Description: </strong></label>
-                            </div>
-                            <div className="col">
-                                <label>{this.state.product_description}</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-group col-sm-8 ml-auto mr-auto">
-                        <div className="row">
-                            <div className="col">
-                                <label><strong>Price: </strong></label>
-                            </div>
-                            <div className="col">
-                                <label>{this.state.product_price}</label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div className="form-group col-sm-8 ml-auto mr-auto">
-                        <div className="row">
-                            <div className="col">
-                                <label><strong>Quantity:</strong> </label>
-                            </div>
-                            <div className="col">
-                                <label>{this.state.product_qty}</label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div className="form-group col-sm-8 ml-auto mr-auto">
-                        <div className="row">
-                            <div className="col">
-                                <label><strong>Discount: </strong></label>
-                            </div>
-                            <div className="col">
-                                <label>{this.state.product_discount}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="form-group col-sm-4 ml-auto mr-auto">
-                    <Link className="btn btn-primary ml-3 "
-                          to={"/products_common"}>Go to products page</Link>
-                </div>
-
-                {/*Add Comment Section starts here*/}
-
-                <div className="container">
-                    <div className={"col-md-5"}>
-                        <div className={"row"}>
-                            <form onSubmit={this.onAddtoCommentList}>
-                                <div className="form-group">
-                                    <label htmlFor="comment">Your Comment</label>
-                                    <textarea name="comment" className="form-control" rows="3" cols="50"
-                                              value={this.state.pro_comment}
-                                              onChange={this.onChangeProComments}></textarea>
                                 </div>
-                                <input type="submit" value="send" className="btn btn-primary"/>
-                            </form>
-                        </div>
-                        <br/>
-                        <br/>
-                        <div className={"row"}>
-                            <div>
-                                Rate the product:
                             </div>
-                            <div >
-                                <BeautyStars
-                                    value={this.state.value}
-                                    onChange={value => this.setState({value})}
-                                />
+
+
+                            <div className="form-group col-sm-8 ml-auto mr-auto">
+                                <div className="row">
+                                    <div className="col">
+                                        <label><strong>Category: </strong></label>
+                                    </div>
+                                    <div className="col">
+                                        <label>{this.state.product_category}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div className="form-group col-sm-8 ml-auto mr-auto">
+                                <div className="row">
+                                    <div className="col">
+                                        <label><strong>Description: </strong></label>
+                                    </div>
+                                    <div className="col">
+                                        <label>{this.state.product_description}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group col-sm-8 ml-auto mr-auto">
+                                <div className="row">
+                                    <div className="col">
+                                        <label><strong>Price: </strong></label>
+                                    </div>
+                                    <div className="col">
+                                        <label>{this.state.product_price}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div className="form-group col-sm-8 ml-auto mr-auto">
+                                <div className="row">
+                                    <div className="col">
+                                        <label><strong>Quantity:</strong> </label>
+                                    </div>
+                                    <div className="col">
+                                        <label>{this.state.product_qty}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div className="form-group col-sm-8 ml-auto mr-auto">
+                                <div className="row">
+                                    <div className="col">
+                                        <label><strong>Discount: </strong></label>
+                                    </div>
+                                    <div className="col">
+                                        <label>{this.state.product_discount}</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div className="form-group col-sm-4 ml-auto mr-auto">
+                            <Link className="btn btn-primary ml-3 "
+                                  to={"/products_common"}>Go to products page</Link>
+                        </div>
+
+
                     </div>
+                    <div className={"col md-4"}>
 
 
-                    <br/>
-                    <br/>
-                    <br/>
+                        <div className="container">
 
 
-                    {/*<commentList prodid={this.props.match.params.id}/>*/}
+                            <div className={"row justify-content-center "}>
 
-                    <div col-md-6>
-                        <CommentList prodid={this.props.match.params.id}/>
+
+                                <div className={"col-md-8 mt-5"}>
+
+                                    <label> Rate the product:</label>
+
+                                    <br/>
+
+                                    <BeautyStars
+                                        value={this.state.value}
+                                        onChange={value => this.setState({value})}
+                                    />
+
+
+                                    <form onSubmit={this.onAddtoCommentList}>
+                                        <div className="form-group">
+                                            <label htmlFor="comment">Your Comment</label>
+                                            <textarea name="comment" className="form-control-md" rows="3" cols="50"
+                                                      value={this.state.pro_comment}
+                                                      onChange={this.onChangeProComments}></textarea>
+                                        </div>
+                                        <input type="submit" value="send" className="btn btn-primary"/>
+                                    </form>
+
+
+                                </div>
+                                <br/>
+                                <br/>
+
+                            </div>
+
+
+                            <br/>
+                            <br/>
+                            <br/>
+
+
+                            {/*<commentList prodid={this.props.match.params.id}/>*/}
+
+                            <div col-md-6>
+                                <CommentList prodid={this.props.match.params.id}/>
+                            </div>
+
+                        </div>
+
+
                     </div>
                 </div>
 
 
-                {/*Add Comment Section ends here*/}
                 <br/>
 
             </div>
-
-
 
 
         );

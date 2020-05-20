@@ -53,8 +53,8 @@ productRoutes.route('/update/:id').post(function (req, res) {
         if (!product)
             res.status(404).send("data is not found");
         else
-            product.imageData = req.body.imageData;
-            product.product_name = req.body.product_name;
+        product.imageData = req.body.imageData;
+        product.product_name = req.body.product_name;
         product.product_category = req.body.product_category;
         product.product_description = req.body.product_description;
         product.product_discount = req.body.product_discount;
@@ -67,7 +67,9 @@ productRoutes.route('/update/:id').post(function (req, res) {
             .catch(err => {
                 res.status(400).send("Update not possible");
             });
-    });
+
+
+        });
 
 });
 
