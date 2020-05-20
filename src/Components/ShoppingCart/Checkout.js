@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import PleaseLogin from "../Login/PleaseLogin";
 
 class Checkout extends Component {
 
@@ -163,7 +164,7 @@ class Checkout extends Component {
     }
     render() {
         return (
-
+            (localStorage.getItem("isLoggedin") === "true") ? (
             <div className="container">
                 <form onSubmit={this.onSubmit}>
                     <div className="card">
@@ -320,6 +321,13 @@ class Checkout extends Component {
                     </div>
                 </form>
             </div>
+        ) : (
+
+
+            <PleaseLogin/>
+
+
+        )
 
 
         );

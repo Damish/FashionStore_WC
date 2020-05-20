@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Shoppingitem from "./shoppingitem";
 import axios from 'axios';
 import {Link} from "react-router-dom";
+import PleaseLogin from "../Login/PleaseLogin";
 
 class Shoppingcart extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class Shoppingcart extends Component {
 
     render() {
         return (
-
+            (localStorage.getItem("isLoggedin") === "true") ? (
             < div className="Container mt-5">
                 <div className="card mb-5 ">
                     <h1 className="text-center">ShoppingCart</h1>
@@ -85,6 +86,13 @@ class Shoppingcart extends Component {
                 </div>
 
             </div>
+            ) : (
+
+
+                <PleaseLogin/>
+
+
+            )
 
 
         );
