@@ -83,7 +83,7 @@ export default class Products extends Component {
                         <div className="row justify-content-center">
                             <div className={"col"}>
 
-                                <img src={no_image_available} className={"container"}/>
+                                <img src={this.props.product.imageData} className={"container"}/>
 
                                 {/*{this.props.product.product_img}*/}
                             </div>
@@ -108,20 +108,20 @@ export default class Products extends Component {
                                   to={"/oneProduct/" + this.props.product._id}>View</Link>
 
                             <Link to={"/shopping-cart"} className={"btn btn-outline-primary mr-2"} type={"button"}
-                                    onClick={(event) => this.onAddtoCart(this.props.product._id)}>
+                                  onClick={(event) => this.onAddtoCart(this.props.product._id)}>
 
                                 <i className="fa fa-shopping-cart"> </i>
                             </Link>
 
 
                             <Link to={"/wish-list"} className={"btn btn-outline-primary mr-2"} type={"button"}
-                                    onClick={()=>this.onAddtoWishList(
-                                        window.atob(localStorage.getItem("token-username")),
-                                        this.props.product._id,
-                                        this.props.product.product_name,
-                                        this.props.product.product_price,
-                                        this.props.product.product_discount
-                                    )}>
+                                  onClick={()=>this.onAddtoWishList(
+                                      window.atob(localStorage.getItem("token-username")),
+                                      this.props.product._id,
+                                      this.props.product.product_name,
+                                      this.props.product.product_price,
+                                      this.props.product.product_discount
+                                  )}>
 
 
                                 <i className="fa fa-heart-o" style={{"color": "red"}}> </i>

@@ -12,6 +12,8 @@ import Add_Product from "../AddNewProducts/add-product.component"
 import EditProductDetails from "../AddNewProducts/edit-product-details.component";
 import ViewOneProduct from "../AddNewProducts/view-one-product"
 import PleaseLogin from "./PleaseLogin";
+import StoreManagersList from "../StoreManagers/StoreManagersList";
+import UsersList from "../ManageUsers/UsersList";
 
 export default class TestHome extends Component {
 
@@ -22,6 +24,27 @@ export default class TestHome extends Component {
                 <div className={""}>
 
                     <Switch>
+
+                        <Route exact path="/" render={() => (
+                            <Redirect to="/products_common"/>
+                        )}/>
+
+
+                        <Route path="/sm_all">
+                            <NavigationBar/>
+                            <Route path="/sm_all" component={StoreManagersList}/>
+                        </Route>
+
+                        <Route path="/allUsers">
+                            <NavigationBar/>
+                            <Route path="/allUsers" component={UsersList}/>
+                        </Route>
+
+
+                        <Route path="/oneProduct/:id">
+                            <NavigationBar/>
+                            <Route path="/oneProduct/:id" component={ViewOneProduct}/>
+                        </Route>
 
                         <Route path="/oneProduct/:id">
                             <NavigationBar/>

@@ -12,7 +12,7 @@ class Wishitem extends Component {
         shop_proname: '',
         shop_proprice: '',
         shop_prodiscount: '',
-
+        imageData:''
 
     }
 
@@ -78,7 +78,23 @@ class Wishitem extends Component {
 
     //manji things end
 
+    componentDidMount() {
+        this.getProductList();
+    }
 
+
+    getProductList() {
+        axios.get('http://localhost:5000/products/'+ this.props.wi_pid)
+            .then(response => {
+               this.setState({
+
+                   imageData:response.data.imageData
+               })
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
 
 
     render() {
@@ -91,7 +107,7 @@ class Wishitem extends Component {
 
                                 <div className="card mr-3">
                                     <div className="card-body">
-                                        <img alt={"d"}></img>
+                                        <img src={this.state.imageData} className={"container"}/>
                                     </div>
                                 </div>
 

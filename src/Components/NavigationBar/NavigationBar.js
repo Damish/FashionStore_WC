@@ -52,7 +52,7 @@ class NavigationBar extends Component {
                             <Link className="nav-item nav-link " to="/products_common">Products</Link>
                             <Link className="nav-item nav-link" to="/shopping-cart">Shopping Cart</Link>
                             <Link className="nav-item nav-link" to="/wish-list">WishList </Link>
-                            <Link className="nav-item nav-link" to="/protected3">Protected3</Link>
+                            {/*<Link className="nav-item nav-link" to="/protected3">Protected3</Link>*/}
 
 
                             {
@@ -60,11 +60,13 @@ class NavigationBar extends Component {
 
                                     <AdminControls/>
 
-                                ) : (User_Type === "User") ? (
+                                ) :
+                                    (User_Type === "User") ? (
 
-                                    <Link className="nav-item nav-link " to="/sign-up">Sign up</Link>
-
-                                ) : (User_Type === "StoreManager") ? (
+                                    // <Link className="nav-item nav-link " to="/sign-up">Sign up</Link>
+                                            <div></div>
+                                ) :
+                                        (User_Type === "StoreManager") ? (
 
                                     <StoreManagerControls/>
 
@@ -124,6 +126,9 @@ class NavigationBar extends Component {
                                         <div className={"row md-4"}>
                                             <div className={"col"}>
                                                 <h6 className={"text-white nav-item nav-link"}> Login/Signup </h6>
+                                            </div>
+                                            <div className={"col"}>
+                                                 <Link className="btn btn-success " to="/sign-up">Signup</Link>
                                             </div>
                                             <div className={"col"}>
                                                 <Link className=" btn btn-primary" to="/login">Login</Link>
