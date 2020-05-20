@@ -113,7 +113,7 @@ class Shoppingitem extends Component {
                                     </div>
                                 </div>
 
-                                <p>{this.props.s_pid}</p>
+                                {/*<p>{this.props.s_pid}</p>*/}
                             </div>
 
                         </span>
