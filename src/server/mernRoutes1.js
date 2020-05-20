@@ -12,7 +12,7 @@ let express = require("express")
 let mernRoutes = express.Router();
 
 let Merns = require('../schema/mern.model');
-
+let Comment = require('../schema/Comment');
 
 
 mernRoutes.route('/').get(function (req, res) {
@@ -65,6 +65,37 @@ mernRoutes.route('/addwish').post(function (req, res) {
             res.status(400).send('adding new todo failed');
         });
 });
+
+
+
+///Comment routes start///
+
+mernRoutes.route('/addcomment').post(function(req, res) {
+    let comment= new Comment(req.body);
+    comment.save()
+        .then(mern => {
+            res.send(mern);
+            res.status(200).json({'response': 'added new comment successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('adding new comment failed');
+        });
+});
+
+//find comments
+
+mernRoutes.route('/findcomment/:proid').get(function(req, res) {
+    let id = req.params.proid;
+
+    Comment.find({'productId':id}, function(err, mern) {
+        res.json(mern);
+    });
+
+});
+
+
+////end of comment routes///
+
 
 
 module.exports= mernRoutes;

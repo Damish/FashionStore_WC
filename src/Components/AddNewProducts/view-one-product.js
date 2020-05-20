@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
-
+import BeautyStars from "beauty-stars";
+import CommentList from "../Comment/CommentList";
 
 class ViewOneProduct extends Component {
 
@@ -14,6 +15,8 @@ class ViewOneProduct extends Component {
         // this.onChangeProductPrice = this.onChangeProductPrice.bind(this);
         // this.onChangeProductQty = this.onChangeProductQty.bind(this);
         // this.onChangeProductDiscount = this.onChangeProductDiscount.bind(this);
+        this.onChangeProComments = this.onChangeProComments.bind(this);
+        this.onAddtoCommentList = this.onAddtoCommentList.bind(this);
 
         this.state = {
             product_img: '',
@@ -23,7 +26,9 @@ class ViewOneProduct extends Component {
             product_price: '',
             product_qty: '',
             product_discount: '',
-            imageData: 'no url found'
+            imageData: 'no url found',
+            pro_comment: '',
+            value: 1.5,
         }
 
     }
@@ -89,6 +94,56 @@ class ViewOneProduct extends Component {
     //         product_discount: e.target.value
     //     });
     // }
+
+
+    /////functions related to comments/////
+
+    onChangeProComments(e) {
+        this.setState({
+            pro_comment: e.target.value
+        });
+    }
+
+    onAddtoCommentList(e) {
+
+        e.preventDefault();
+        console.log(`comment:${this.state.pro_comment}`);
+        console.log(this.state.value);
+
+        const newComment = {
+
+            userId: window.atob(localStorage.getItem("token-username") ) ,
+            productId: this.props.match.params.id ,
+            commentBody:this.state.pro_comment ,
+            rating: this.state.value,
+
+        };
+
+        axios.post('http://localhost:5000/mern/addcomment', newComment)
+
+            .then((response) => {
+
+                console.log('Comment added successfully!!!')
+                console.log(response.data);
+
+            }, (error) => {
+                console.log('comment adding unsuccessful!!!')
+                console.log(error);
+            });
+
+
+        this.setState({
+            pro_comment: '',
+            value: 1,
+
+        })
+        window.location.reload();
+
+
+    }
+
+    ///////end of comment functions////////
+
 
     render() {
         return (
@@ -171,7 +226,57 @@ class ViewOneProduct extends Component {
                           to={"/products_common"}>Go to products page</Link>
                 </div>
 
+                {/*Add Comment Section starts here*/}
+
+                <div className="container">
+                    <div className={"col-md-5"}>
+                        <div className={"row"}>
+                            <form onSubmit={this.onAddtoCommentList}>
+                                <div className="form-group">
+                                    <label htmlFor="comment">Your Comment</label>
+                                    <textarea name="comment" className="form-control" rows="3" cols="50"
+                                              value={this.state.pro_comment}
+                                              onChange={this.onChangeProComments}></textarea>
+                                </div>
+                                <input type="submit" value="send" className="btn btn-primary"/>
+                            </form>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div className={"row"}>
+                            <div>
+                                Rate the product:
+                            </div>
+                            <div >
+                                <BeautyStars
+                                    value={this.state.value}
+                                    onChange={value => this.setState({value})}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+
+                    {/*<commentList prodid={this.props.match.params.id}/>*/}
+
+                    <div col-md-6>
+                        <CommentList prodid={this.props.match.params.id}/>
+                    </div>
+                </div>
+
+
+                {/*Add Comment Section ends here*/}
+                <br/>
+
             </div>
+
+
+
 
         );
     }
