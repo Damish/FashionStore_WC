@@ -58,8 +58,14 @@ class Wishitem extends Component {
             shop_proprice:sprice,
             shop_prodiscount:sdiscount
         };
-        axios.post('http://localhost:5000/mern/addshopping', newshopi)
+        axios.post('http://localhost:5000/shop/addshopping', newshopi)
             .then(res => console.log(res.data));
+
+
+
+
+
+
 
         this.onRemoveItem(spid);
 
