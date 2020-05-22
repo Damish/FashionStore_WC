@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import Shoppingcart from "../ShoppingCart/shoppingcart";
 import Login from "./Login";
 import WishList from "../WishList/WishList";
 import NavigationBar from "../NavigationBar/NavigationBar";
@@ -14,6 +14,9 @@ import ViewOneProduct from "../AddNewProducts/view-one-product"
 import PleaseLogin from "./PleaseLogin";
 import StoreManagersList from "../StoreManagers/StoreManagersList";
 import UsersList from "../ManageUsers/UsersList";
+import Checkout from "../ShoppingCart/Checkout"
+
+
 
 export default class TestHome extends Component {
 
@@ -99,8 +102,19 @@ export default class TestHome extends Component {
                         <PrivateRoute3 exact path="/shopping-cart" isAuthenticated={fakeAuth.isAuthenticated}
                                        isLoggedin1={true}>
                             <NavigationBar/>
-                            <ShoppingCart/>
+                            <Shoppingcart/>
                         </PrivateRoute3>
+
+
+
+                        <PrivateRoute3 exact path="/checkout" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <Checkout/>
+                        </PrivateRoute3>
+
+
+
 
                         <PrivateRoute3 exact path="/protected3" isAuthenticated={fakeAuth.isAuthenticated}
                                        isLoggedin1={true}>

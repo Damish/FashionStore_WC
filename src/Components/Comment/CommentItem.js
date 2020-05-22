@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import BeautyStars from "beauty-stars";
+import CommentImage from './useritemcomment.png';
+
 
 class CommentItem extends Component {
     constructor(props) {
@@ -11,9 +13,10 @@ class CommentItem extends Component {
             <div>
                 <li className="list-group-item">
                     <div className="row">
-                        <div className="col-xs-2 col-md-1">
-                            <img src="http://placehold.it/80" className="img-circle img-responsive" alt=""/></div>
-                        <div className="col-xs-10 col-md-11">
+                        <div className="col-xs-2 col-md-4">
+                            <img style={{width: '40%', height:'90%'}} src={CommentImage} className="img-circle img-responsive" alt=""/>
+                        </div>
+                        <div className="col-xs-10 col-md-5">
                             <div>
 
                                 <div className="mic-info">

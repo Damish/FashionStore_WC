@@ -62,8 +62,28 @@ export default class Products extends Component {
         window.location.replace("/wish-list")
     }
 
-    onAddtoCart(e) {
-        console.log(" onAddtoCart() called. Product id to be added : " + e);
+    onAddtoCart(scid,spid,sname,sprice,sdiscount){
+
+
+        const newshopi = {
+            shop_custid:scid ,
+            shop_productid:spid,
+            shop_proname:sname,
+            shop_proprice:sprice,
+            shop_prodiscount:sdiscount
+        };
+        axios.post('http://localhost:5000/shop/addshopping', newshopi)
+            .then(res => console.log(res.data));
+
+        // this.setState({
+        //     shop_custid:'' ,
+        //     shop_productid:'',
+        //     shop_proname:'',
+        //     shop_proprice:'',
+        //     shop_prodiscount:''
+        // })
+
+        window.location.replace("/shopping-cart")
 
     }
 
@@ -107,11 +127,29 @@ export default class Products extends Component {
                             <Link className="btn btn-outline-dark mr-2"
                                   to={"/oneProduct/" + this.props.product._id}>View</Link>
 
+                            {/*<Link to={"/shopping-cart"} className={"btn btn-outline-primary mr-2"} type={"button"}*/}
+                            {/*      onClick={(event) => this.onAddtoCart(this.props.product._id)}>*/}
+
+                            {/*    <i className="fa fa-shopping-cart"> </i>*/}
+                            {/*</Link>*/}
+
+
+
                             <Link to={"/shopping-cart"} className={"btn btn-outline-primary mr-2"} type={"button"}
-                                  onClick={(event) => this.onAddtoCart(this.props.product._id)}>
+                                  onClick={()=>this.onAddtoCart(
+                                      window.atob(localStorage.getItem("token-username")),
+                                      this.props.product._id,
+                                      this.props.product.product_name,
+                                      this.props.product.product_price,
+                                      this.props.product.product_discount
+                                  )}>
+
 
                                 <i className="fa fa-shopping-cart"> </i>
+
                             </Link>
+
+
 
 
                             <Link to={"/wish-list"} className={"btn btn-outline-primary mr-2"} type={"button"}

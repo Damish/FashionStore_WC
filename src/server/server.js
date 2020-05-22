@@ -101,12 +101,8 @@ app.use("/products",ProductRoutes1);
 *
 * */
 
-
-////
-
-//Manjari's part' here
-
-////
+let shopRoutes =require("./shopRoutes1")
+app.use('/shop',shopRoutes);
 
 
 app.listen(5000, () => console.log('server started on port 5000'));
