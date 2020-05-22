@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import { Table, Button } from 'react-bootstrap';
-import no_image_available from '../images/no_image_available.jpg';
 
 export default class Products extends Component {
 
@@ -31,20 +30,20 @@ export default class Products extends Component {
             })
     }
 
-    onAddtoWishList(wcid,wpid,wname,wprice,wdiscount){
+    onAddtoWishList(wcid, wpid, wname, wprice, wdiscount) {
 
         console.log(`add to wishlist:`);
-        console.log(`wish cusid: `+wcid);
-        console.log(`wish productid:`+wpid);
-        console.log(`wish name:`+wname);
-        console.log(`wish price :`+wprice);
-        console.log(`wish price :`+wdiscount);
+        console.log(`wish cusid: ` + wcid);
+        console.log(`wish productid:` + wpid);
+        console.log(`wish name:` + wname);
+        console.log(`wish price :` + wprice);
+        console.log(`wish price :` + wdiscount);
 
         const newWish = {
-            wish_cusid :wcid ,
-            wish_productid:wpid,
-            wish_name:wname,
-            wish_price:wprice,
+            wish_cusid: wcid,
+            wish_productid: wpid,
+            wish_name: wname,
+            wish_price: wprice,
             wish_discount: wdiscount
         };
 
@@ -52,25 +51,25 @@ export default class Products extends Component {
             .then(res => console.log(res.data));
 
         this.setState({
-            wish_cusid : '',
+            wish_cusid: '',
             wish_productid: '',
             wish_name: '',
             wish_price: '',
-            wish_discount:''
+            wish_discount: ''
         })
 
         window.location.replace("/wish-list")
     }
 
-    onAddtoCart(scid,spid,sname,sprice,sdiscount){
+    onAddtoCart(scid, spid, sname, sprice, sdiscount) {
 
 
         const newshopi = {
-            shop_custid:scid ,
-            shop_productid:spid,
-            shop_proname:sname,
-            shop_proprice:sprice,
-            shop_prodiscount:sdiscount
+            shop_custid: scid,
+            shop_productid: spid,
+            shop_proname: sname,
+            shop_proprice: sprice,
+            shop_prodiscount: sdiscount
         };
         axios.post('http://localhost:5000/shop/addshopping', newshopi)
             .then(res => console.log(res.data));
@@ -92,8 +91,17 @@ export default class Products extends Component {
         return (
             <div>
 
-                <div className={"box m-2"}
-                     style={{width: "260px", "background": "white", "padding": "7px", "box-shadow": "0 0 10px -5px"}}>
+                <div className={"box m-2"} style=
+
+                    {
+                        (this.props.product.product_discount === 0) ? (
+                            {width: "260px", "background": "#95999c", "padding": "7px", "box-shadow": "0 0 10px -5px"}
+                        ) : (
+                            {width: "260px", 'background-color': "#dbdfe2", "padding": "7px", "box-shadow": "0 0 10px -5px"}
+                        )
+                    }
+
+                >
 
 
                     <div className="thumbnail ml-3 mr-3 mb-3">
@@ -134,9 +142,8 @@ export default class Products extends Component {
                             {/*</Link>*/}
 
 
-
-                            <Link to={"/shopping-cart"} className={"btn btn-outline-primary mr-2"} type={"button"}
-                                  onClick={()=>this.onAddtoCart(
+                            <Link to={"/shopping-cart"} className={"btn btn-outline-info mr-2"} type={"button"}
+                                  onClick={() => this.onAddtoCart(
                                       window.atob(localStorage.getItem("token-username")),
                                       this.props.product._id,
                                       this.props.product.product_name,
@@ -150,10 +157,8 @@ export default class Products extends Component {
                             </Link>
 
 
-
-
-                            <Link to={"/wish-list"} className={"btn btn-outline-primary mr-2"} type={"button"}
-                                  onClick={()=>this.onAddtoWishList(
+                            <Link to={"/wish-list"} className={"btn btn-outline-danger mr-2"} type={"button"}
+                                  onClick={() => this.onAddtoWishList(
                                       window.atob(localStorage.getItem("token-username")),
                                       this.props.product._id,
                                       this.props.product.product_name,
@@ -162,12 +167,21 @@ export default class Products extends Component {
                                   )}>
 
 
-                                <i className="fa fa-heart-o" style={{"color": "red"}}> </i>
+                                <i className="fa fa-heart-o" style={{"color": "#bf0000"}}> </i>
 
                             </Link>
+                            {
 
-                            <Link className=" btn btn-danger">-{this.props.product.product_discount}%</Link>
+                                (this.props.product.product_discount === 0) ? (
 
+                                    <div></div>
+                                ) : (
+
+
+                                    <Link className="blink btn btn-danger">-{this.props.product.product_discount}%</Link>
+
+                                )
+                            }
                         </div>
 
 

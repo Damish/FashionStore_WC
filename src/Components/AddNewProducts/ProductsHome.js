@@ -29,7 +29,7 @@ class ProductsHome extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") ? (
 
-                <div>
+                <div style={{'background-color':'#8e979a'}}>
                     <div className={"row"}>
                         <div className={"col"}>
                             <div className={"jumbotron m-auto jumbotron-fluid bg-warning"} >

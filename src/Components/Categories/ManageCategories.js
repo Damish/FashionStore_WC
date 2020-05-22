@@ -101,8 +101,12 @@ class ManageCategories extends Component {
         return (
             (localStorage.getItem("isLoggedin") === "true") && (window.atob(localStorage.getItem("Utype"))) === "Admin" ? (
 
-                <div>
-                <div className={"row"}>
+                <div >
+
+                    {/*style={{'background-color':'#233247'}}>
+                    style={{'height':'800px'}}*/}
+
+                <div className={"row"} >
                     <div className={"col "}>
                         <div className={"row justify-content-center"} style={{marginTop: "20%"}}>
 
@@ -181,6 +185,7 @@ class ManageCategories extends Component {
 
                     </div>
                 </div>
+
             </div>
 
             ) : (

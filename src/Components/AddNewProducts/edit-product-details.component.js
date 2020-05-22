@@ -243,6 +243,8 @@ export default class EditProductDetails extends Component {
                         <form onSubmit={this.onSubmit}>
 
 
+                            <div className={"row"}>
+                                <div className={"col"}>
 
 
                             <div className="form-group col-sm-8 ml-auto mr-auto mt-5">
@@ -254,8 +256,9 @@ export default class EditProductDetails extends Component {
                                 <img src={this.state.firebaseImage} alt={''} style={style}/>
                             </div>
 
+                                </div>
 
-
+                                <div className={"col"}>
 
                             <div className="form-row">
                                 {/*<div className="form-group col-md-6">*/}
@@ -345,6 +348,11 @@ export default class EditProductDetails extends Component {
 
                             <div className="form-group mb-4">
                                 <input type="submit" value="Update Details" className="btn btn-primary"/>
+                            </div>
+
+
+                                </div>
+
                             </div>
                         </form>
                     </div>
