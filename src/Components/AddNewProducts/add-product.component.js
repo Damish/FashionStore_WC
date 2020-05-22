@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 import {storage} from '../../firbase-config';
 import DefaultImg from './assets/default-img.jpg';
 import PleaseLogin from "../Login/PleaseLogin";
+import Dropdown from "react-dropdown";
+import 'react-dropdown/style.css';
 
 export default class AddProduct extends Component {
 
@@ -34,17 +36,39 @@ export default class AddProduct extends Component {
             product_description: '',
             product_price: 0,
             product_qty: 1,
-            product_discount: 1
+            product_discount: 1,
+
+            options : [],
+
+            default_option:'Select Category',
+
+
+            myCategories:[]
+
 
         }
-
     }
 
-    // onChangeProductImg(e) {
-    //     this.setState({
-    //         product_img: e.target.value
-    //     });
-    // }
+    componentDidMount() {
+
+        console.log("ComponentDidMount:::")
+
+        axios.get('http://localhost:5000/category/')
+            .then(response => {
+                this.setState({myCategories: response.data});
+
+
+                this.state.myCategories.map((value,index) => {
+                    this.state.options.push(value.cat_name);
+                });
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+
+    }
 
     onChangeProductName(e) {
         this.setState({
@@ -53,8 +77,11 @@ export default class AddProduct extends Component {
     }
 
     onChangeProductCategory(e) {
+        console.log("Selected category "+ e.value);
+        console.log("Default option "+ e.value);
         this.setState({
-            product_category: e.target.value
+            product_category: e.value,
+            default_option:e.value
         });
     }
 
@@ -82,9 +109,7 @@ export default class AddProduct extends Component {
         });
     }
 
-
     /////////Image Upload methods/////////
-
 
     setDefaultImage(uploadType) {
         if (uploadType === "firebase") {
@@ -133,9 +158,6 @@ export default class AddProduct extends Component {
 
     ///Image Upload methods ends here/////
 
-
-
-
     onSubmit(e) {
         e.preventDefault();
 
@@ -145,7 +167,7 @@ export default class AddProduct extends Component {
         }
 
         const newProduct = {
-            imageData:this.state.firebaseImage,
+            imageData: this.state.firebaseImage,
             // product_img: this.state.product_img,
             product_name: this.state.product_name,
             product_category: this.state.product_category,
@@ -190,7 +212,14 @@ export default class AddProduct extends Component {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            marginTop: ' 5px'
+            marginTop: ' 5px',
+
+            options : [
+                'one',
+                'two',
+                'three'
+            ],
+
         };
 
 
@@ -257,17 +286,19 @@ export default class AddProduct extends Component {
                                     {/*    onChange={this.onChangeProductCategory}*/}
 
 
+                                    {/*<select className="custom-select mr-sm-2" id="inlineFormCustomSelect"*/}
+                                    {/*        onChange={this.onChangeProductCategory}>*/}
+                                    {/*    <option selected>Choose...</option>*/}
+                                    {/*    <option value="Mens">Mens</option>*/}
+                                    {/*    <option value="Womens">Womens</option>*/}
+                                    {/*    <option value="Kids & Baby">Kids & Baby</option>*/}
+                                    {/*    <option value="Sports Wear">Sports Wear</option>*/}
+                                    {/*    <option value="Accessories">Accessories</option>*/}
+                                    {/*    <option value="Home Wear">Home Wear</option>*/}
+                                    {/*</select>*/}
 
-                                    <select className="custom-select mr-sm-2" id="inlineFormCustomSelect"
-                                            onChange={this.onChangeProductCategory}>
-                                        <option selected>Choose...</option>
-                                        <option value="Mens">Mens</option>
-                                        <option value="Womens">Womens</option>
-                                        <option value="Kids & Baby">Kids & Baby</option>
-                                        <option value="Sports Wear">Sports Wear</option>
-                                        <option value="Accessories">Accessories</option>
-                                        <option value="Home Wear">Home Wear</option>
-                                    </select>
+                                    <Dropdown className={"form-group mr-sm-2"} options={this.state.options} value={this.state.default_option} onChange={(e) =>this.onChangeProductCategory(e)}
+                                    />
 
 
                                 </div>

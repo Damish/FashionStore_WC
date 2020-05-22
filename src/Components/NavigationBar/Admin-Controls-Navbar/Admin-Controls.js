@@ -23,28 +23,38 @@ class AdminControls extends Component {
                         </div>
                     </Link>
 
+                    <Link className="nav-item nav-link text-white"
+                          to="/categories">
+                        <div className={"ml-1 col bg-primary"}>
+                            Categories
+                        </div>
+                    </Link>
+
                     <li className=" ml-1 nav-item nav-link dropdown">
 
-                            <a className="dropdown-toggle " href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Manage Users
-                            </a>
+                        <a className="dropdown-toggle " href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Manage Users
+                        </a>
 
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
                             <Link className="nav-item nav-link text-white bg-dark"
                                   to="/sm_all">
-                                    Store Managers
+                                Store Managers
                             </Link>
 
                             <Link className="nav-item nav-link text-white bg-info"
                                   to="/allUsers">
-                                    Users
+                                Users
                             </Link>
                         </div>
 
 
                     </li>
+
+
+
 
 
                 </div>
