@@ -7,13 +7,33 @@ class Shoppingitem extends Component {
         this.state = {
             score: 1,
             tot: this.props.s_price,
-            lasttot:0
+            lasttot:0,
+            imageData:''
+
         }
     }
 
     componentDidMount() {
         this.totalinit(this.state.score);
+        this.getProductList();
     }
+
+
+
+    getProductList() {
+        axios.get('http://localhost:5000/products/'+ this.props.s_pid)
+            .then(response => {
+                this.setState({
+
+                    imageData:response.data.imageData
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+
 
     incrementScore = (e) => {
         this.setState({
@@ -65,7 +85,7 @@ class Shoppingitem extends Component {
             tot: netPrice * qty,
         });
         if (localStorage.getItem("total")){
-           var a =  parseInt(localStorage.getItem("total"));
+            var a =  parseInt(localStorage.getItem("total"));
             localStorage.setItem("total",a+(netPrice * qty));
             this.props.onBilltotChange();
         }else {
@@ -104,19 +124,11 @@ class Shoppingitem extends Component {
                 <div className="card-body">
                     <div className="row">
                         <div className="col">
-                        <span>
-
-                            <div className="row">
-                                <div className="card mr-3">
-                                    <div className="card-body">
-                                        <img></img>
-                                    </div>
+                            <div className="card mr-3">
+                                <div className="card-body">
+                                    <img src={this.state.imageData} className={"container"}/>
                                 </div>
-
-                                {/*<p>{this.props.s_pid}</p>*/}
                             </div>
-
-                        </span>
                         </div>
                         <div className="col">
                             {this.props.s_name}

@@ -160,174 +160,190 @@ class Checkout extends Component {
             check_cvv: ''
 
 
-        })
+        });
+
+        axios.delete('http://localhost:5000/shop/emptyshoppingcart/' + window.atob(localStorage.getItem("token-username")))
+            .then((response) => {
+
+                console.log(response.data);
+                alert("Checkout Successful");
+            }, (error) => {
+                console.log(error);
+            });
+
+
     }
     render() {
         return (
             (localStorage.getItem("isLoggedin") === "true") ? (
-            <div className="container">
-                <form onSubmit={this.onSubmit}>
-                    <div className="card">
-                        <h1>Checkout form</h1>
-                        <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
-                            responsive, mobile-first projects on the web.</p>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-6">
-
-
-                            <h1>Billing Address</h1>
-                            <p>Full Name :</p>
-                            <input className="form-control input-sm"
-                                   type="text"
-
-                                   value={this.state.check_fullname}
-                                   onChange={this.onChangecheckfullname}
-                                   required
-                            />
-
-                            <p>Email Address:</p>
-                            <input className="form-control input-sm"
-                                   type="text"
-                                   value={this.state.check_email}
-                                   onChange={this.onChangecheckemail}
-                                   required
-                            />
-
-                            <p>Address:</p>
-                            <input className="form-control input-sm"
-                                   type="text"
-                                   value={this.state.check_address}
-                                   onChange={this.onChangecheckaddress}
-                                   required
-                            />
-                            <p>City:</p>
-                            <input className="form-control input-sm"
-                                   type="text"
-                                   value={this.state.check_city}
-                                   onChange={this.onChangecheckcity}
-                                   required
-                            />
-                            <div className="row">
-                                <div className={"col-md-6"}>
-                                    <p>State:</p>
-                                    <input className="form-control input-sm"
-                                           type="text"
-                                           value={this.state.check_state}
-                                           onChange={this.onChangecheckstate}
-                                           required
-                                    />
-                                </div>
-                                <div className={"col-md-6"}>
-                                    <p>Zip:</p>
-                                    <input className="form-control input-sm"
-                                           type="text"
-                                           value={this.state.check_zip}
-                                           onChange={this.onChangecheckzip}
-                                           required
-                                    />
-                                </div>
-                            </div>
-
-
+                <div className="container">
+                    <form onSubmit={this.onSubmit}>
+                        <div className="card">
+                            <h1>Checkout form</h1>
+                            <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
+                                responsive, mobile-first projects on the web.</p>
                         </div>
+                        <div className="row">
+                            <div className="col-md-6">
 
 
-                        <div className="col-md-6">
-
-                            <h1> Payment </h1>
-                            <div className="form-group">
-                                <p>Accepted Cards:</p>
-
-                                <div className="form-check form-check-inline">
-                                    <input  className="form-check-input"
-                                            type="radio"
-                                            name="priorityOptions"
-                                            id="prioritycredit"
-                                            value="credit"
-                                            checked={this.state.check_cardtype==='credit'}
-                                            onChange={this.onChangecheckcardtype}
-                                            required
-                                    />
-                                    <label className="form-check-label">Credit card</label>
-                                </div>
-                                <div className="form-check form-check-inline">
-                                    <input  className="form-check-input"
-                                            type="radio"
-                                            name="priorityOptions"
-                                            id="prioritydebit"
-                                            value="debit"
-                                            checked={this.state.check_cardtype==='debit'}
-                                            onChange={this.onChangecheckcardtype}
-
-                                    />
-                                    <label className="form-check-label">Debit card</label>
-                                </div>
-                            </div>
-                            <div className="form-group">
-
-                                <p>Name on Card:</p>
+                                <h1>Billing Address</h1>
+                                <p>Full Name :</p>
                                 <input className="form-control input-sm"
                                        type="text"
-                                       value={this.state.check_cardname}
-                                       onChange={this.onChangecheckcardname}
-                                       required
 
-                                />
-                                <p>Credit card number:</p>
-                                <input className="form-control input-sm"
-                                       type="number"
-                                       value={this.state.check_cardnumber}
-                                       onChange={this.onChangecheckcardnumber}
+                                       value={this.state.check_fullname}
+                                       onChange={this.onChangecheckfullname}
                                        required
                                 />
-                                <p>Exp Month:</p>
+
+                                <p>Email Address:</p>
                                 <input className="form-control input-sm"
                                        type="text"
-                                       value={this.state.check_expmonth}
-                                       onChange={this.onChangecheckexpmonth}
+                                       value={this.state.check_email}
+                                       onChange={this.onChangecheckemail}
+                                       required
+                                />
+
+                                <p>Address:</p>
+                                <input className="form-control input-sm"
+                                       type="text"
+                                       value={this.state.check_address}
+                                       onChange={this.onChangecheckaddress}
+                                       required
+                                />
+                                <p>City:</p>
+                                <input className="form-control input-sm"
+                                       type="text"
+                                       value={this.state.check_city}
+                                       onChange={this.onChangecheckcity}
                                        required
                                 />
                                 <div className="row">
                                     <div className={"col-md-6"}>
-                                        <p>Exp year:</p>
+                                        <p>State:</p>
                                         <input className="form-control input-sm"
-                                               type="number"
-                                               value={this.state.check_expyear}
-                                               onChange={this.onChangecheckexpyear}
+                                               type="text"
+                                               value={this.state.check_state}
+                                               onChange={this.onChangecheckstate}
                                                required
                                         />
                                     </div>
                                     <div className={"col-md-6"}>
-                                        <p>CVV:</p>
+                                        <p>Zip:</p>
                                         <input className="form-control input-sm"
-                                               type=""
-                                               value={this.state.check_cvv}
-                                               onChange={this.onChangecheckcvv}
+                                               type="text"
+                                               value={this.state.check_zip}
+                                               onChange={this.onChangecheckzip}
                                                required
                                         />
                                     </div>
                                 </div>
+
+
                             </div>
 
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <div className="row mt-5">
-                            <div className="col md-12">
-                                <input type="submit" value="continue checkout" className="btn btn-primary btn-block" />
+
+                            <div className="col-md-6">
+
+                                <h1> Payment </h1>
+                                <div className="form-group">
+                                    <p>Accepted Cards:</p>
+
+                                    <div className="form-check form-check-inline">
+                                        <input  className="form-check-input"
+                                                type="radio"
+                                                name="priorityOptions"
+                                                id="prioritycredit"
+                                                value="credit"
+                                                checked={this.state.check_cardtype==='credit'}
+                                                onChange={this.onChangecheckcardtype}
+                                                required
+                                        />
+                                        <label className="form-check-label">Credit card</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input  className="form-check-input"
+                                                type="radio"
+                                                name="priorityOptions"
+                                                id="prioritydebit"
+                                                value="debit"
+                                                checked={this.state.check_cardtype==='debit'}
+                                                onChange={this.onChangecheckcardtype}
+
+                                        />
+                                        <label className="form-check-label">Debit card</label>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+
+                                    <p>Name on Card:</p>
+                                    <input className="form-control input-sm"
+                                           type="text"
+                                           value={this.state.check_cardname}
+                                           onChange={this.onChangecheckcardname}
+                                           required
+
+                                    />
+                                    <p>Card number:</p>
+                                    <input className="form-control input-sm"
+                                           type="number"
+                                           value={this.state.check_cardnumber}
+                                           onChange={this.onChangecheckcardnumber}
+                                           required
+                                    />
+                                    <p>Exp Month:</p>
+                                    <input className="form-control input-sm"
+                                           type="text"
+                                           value={this.state.check_expmonth}
+                                           onChange={this.onChangecheckexpmonth}
+                                           required
+                                    />
+                                    <div className="row">
+                                        <div className={"col-md-6"}>
+                                            <p>Exp year:</p>
+                                            <input className="form-control input-sm"
+                                                   type="number"
+                                                   value={this.state.check_expyear}
+                                                   onChange={this.onChangecheckexpyear}
+                                                   required
+                                            />
+                                        </div>
+                                        <div className={"col-md-6"}>
+                                            <p>CVV:</p>
+                                            <input className="form-control input-sm"
+                                                   type=""
+                                                   value={this.state.check_cvv}
+                                                   onChange={this.onChangecheckcvv}
+                                                   required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div>
+                                <span>  <h3>Total: RS {this.state.total} /=</h3></span>
+
+
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-        ) : (
+                        <div className="form-group">
+                            <div className="row mt-5">
+                                <div className="col md-12">
+                                    <input type="submit" value="continue checkout" className="btn btn-primary btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            ) : (
 
 
-            <PleaseLogin/>
+                <PleaseLogin/>
 
 
-        )
+            )
 
 
         );

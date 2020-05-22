@@ -73,6 +73,26 @@ shopRoutes.route('/addtocheckout').post(function(req, res) {
 });
 
 
+//emptyshoppingcart
+
+shopRoutes.route('/emptyshoppingcart/:cid').delete(function(req, res) {
+
+    let cid = req.params.cid;
+
+
+
+    Shops.deleteMany({'shop_custid':cid}, function(err, result) {
+
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+
+});
+
+///end of emptyshoppingcart
 
 
 module.exports= shopRoutes;
