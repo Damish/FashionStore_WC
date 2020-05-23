@@ -7,6 +7,8 @@
 
 
 
+let nodemailer = require('nodemailer');
+
 let express = require("express")
 const jwt = require('jsonwebtoken');
 let userRoutes = express.Router();
@@ -56,7 +58,45 @@ userRoutes.post('/new/:un/:pw/:type1', (req, res) => {
 
             if (type === "User") {
                 res.send('User Added Successfully');
+
             } else if (type === "StoreManager") {
+
+
+                ///////////////////////send mail////////////////////////////////////////
+
+                let transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'fashionstoreservice1@gmail.com',
+                        pass: 'fashionstore@1'
+                    }
+                });
+
+                let mailOptions = {
+                    from: 'fashionstoreservice1@gmail.com',
+                    to: username,
+                    subject: 'Store manager Registration - Fashion Store',
+                    text:'Congratulations!!!!!!!!!!'+"\n\n"+
+                        'You have been successfully registered as a Store Manager!'+"\n\n"+
+                        "Use below credentials to login" +"\n\n\n"
+                        +'                     Username : '+ username +"\n\n"
+                        +'                     Password : '+ password +"\n\n\n"
+                        +'System Administrator,\nFashion Store, \nMalabe, \nColombo, \nSri lanka.'
+
+
+                };
+
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+
+///////////////////////send mail ends here ///////////////////////////////
+
+
                 res.send('StoreManager Added Successfully');
             }
 
