@@ -25,7 +25,7 @@ class ProductsHome extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{'background-color':'#233247'}}>
                 <div className={"row"}>
                     <div className={"col"}>
                         <div className={"jumbotron m-auto jumbotron-fluid bg-info"} >

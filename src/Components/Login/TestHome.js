@@ -15,7 +15,7 @@ import PleaseLogin from "./PleaseLogin";
 import StoreManagersList from "../StoreManagers/StoreManagersList";
 import UsersList from "../ManageUsers/UsersList";
 import Checkout from "../ShoppingCart/Checkout"
-
+import ManageCategories from "../Categories/ManageCategories"
 
 
 export default class TestHome extends Component {
@@ -70,6 +70,13 @@ export default class TestHome extends Component {
                             <NavigationBar/>
                             <Route path="/addProduct" component={Add_Product}/>
                         </PrivateRoute3>
+
+                        <PrivateRoute3 exact path="/categories" isAuthenticated={fakeAuth.isAuthenticated}
+                                       isLoggedin1={true}>
+                            <NavigationBar/>
+                            <Route path="/categories" component={ManageCategories}/>
+                        </PrivateRoute3>
+
 
                         <PrivateRoute3 exact path="/sign-up-sm" isAuthenticated={fakeAuth.isAuthenticated}
                                        isLoggedin1={true}>

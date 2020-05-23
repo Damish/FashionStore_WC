@@ -3,6 +3,8 @@ import axios from 'axios';
 import PleaseLogin from "../Login/PleaseLogin";
 import { storage } from '../../firbase-config';
 import DefaultImg from './assets/default-img.jpg';
+import Dropdown from "react-dropdown";
+import 'react-dropdown/style.css';
 
 export default class EditProductDetails extends Component {
 
@@ -28,7 +30,14 @@ export default class EditProductDetails extends Component {
             product_qty: '',
             product_discount: '',
             imageData:'',
-            progress:0
+            progress:0,
+
+            options : [],
+
+            default_option:'Select Category',
+
+            myCategories:[]
+
         }
     }
 
@@ -47,11 +56,30 @@ export default class EditProductDetails extends Component {
                     product_price: response.data.product_price,
                     product_qty: response.data.product_qty,
                     product_discount: response.data.product_discount,
+                    default_option:response.data.product_category
+
                 })
             })
             .catch(function (error) {
                 console.log(error);
             })
+
+
+        axios.get('http://localhost:5000/category/')
+            .then(response => {
+                this.setState({myCategories: response.data});
+
+
+                this.state.myCategories.map((value,index) => {
+                    this.state.options.push(value.cat_name);
+                });
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+
     }
 
     // onChangeProductImg(e) {
@@ -67,10 +95,14 @@ export default class EditProductDetails extends Component {
     }
 
     onChangeProductCategory(e) {
+        console.log("Selected category "+ e.value);
+        console.log("Default option "+ e.value);
         this.setState({
-            product_category: e.target.value
+            product_category: e.value,
+            default_option:e.value
         });
     }
+
 
     onChangeProductDesc(e) {
         this.setState({
@@ -211,6 +243,8 @@ export default class EditProductDetails extends Component {
                         <form onSubmit={this.onSubmit}>
 
 
+                            <div className={"row"}>
+                                <div className={"col"}>
 
 
                             <div className="form-group col-sm-8 ml-auto mr-auto mt-5">
@@ -222,8 +256,9 @@ export default class EditProductDetails extends Component {
                                 <img src={this.state.firebaseImage} alt={''} style={style}/>
                             </div>
 
+                                </div>
 
-
+                                <div className={"col"}>
 
                             <div className="form-row">
                                 {/*<div className="form-group col-md-6">*/}
@@ -249,15 +284,22 @@ export default class EditProductDetails extends Component {
                                 <div className="form-group col-md-4">
                                     <label>Category: </label>
 
-                                    <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>
-                                        <option selected>{this.state.product_category}</option>
-                                        <option value="Mens">Mens</option>
-                                        <option value="Womens">Womens</option>
-                                        <option value="Kids & Baby">Kids & Baby</option>
-                                        <option value="Sports Wear">Sports Wear</option>
-                                        <option value="Accessories">Accessories </option>
-                                        <option value="Home Wear">Home Wear</option>
-                                    </select>
+                                    {/*<select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>*/}
+                                    {/*    <option selected>{this.state.product_category}</option>*/}
+                                    {/*    <option value="Mens">Mens</option>*/}
+                                    {/*    <option value="Womens">Womens</option>*/}
+                                    {/*    <option value="Kids & Baby">Kids & Baby</option>*/}
+                                    {/*    <option value="Sports Wear">Sports Wear</option>*/}
+                                    {/*    <option value="Accessories">Accessories </option>*/}
+                                    {/*    <option value="Home Wear">Home Wear</option>*/}
+                                    {/*</select>*/}
+
+
+                                    <Dropdown className="form-group mr-sm-2"
+                                              options={this.state.options}
+                                              value={this.state.default_option}
+                                              onChange={(e) =>this.onChangeProductCategory(e)}
+                                    />
 
                                 </div>
                                 <div className="form-group col-md-5">
@@ -304,8 +346,13 @@ export default class EditProductDetails extends Component {
 
                             <br/>
 
-                            <div className="form-group">
+                            <div className="form-group mb-4">
                                 <input type="submit" value="Update Details" className="btn btn-primary"/>
+                            </div>
+
+
+                                </div>
+
                             </div>
                         </form>
                     </div>

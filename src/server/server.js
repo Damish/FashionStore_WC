@@ -72,6 +72,18 @@ app.use("/users",UserRoute1);
 
 
 /*
+* Added by: Samarajeewa D. (IT18189704)
+* action: importing sub Routes from "/src/server/categoryRoutes1.js"
+* file: categoryRoutes1.js
+* description: routes related to Categories
+*
+* */
+let CategoryRoute1 =require("./categoryRoutes1")
+app.use("/category",CategoryRoute1);
+
+
+
+/*
 * Added by: H.K.Kisal Randula (IT18058574)
 * action: importing sub Routes from "/src/server/mernRoutes1.js"
 * file: mernRoutes1.js
