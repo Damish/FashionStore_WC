@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import UserData from "./UserData"
 import axios from "axios";
 import PleaseLogin from "../Login/PleaseLogin";
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 class UsersList extends Component {
 
@@ -28,10 +29,10 @@ class UsersList extends Component {
         return (
 
             (localStorage.getItem("isLoggedin") === "true") && (window.atob(localStorage.getItem("Utype"))) === "Admin" ? (
+                <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+                <div className={"container bg-dark"}style={{ height:'800px',opacity:0.8}}>
 
-                <div className={"container"}>
-
-                    <h1>Users List</h1>
+                    <h1 className={"text-white"}>Users List</h1>
                     {
                         this.state.users.map((value,index) => {
                             return (
@@ -46,7 +47,7 @@ class UsersList extends Component {
                         })
                     }
                 </div>
-
+                </div>
             ) : (
 
 

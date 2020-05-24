@@ -6,6 +6,7 @@ import DefaultImg from './assets/default-img.jpg';
 import PleaseLogin from "../Login/PleaseLogin";
 import Dropdown from "react-dropdown";
 import 'react-dropdown/style.css';
+import HomeBG from "./assets/a1.jpg";
 
 export default class AddProduct extends Component {
 
@@ -221,9 +222,9 @@ export default class AddProduct extends Component {
         return (
 
             (localStorage.getItem("isLoggedin") === "true") ? (
-                <div >
+                <div style={{backgroundColor:'#09252f'}}>
 
-                    <div className={"row justify-content-center"}>
+                    <div className={"row justify-content-center text-white"}style={{ height:'800px'}}>
 
 
                         <div className={"col-md-9"}>
@@ -337,7 +338,7 @@ export default class AddProduct extends Component {
                                         <div className="form-row">
 
                                             <div className="form-group col-md-4">
-                                                <Link className="btn btn-outline-dark mr-2 mb-2" to={"/products"}>Go
+                                                <Link className="btn btn-primary mr-2 mb-2" to={"/products"}>Go
                                                     back to
                                                     Products</Link>
                                             </div>

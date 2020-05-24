@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 class SignUp extends Component {
 
@@ -77,12 +78,14 @@ class SignUp extends Component {
 
     render() {
         return (
-            <div className={"row justify-content-center"} style={{marginTop: "10%"}}>
+
+            <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+            <div className={"row justify-content-center"} style={{paddingTop: "12%" , height:'800px'}}>
 
                 <div className={"col-md-3"}>
 
 
-                    <h2 className={"m-3 text-center"}>Sign up</h2>
+                    <h2 className={"m-3 text-center text-white "}>Sign up</h2>
 
                     <input
                         type="email"
@@ -131,6 +134,7 @@ class SignUp extends Component {
 
                 </div>
 
+            </div>
             </div>
         );
     }
