@@ -1,0 +1,30 @@
+Group members:
+IT18189704   -  D.Samarajeewa
+IT18058574   -  H.K.Kisal Randula
+IT18076844   -  A.P.Manjari Mandara
+IT18137392   -  R.A.D.M.Bandara
+
+Fashion Store Web client
+
+<< step1 >>
+Launch webstrom,
+
+<< step2 >>
+Open project folder 
+or 
+Clone the github project from link:
+https://github.com/Damish/FashionStore_WC.git
+
+<< step3 >>
+(Back-end)
+Run server.js file ( right-click > Run 'server.js') :
+FashionStore_WC/src/server/server.js
+
+<< step4 >>
+(Front-end)
+Run the Project in Terminal:
+> npm start
+
+References: 
+1.Technical guide
+2.User manual
