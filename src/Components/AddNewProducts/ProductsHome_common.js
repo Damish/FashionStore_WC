@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Product_component_common from "./products.component_common";
 import axios from "axios";
-
+import HomeBG from "./assets/asa.jpg"
 
 class ProductsHome extends Component {
 
@@ -25,7 +25,7 @@ class ProductsHome extends Component {
 
     render() {
         return (
-            <div style={{'background-color':'#233247'}}>
+            <div style={{backgroundImage: "url(" + HomeBG + ")"}}>
                 <div className={"row"}>
                     <div className={"col"}>
                         <div className={"jumbotron m-auto jumbotron-fluid bg-info"} >
