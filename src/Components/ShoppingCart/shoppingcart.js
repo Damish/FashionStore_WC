@@ -41,7 +41,7 @@ class Shoppingcart extends Component {
     render() {
         return (
             (localStorage.getItem("isLoggedin") === "true") ? (
-            < div className="Container mt-5">
+                < div className={"container mt-5 bg-dark p-3"}>
                 <div className="card mb-5 ">
                     <h1 className="text-center">ShoppingCart</h1>
                 </div>
@@ -75,12 +75,12 @@ class Shoppingcart extends Component {
                     <br/>
                     <br/>
                 </div>
-                <div>
-                    {this.state.billtotal}
+                <div className={"row justify-content-end"} >
+                    <label className={"text-white btn btn-success mr-4"}>Total amount Rs.{this.state.billtotal}</label>
                 </div>
 
                 <div>
-                    <Link className="btn btn-primary ml-3 "
+                    <Link className="btn btn-primary ml-3 btn-lg"
                           to={"/checkout"}>Check Out</Link>
 
                 </div>
