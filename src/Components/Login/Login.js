@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TestHome, {fakeAuth} from "../Login/TestHome"
 import {Link} from "react-router-dom";
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 export default class Login extends Component {
 
@@ -100,10 +101,11 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className={"row justify-content-center"} style={{marginTop: "10%"}}>
+            <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+                <div className={"row justify-content-center"} style={{paddingTop: "12%" , height:'800px'}}>
                 <div className={"col-md-3"}>
 
-                            <h2 className={"m-2 text-center text-dark"}>Fashion Store</h2>
+                            <h2 className={"m-2 text-center text-white"}>Fashion Store</h2>
                             <input
                                 type="email"
                                 className="form-control mt-4 mb-4"
@@ -147,6 +149,7 @@ export default class Login extends Component {
 
 
                         </div>
+            </div>
             </div>
         );
     }

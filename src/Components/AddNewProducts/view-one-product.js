@@ -3,6 +3,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import BeautyStars from "beauty-stars";
 import CommentList from "../Comment/CommentList";
+import HomeBG from "./assets/a1.jpg";
 
 class ViewOneProduct extends Component {
 
@@ -98,13 +99,13 @@ class ViewOneProduct extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
 
                 <div className={"row"}>
                     <div className={"col md-8"}>
 
                         <div style={{width: '75%', margin: '3rem auto', textAlign: 'center'}}>
-                            <h2>{this.state.product_name}</h2>
+                            <h1 className={"text-white"}>{this.state.product_name}</h1>
                         </div>
 
                         <div className="card mt-5 ml-auto mr-auto mb-5 " style={{width: '600px'}}>

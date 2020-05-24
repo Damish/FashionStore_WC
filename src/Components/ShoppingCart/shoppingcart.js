@@ -3,6 +3,7 @@ import Shoppingitem from "./shoppingitem";
 import axios from 'axios';
 import {Link} from "react-router-dom";
 import PleaseLogin from "../Login/PleaseLogin";
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 class Shoppingcart extends Component {
     constructor(props) {
@@ -41,10 +42,11 @@ class Shoppingcart extends Component {
     render() {
         return (
             (localStorage.getItem("isLoggedin") === "true") ? (
-                < div className={"container mt-5 bg-dark p-3"}>
-                <div className="card mb-5 ">
-                    <h1 className="text-center">ShoppingCart</h1>
-                </div>
+                <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+                    < div className={"container bg-dark p-3"}style={{paddingTop: "12%" , height:'800px',opacity:0.8}}>
+                        <div className="card bg-danger  mb-5  ">
+                            <h1 className="text-white text-center">Shopping cart</h1>
+                        </div>
 
                 <div>
                     {
@@ -62,6 +64,7 @@ class Shoppingcart extends Component {
                                         s_discount={value.shop_prodiscount}
                                         onBilltotChange={this.getBilltot}
                                     />
+                                    <br/>
 
 
                                 </div>
@@ -75,7 +78,7 @@ class Shoppingcart extends Component {
                     <br/>
                     <br/>
                 </div>
-                <div className={"row justify-content-end"} >
+                <div className={"row justify-content-end bg-dark"} >
                     <label className={"text-white btn btn-success mr-4"}>Total amount Rs.{this.state.billtotal}</label>
                 </div>
 
@@ -86,6 +89,7 @@ class Shoppingcart extends Component {
                 </div>
 
             </div>
+                </div>
             ) : (
 
 

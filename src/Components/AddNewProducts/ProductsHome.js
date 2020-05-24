@@ -31,7 +31,7 @@ class ProductsHome extends Component {
 
                 <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
                     <br/>
-                    <div className={"row"}>
+                    <div className={"row"}style={{opacity:0.8}}>
                         <div className={"col"}>
                             <div className={"jumbotron m-auto jumbotron-fluid bg-warning"} >
                                 <h1 className={"text-white"}>Manage Products</h1>

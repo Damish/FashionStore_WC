@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import PleaseLogin from "../Login/PleaseLogin";
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 class ManageCategories extends Component {
     constructor() {
@@ -101,18 +102,18 @@ class ManageCategories extends Component {
         return (
             (localStorage.getItem("isLoggedin") === "true") && (window.atob(localStorage.getItem("Utype"))) === "Admin" ? (
 
-                <div >
+                <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
 
                     {/*style={{'background-color':'#233247'}}>
                     style={{'height':'800px'}}*/}
 
-                <div className={"row"} >
+                <div className={"row"} style={{ height:'800px'}} >
                     <div className={"col "}>
                         <div className={"row justify-content-center"} style={{marginTop: "20%"}}>
 
-                            <div className={"col-md-5 "}>
+                            <div className={"col-md-5 bg-dark pb-4"}style={{opacity:0.8}}>
 
-                                <h2 className={"m-3"}>Add new Category</h2>
+                                <h2 className={"text-white m-3"}>Add new Category</h2>
 
                                 <input
                                     type="text"
@@ -151,8 +152,8 @@ class ManageCategories extends Component {
                     <div className={"col"}>
                         <div className={"row justify-content-center"} style={{marginTop: "5%"}}>
 
-                            <div className={"col-md-9 "}>
-                                <h2 className={"m-3"}>Categories list</h2>
+                            <div className={"col-md-9 bg-dark pb-3"}style={{opacity:0.8}}>
+                                <h2 className={"text-white m-3"}>Categories list</h2>
                                 {
                                     this.state.tempCategories.map((value) => {
                                         return (

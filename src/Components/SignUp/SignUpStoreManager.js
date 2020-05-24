@@ -3,6 +3,7 @@ import axios from 'axios';
 import PleaseLogin from "../Login/PleaseLogin";
 
 import nodemailer from 'nodemailer';
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 class SignUp extends Component {
 
@@ -85,11 +86,12 @@ class SignUp extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") ? (
 
-                <div className={"row justify-content-center"} style={{marginTop: "10%"}}>
+                <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+                    <div className={"row justify-content-center"} style={{paddingTop: "12%" , height:'800px'}}>
 
                     <div className={"col-md-3"}>
 
-                        <h2 className={"m-3 text-center"}>Register Store Manager</h2>
+                        <h2 className={"m-3 text-center text-white "}>Register Store Manager</h2>
 
                         <input
                             type="email"
@@ -135,7 +137,7 @@ class SignUp extends Component {
                     </div>
 
                 </div>
-
+                </div>
             ) : (
 
 

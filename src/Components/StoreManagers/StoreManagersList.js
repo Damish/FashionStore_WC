@@ -3,6 +3,7 @@ import StoreManagerData from "./StoreManagerData"
 import axios from "axios";
 import PleaseLogin from "../Login/PleaseLogin";
 import UserData from "../ManageUsers/UserData";
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 class StoreManagersList extends Component {
 
@@ -30,9 +31,10 @@ class StoreManagersList extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") && (window.atob(localStorage.getItem("Utype"))) === "Admin" ? (
 
-                <div>
+                <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+                    <div className={"container bg-dark"}style={{ height:'800px',opacity:0.8}}>
 
-                    <h1>Store Managers</h1>
+                    <h1 className={"text-white"}>Store Managers</h1>
                     {
                         this.state.storeManagers.map((value,index) => {
                             return (
@@ -46,6 +48,7 @@ class StoreManagersList extends Component {
                             )
                         })
                     }
+                </div>
                 </div>
 
             ) : (

@@ -215,7 +215,10 @@ export default class EditProductDetails extends Component {
             (localStorage.getItem("isLoggedin") === "true") ? (
 
 
-                <div className={"row justify-content-center"} style={{marginTop: 10}}>
+                <div style={{backgroundColor:'#09252f'}}>
+
+                    <div className={"row justify-content-center text-white"}style={{ height:'800px'}}>
+
                     <div className={"col-md-9"}>
 
                         <h3 align="center">Update product details</h3>
@@ -318,6 +321,7 @@ export default class EditProductDetails extends Component {
                             </div>
                         </form>
                     </div>
+                </div>
                 </div>
             ):(
 

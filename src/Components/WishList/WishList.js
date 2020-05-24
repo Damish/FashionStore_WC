@@ -3,6 +3,7 @@ import Wishitem from "./Wishitem";
 import axios from 'axios';
 import PleaseLogin from "../Login/PleaseLogin";
 import {Link} from "react-router-dom";
+import HomeBG from "../AddNewProducts/assets/a1.jpg";
 
 class WishList extends Component {
 
@@ -35,9 +36,10 @@ class WishList extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") ? (
 
-                < div className={"container mt-5 bg-info p-3"}>
-                    <div className="card mb-5  ">
-                        <h1 className=" text-center">WishList</h1>
+                <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+                    < div className={"container bg-dark p-3"}style={{paddingTop: "12%" , height:'800px',opacity:0.8}}>
+                    <div className="card bg-info  mb-5  ">
+                        <h1 className="text-white text-center">WishList</h1>
                     </div>
                     <div>
                         {
@@ -50,6 +52,7 @@ class WishList extends Component {
                                             wi_price={value.wish_price}
                                             wi_discount={value.wish_discount}
                                         />
+                                        <br/>
                                     </div>
                                 )
                             })
@@ -64,6 +67,7 @@ class WishList extends Component {
                     <Link className="btn btn-primary mb-3 "
                           to={"/products_common"}>Go to products page</Link>
 
+                </div>
                 </div>
 
             ) : (
