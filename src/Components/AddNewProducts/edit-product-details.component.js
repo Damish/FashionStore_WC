@@ -10,7 +10,6 @@ export default class EditProductDetails extends Component {
 
     constructor(props) {
         super(props);
-        // this.onChangeProductImg = this.onChangeProductImg.bind(this);
         this.onChangeProductName = this.onChangeProductName.bind(this);
         this.onChangeProductCategory = this.onChangeProductCategory.bind(this);
         this.onChangeProductDesc = this.onChangeProductDesc.bind(this);
@@ -21,7 +20,7 @@ export default class EditProductDetails extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            // product_img: '',
+
             firebaseImage: DefaultImg,
             product_name: '',
             product_category: '',
@@ -82,11 +81,6 @@ export default class EditProductDetails extends Component {
 
     }
 
-    // onChangeProductImg(e) {
-    //     this.setState({
-    //         product_img: e.target.value
-    //     });
-    // }
 
     onChangeProductName(e) {
         this.setState({
@@ -167,18 +161,7 @@ export default class EditProductDetails extends Component {
                         imageData: url
                     };
 
-                    // axios.post('http://localhost:4000/products/update/' + this.props.match.params.id, imageObj)
-                    //     .then((data) => {
-                    //         if (data.data.success) {
-                    //             alert("Image has been successfully uploaded using firebase storage");
-                    //             this.setDefaultImage("firebase");
-                    //         }
-                    //     })
-                    //     .catch((err) => {
-                    //         console.log(err);
-                    //         alert("Error while uploading image using firebase storage")
-                    //         this.setDefaultImage("firebase");
-                    //     });
+
                 })
             })
 
@@ -189,13 +172,9 @@ export default class EditProductDetails extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        // if(!this.state.product_name || !this.state.product_category ||!this.state.product_description||!this.state.product_price||
-        //     !this.state.product_qty|| !this.state.product_discount){
-        //     return alert('Fill all the fields!!!')
-        //
-        // }
+
         const obj = {
-            // product_img: this.state.product_img,
+
             imageData:this.state.firebaseImage,
             product_name: this.state.product_name,
             product_category: this.state.product_category,
@@ -261,14 +240,7 @@ export default class EditProductDetails extends Component {
                                 <div className={"col"}>
 
                             <div className="form-row">
-                                {/*<div className="form-group col-md-6">*/}
-                                {/*    <label>Image: </label>*/}
-                                {/*    <input type="text"*/}
-                                {/*           className="form-control"*/}
-                                {/*           value={this.state.product_img}*/}
-                                {/*           onChange={this.onChangeProductImg}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
+
                                 <div className="form-group col-md-6">
                                     <label>Name: </label>
                                     <input type="text"
@@ -283,16 +255,6 @@ export default class EditProductDetails extends Component {
 
                                 <div className="form-group col-md-4">
                                     <label>Category: </label>
-
-                                    {/*<select className="custom-select mr-sm-2" id="inlineFormCustomSelect" onChange={this.onChangeProductCategory}>*/}
-                                    {/*    <option selected>{this.state.product_category}</option>*/}
-                                    {/*    <option value="Mens">Mens</option>*/}
-                                    {/*    <option value="Womens">Womens</option>*/}
-                                    {/*    <option value="Kids & Baby">Kids & Baby</option>*/}
-                                    {/*    <option value="Sports Wear">Sports Wear</option>*/}
-                                    {/*    <option value="Accessories">Accessories </option>*/}
-                                    {/*    <option value="Home Wear">Home Wear</option>*/}
-                                    {/*</select>*/}
 
 
                                     <Dropdown className="form-group mr-sm-2"

@@ -8,13 +8,6 @@ class ViewOneProduct extends Component {
 
     constructor(props) {
         super(props);
-        // this.onChangeProductImg = this.onChangeProductImg.bind(this);
-        // this.onChangeProductName = this.onChangeProductName.bind(this);
-        // this.onChangeProductCategory = this.onChangeProductCategory.bind(this);
-        // this.onChangeProductDesc = this.onChangeProductDesc.bind(this);
-        // this.onChangeProductPrice = this.onChangeProductPrice.bind(this);
-        // this.onChangeProductQty = this.onChangeProductQty.bind(this);
-        // this.onChangeProductDiscount = this.onChangeProductDiscount.bind(this);
         this.onChangeProComments = this.onChangeProComments.bind(this);
         this.onAddtoCommentList = this.onAddtoCommentList.bind(this);
 
@@ -52,48 +45,6 @@ class ViewOneProduct extends Component {
                 console.log(error);
             })
     }
-
-    // onChangeProductImg(e) {
-    //     this.setState({
-    //         product_img: e.target.value
-    //     });
-    // }
-    //
-    // onChangeProductName(e) {
-    //     this.setState({
-    //         product_name: e.target.value
-    //     });
-    // }
-    //
-    // onChangeProductCategory(e) {
-    //     this.setState({
-    //         product_category: e.target.value
-    //     });
-    // }
-    //
-    // onChangeProductDesc(e) {
-    //     this.setState({
-    //         product_description: e.target.value
-    //     });
-    // }
-    //
-    // onChangeProductPrice(e) {
-    //     this.setState({
-    //         product_price: e.target.value
-    //     });
-    // }
-    //
-    // onChangeProductQty(e) {
-    //     this.setState({
-    //         product_qty: e.target.value
-    //     });
-    // }
-    //
-    // onChangeProductDiscount(e) {
-    //     this.setState({
-    //         product_discount: e.target.value
-    //     });
-    // }
 
 
     /////functions related to comments/////
@@ -275,8 +226,6 @@ class ViewOneProduct extends Component {
                             <br/>
                             <br/>
 
-
-                            {/*<commentList prodid={this.props.match.params.id}/>*/}
 
                             <div col-md-6>
                                 <CommentList prodid={this.props.match.params.id}/>

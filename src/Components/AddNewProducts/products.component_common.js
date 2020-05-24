@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-//import "bootstrap/dist/css/bootstrap.min.css";
-//import { Table, Button } from 'react-bootstrap';
 
 export default class Products extends Component {
 
     constructor() {
         super();
-        // this.removePrcoduct = new RemoveProduct();
         this.state = {
             products: []
         };
@@ -74,13 +71,7 @@ export default class Products extends Component {
         axios.post('http://localhost:5000/shop/addshopping', newshopi)
             .then(res => console.log(res.data));
 
-        // this.setState({
-        //     shop_custid:'' ,
-        //     shop_productid:'',
-        //     shop_proname:'',
-        //     shop_proprice:'',
-        //     shop_prodiscount:''
-        // })
+
 
         window.location.replace("/shopping-cart")
 
@@ -113,7 +104,7 @@ export default class Products extends Component {
 
                                 <img src={this.props.product.imageData} className={"container"}/>
 
-                                {/*{this.props.product.product_img}*/}
+
                             </div>
                         </div>
 
@@ -134,12 +125,6 @@ export default class Products extends Component {
 
                             <Link className="btn btn-outline-dark mr-2"
                                   to={"/oneProduct/" + this.props.product._id}>View</Link>
-
-                            {/*<Link to={"/shopping-cart"} className={"btn btn-outline-primary mr-2"} type={"button"}*/}
-                            {/*      onClick={(event) => this.onAddtoCart(this.props.product._id)}>*/}
-
-                            {/*    <i className="fa fa-shopping-cart"> </i>*/}
-                            {/*</Link>*/}
 
 
                             <Link to={"/shopping-cart"} className={"btn btn-outline-info mr-2"} type={"button"}

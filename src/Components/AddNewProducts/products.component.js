@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import no_image_available from "../images/no_image_available.jpg";
 import PleaseLogin from "../Login/PleaseLogin";
-//import "bootstrap/dist/css/bootstrap.min.css";
-//import { Table, Button } from 'react-bootstrap';
 
 
 export default class Products extends Component {
 
     constructor() {
         super();
-        // this.removePrcoduct = new RemoveProduct();
         this.state = {
             products: []
         };
@@ -22,10 +18,6 @@ export default class Products extends Component {
     componentDidMount() {
         this.getProductList();
     }
-
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     this.getProductList();
-    // }
 
 
     deleteProduct(id) {
@@ -95,7 +87,6 @@ export default class Products extends Component {
 
                                     <img src={this.props.product.imageData} className={"container"}/>
 
-                                    {/*{this.props.product.product_img}*/}
                                 </div>
                             </div>
                             <label className="mr-2">Category:{this.props.product.product_category}</label>
