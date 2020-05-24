@@ -248,7 +248,7 @@ class Checkout extends Component {
 
                                 <h1> Payment </h1>
                                 <div className="form-group">
-                                    <p>Accepted Cards:</p>
+                                    <p>Payment Method:</p>
 
                                     <div className="form-check form-check-inline">
                                         <input  className="form-check-input"
@@ -260,7 +260,7 @@ class Checkout extends Component {
                                                 onChange={this.onChangecheckcardtype}
                                                 required
                                         />
-                                        <label className="form-check-label">Credit card</label>
+                                        <label className="form-check-label">Card</label>
                                     </div>
                                     <div className="form-check form-check-inline">
                                         <input  className="form-check-input"
@@ -272,7 +272,7 @@ class Checkout extends Component {
                                                 onChange={this.onChangecheckcardtype}
 
                                         />
-                                        <label className="form-check-label">Debit card</label>
+                                        <label className="form-check-label">Cash on delivary</label>
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -282,7 +282,7 @@ class Checkout extends Component {
                                            type="text"
                                            value={this.state.check_cardname}
                                            onChange={this.onChangecheckcardname}
-                                           required
+
 
                                     />
                                     <p>Card number:</p>
@@ -290,14 +290,14 @@ class Checkout extends Component {
                                            type="number"
                                            value={this.state.check_cardnumber}
                                            onChange={this.onChangecheckcardnumber}
-                                           required
+
                                     />
                                     <p>Exp Month:</p>
                                     <input className="form-control input-sm"
                                            type="text"
                                            value={this.state.check_expmonth}
                                            onChange={this.onChangecheckexpmonth}
-                                           required
+
                                     />
                                     <div className="row">
                                         <div className={"col-md-6"}>
@@ -306,7 +306,7 @@ class Checkout extends Component {
                                                    type="number"
                                                    value={this.state.check_expyear}
                                                    onChange={this.onChangecheckexpyear}
-                                                   required
+
                                             />
                                         </div>
                                         <div className={"col-md-6"}>
@@ -315,7 +315,7 @@ class Checkout extends Component {
                                                    type=""
                                                    value={this.state.check_cvv}
                                                    onChange={this.onChangecheckcvv}
-                                                   required
+
                                             />
                                         </div>
                                     </div>

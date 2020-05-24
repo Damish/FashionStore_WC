@@ -13,10 +13,7 @@ export default class AddProduct extends Component {
     constructor(props) {
         super(props);
 
-        //bind image
         this.uploadImage = this.uploadImage.bind(this);
-        //bind methods to constructor
-        // this.onChangeProductImg = this.onChangeProductImg.bind(this);
         this.onChangeProductName = this.onChangeProductName.bind(this);
         this.onChangeProductCategory = this.onChangeProductCategory.bind(this);
         this.onChangeProductDesc = this.onChangeProductDesc.bind(this);
@@ -30,7 +27,6 @@ export default class AddProduct extends Component {
             firebaseImage: DefaultImg,
             progress: 0,
 
-            // product_img: '',
             product_name: '',
             product_category: '',
             product_description: '',
@@ -168,7 +164,6 @@ export default class AddProduct extends Component {
 
         const newProduct = {
             imageData: this.state.firebaseImage,
-            // product_img: this.state.product_img,
             product_name: this.state.product_name,
             product_category: this.state.product_category,
             product_description: this.state.product_description,
@@ -261,15 +256,6 @@ export default class AddProduct extends Component {
 
                                         <div className="form-row">
 
-
-                                            {/*<div className="form-group col-md-6">*/}
-                                            {/*    <label>Image: </label>*/}
-                                            {/*    <input type="text"*/}
-                                            {/*           className="form-control"*/}
-                                            {/*           value={this.state.product_img}*/}
-                                            {/*           onChange={this.onChangeProductImg}*/}
-                                            {/*    />*/}
-                                            {/*</div>*/}
                                             <div className="form-group col-md-6">
                                                 <label>Name: </label>
                                                 <input type="text"
@@ -285,24 +271,6 @@ export default class AddProduct extends Component {
                                             <div className="form-group col-md-4">
                                                 <label>Category: </label>
 
-
-                                                {/*<input*/}
-                                                {/*    type="text"*/}
-                                                {/*    className="form-control"*/}
-                                                {/*    value={this.state.product_category}*/}
-                                                {/*    onChange={this.onChangeProductCategory}*/}
-
-
-                                                {/*<select className="custom-select mr-sm-2" id="inlineFormCustomSelect"*/}
-                                                {/*        onChange={this.onChangeProductCategory}>*/}
-                                                {/*    <option selected>Choose...</option>*/}
-                                                {/*    <option value="Mens">Mens</option>*/}
-                                                {/*    <option value="Womens">Womens</option>*/}
-                                                {/*    <option value="Kids & Baby">Kids & Baby</option>*/}
-                                                {/*    <option value="Sports Wear">Sports Wear</option>*/}
-                                                {/*    <option value="Accessories">Accessories</option>*/}
-                                                {/*    <option value="Home Wear">Home Wear</option>*/}
-                                                {/*</select>*/}
 
                                                 <Dropdown className={"form-group mr-sm-2"} options={this.state.options}
                                                           value={this.state.default_option}

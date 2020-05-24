@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Product_component from "./products.component";
 import axios from "axios";
 import PleaseLogin from "../Login/PleaseLogin";
-
+import HomeBG from "./assets/111.jpg"
 
 class ProductsHome extends Component {
 
@@ -29,7 +29,8 @@ class ProductsHome extends Component {
 
             (localStorage.getItem("isLoggedin") === "true") ? (
 
-                <div style={{'background-color':'#8e979a'}}>
+                <div style={{backgroundImage: "url(" + HomeBG + ")",backgroundSize:'1680px 1080px', backgroundAttachment:'fixed'}}>
+                    <br/>
                     <div className={"row"}>
                         <div className={"col"}>
                             <div className={"jumbotron m-auto jumbotron-fluid bg-warning"} >
