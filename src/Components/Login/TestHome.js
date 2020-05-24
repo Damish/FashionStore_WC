@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
-import Shoppingcart from "../ShoppingCart/shoppingcart";
+import S_cart from "../ShoppingCart/shoppingcart";
 import Login from "./Login";
 import WishList from "../WishList/WishList";
 import NavigationBar from "../NavigationBar/NavigationBar";
@@ -109,7 +109,7 @@ export default class TestHome extends Component {
                         <PrivateRoute3 exact path="/shopping-cart" isAuthenticated={fakeAuth.isAuthenticated}
                                        isLoggedin1={true}>
                             <NavigationBar/>
-                            <Shoppingcart/>
+                            <S_cart/>
                         </PrivateRoute3>
 
 
