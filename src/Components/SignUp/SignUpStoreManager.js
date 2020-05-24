@@ -91,7 +91,7 @@ class SignUp extends Component {
 
                     <div className={"col-md-3"}>
 
-                        <h2 className={"m-3 text-center"}>Register Store Manager</h2>
+                        <h2 className={"m-3 text-center text-white "}>Register Store Manager</h2>
 
                         <input
                             type="email"
